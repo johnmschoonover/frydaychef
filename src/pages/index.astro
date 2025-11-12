@@ -20,89 +20,76 @@ const latestTravel = travelStories[0];
 
 <Base title="Home">
   <Header />
-  <main class="container" style="display:flex;flex-direction:column;gap:2.5rem;">
-    <section style="text-align:center;">
-      <p style="text-transform:uppercase;font-weight:600;color:var(--accent);letter-spacing:0.1em;margin:0;">
-        Welcome to Fryday Chef
-      </p>
-      <h1 style="font-size:2.5rem;margin:0.75rem 0;">
-        Cozy recipes with modern twists for every craving.
-      </h1>
-      <p style="margin:0 auto;max-width:50ch;color:var(--muted);">
-        Browse tried-and-true dishes for busy weeknights, lazy Sunday brunches, and everything in between.
-      </p>
+  <main class="home">
+    <section class="home-hero">
+      <div class="container hero-content">
+        <h1 class="hero-title">Southern-inspired dishes with a modern sway.</h1>
+        <p class="hero-subtitle">
+          Browse tried-and-true plates, destination dining notes, and travel stories celebrating relaxed gatherings and
+          easy hospitality.
+        </p>
+        <div class="hero-actions">
+          <a class="button button--primary" href="/recipes/">Explore recipes</a>
+          <a class="button button--ghost" href="/about/">Our story</a>
+        </div>
+      </div>
     </section>
 
-    <section aria-labelledby="explore-sections">
-      <h2 id="explore-sections" style="margin-bottom:1rem;">Plan your next bite</h2>
+    <section class="container home-panels" aria-labelledby="explore-sections">
+      <div class="section-heading">
+        <span class="heading-ornament">Collections</span>
+        <h2 id="explore-sections">Plan your next bite</h2>
+      </div>
       <div class="pane-grid">
         <article class="pane-card">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
-            <div>
-              <p style="margin:0;color:var(--muted);text-transform:uppercase;font-size:0.8rem;">
-                Recipes
-              </p>
-              <h3 style="margin:0.25rem 0;">From stovetop to table</h3>
-            </div>
-            <a href="/recipes/">Browse all →</a>
+          <span class="pane-card__eyebrow">Recipes</span>
+          <div class="pane-card__header">
+            <h3>From stovetop to table</h3>
+            <a href="/recipes/">Browse all</a>
           </div>
           {latestRecipe ? (
             <div class="latest-card">
-              <p style="margin:0;color:var(--muted);font-size:0.8rem;">Latest recipe</p>
+              <p>Latest recipe</p>
               <a class="latest-link" href={`/recipes/${latestRecipe.slug}/`}>
                 {latestRecipe.data.title}
               </a>
-              <p style="margin:0.5rem 0 0 0;color:var(--muted);">
-                {latestRecipe.data.steps[0]}
-              </p>
+              <p>{latestRecipe.data.steps?.[0] ?? 'See the full recipe for details.'}</p>
             </div>
           ) : (
             <p>New recipes coming soon.</p>
           )}
         </article>
         <article class="pane-card">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
-            <div>
-              <p style="margin:0;color:var(--muted);text-transform:uppercase;font-size:0.8rem;">
-                Restaurants
-              </p>
-              <h3 style="margin:0.25rem 0;">Reservations worth planning</h3>
-            </div>
-            <a href="/restaurants/">Guide →</a>
+          <span class="pane-card__eyebrow">Restaurants</span>
+          <div class="pane-card__header">
+            <h3>Reservations worth planning</h3>
+            <a href="/restaurants/">Guide</a>
           </div>
           {latestRestaurant ? (
             <div class="latest-card">
-              <p style="margin:0;color:var(--muted);font-size:0.8rem;">Latest feature</p>
+              <p>Latest feature</p>
               <a class="latest-link" href={`/restaurants/${latestRestaurant.slug}/`}>
                 {latestRestaurant.data.title}
               </a>
-              <p style="margin:0.5rem 0 0 0;color:var(--muted);">
-                {latestRestaurant.data.summary}
-              </p>
+              <p>{latestRestaurant.data.summary ?? 'Discover our latest restaurant pick.'}</p>
             </div>
           ) : (
             <p>Restaurant spotlights arrive soon.</p>
           )}
         </article>
         <article class="pane-card">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
-            <div>
-              <p style="margin:0;color:var(--muted);text-transform:uppercase;font-size:0.8rem;">
-                Travel
-              </p>
-              <h3 style="margin:0.25rem 0;">Trips built around meals</h3>
-            </div>
-            <a href="/travel/">City notes →</a>
+          <span class="pane-card__eyebrow">Travel</span>
+          <div class="pane-card__header">
+            <h3>Trips built around meals</h3>
+            <a href="/travel/">City notes</a>
           </div>
           {latestTravel ? (
             <div class="latest-card">
-              <p style="margin:0;color:var(--muted);font-size:0.8rem;">Latest story</p>
+              <p>Latest story</p>
               <a class="latest-link" href={`/travel/${latestTravel.slug}/`}>
                 {latestTravel.data.title}
               </a>
-              <p style="margin:0.5rem 0 0 0;color:var(--muted);">
-                {latestTravel.data.summary}
-              </p>
+              <p>{latestTravel.data.summary ?? 'Follow along on our newest food-focused getaway.'}</p>
             </div>
           ) : (
             <p>Travel dispatches are in progress.</p>
@@ -110,7 +97,6 @@ const latestTravel = travelStories[0];
         </article>
       </div>
     </section>
-
   </main>
   <Footer />
 </Base>

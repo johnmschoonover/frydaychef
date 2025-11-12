@@ -25,8 +25,10 @@ This document captures the working agreements, tech stack choices, and conventio
 
 ## Styling & UX Preferences
 - Custom lightweight CSS only (`src/styles/theme.css`). No CSS frameworks.
-- Color variables already defined (`--bg`, `--fg`, `--muted`, `--accent`, `--accent-2`, `--card`, `--border`). Update these to reskin the site.
-- Maintain semantic HTML, strong color contrast, and accessible navigation (e.g., `aria-current` in `Header.astro`, descriptive alt text on hero images).
+- Color variables already defined (`--bg`, `--fg`, `--muted`, `--accent`, `--accent-soft`, `--accent-2`, `--surface-soft`, `--card`, `--border`). Favor the current lavender-and-peach palette (see `theme.css`) when introducing new UI.
+- Typography pairs Roboto (body copy) with Roboto Slab (headlines) leaning into a warm, modern Southern-fusion vibe—use mixed case headlines unless a component specifically calls for uppercase accents.
+- Extend existing classes (`site-header`, `hero-*`, `pane-card`, etc.) instead of reintroducing inline styles. Keep collection cards evenly spaced and comfortable at all breakpoints.
+- Maintain semantic HTML, strong color contrast, and accessible navigation (e.g., `aria-current` in `Header.astro`, descriptive alt text on hero images). The RSS link now lives on the About page—avoid re-adding it to the global footer.
 
 ## Content Authoring Guidelines
 - Frontmatter schema (see `src/content/config.ts`):
