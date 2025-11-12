@@ -23,6 +23,13 @@ const timeBlocks = [
   { label: 'Total', value: recipe.data.total }
 ].filter((block) => Boolean(block.value));
 const heroSrc = resolveHero(recipe.data.hero);
+const recipes = await getCollection('recipes', ({ data }) => !data.draft);
+const variantGroup = recipe.data.variantGroup;
+const siblings = variantGroup
+  ? recipes
+      .filter((entry) => entry.data.variantGroup === variantGroup && entry.slug !== recipe.slug)
+      .sort((a, b) => (a.data.complexityLevel ?? 0) - (b.data.complexityLevel ?? 0))
+  : [];
 ---
 
 <Base title={recipe.data.title} description={`Cook ${recipe.data.title} with Fryday Chef.`}>
@@ -84,6 +91,29 @@ const heroSrc = resolveHero(recipe.data.hero);
       <div style="margin-top:2rem;">
         <slot />
       </div>
+      {siblings.length ? (
+        <section style="margin-top:2.5rem;">
+          <h2>More takes</h2>
+          <p style="color:var(--muted);margin-top:0.25rem;">
+            Choose another version to match your craving.
+          </p>
+          <div class="card-grid">
+            {siblings.map((entry) => (
+              <article class="card" style="padding:1rem;">
+                <h3 style="margin-top:0;">
+                  <a href={`/recipes/${entry.slug}/`}>{entry.data.title}</a>
+                </h3>
+                <p style="margin:0.25rem 0;color:var(--muted);font-size:0.95rem;">
+                  Complexity: {entry.data.complexityLevel ?? '—'}
+                </p>
+                <a href={`/recipes/${entry.slug}/`} style="font-weight:600;color:var(--accent);">
+                  View recipe →
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </article>
   </main>
   <Footer />

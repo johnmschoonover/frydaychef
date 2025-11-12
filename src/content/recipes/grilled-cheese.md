@@ -20,6 +20,8 @@ steps:
   - Cook in a skillet over medium-low heat, pressing gently, until deeply golden and melty, about 3–4 minutes per side.
   - Sprinkle with flaky salt and slice diagonally.
 hero: /images/grilled-cheese/hero.svg
+variantGroup: grilled-cheese
+complexityLevel: 1
 draft: false
 ---
 

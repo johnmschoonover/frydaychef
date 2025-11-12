@@ -16,6 +16,8 @@ const recipes = defineCollection({
       ingredients: z.array(z.string()),
       steps: z.array(z.string()),
       hero: z.string().optional(),
+      variantGroup: z.string().optional(),
+      complexityLevel: z.number().int().min(1).optional(),
       draft: z.boolean().default(false)
     })
 });

@@ -18,6 +18,7 @@ This document captures the working agreements, tech stack choices, and conventio
 - **Scripts**: `npm run dev`, `npm run check` (Astro type checker), `npm run build`, `npm run preview`.
 - **CI**: `.github/workflows/ci.yml` runs `npm ci`, `npm run check`, and `npm run build` on push/PR to `main`. Keep these scripts healthy before merging.
 - **Local validation**: After any change that could affect build output or content schema, run `npm run check && npm run build` locally before committing.
+- **Commits**: Write descriptive messages summarizing motivation + scope (e.g., “Add grilled cheese variants with sibling nav”). Avoid generic phrases.
 - **Content edits**: Add Markdown to `src/content/recipes`. Preview locally via `npm run dev` and verify generated pages (`/recipes`, `/tags`, slugs, RSS, sitemap).
 - **Assets**: Drop SVGs or images into `src/assets/images/<slug>/hero.svg` to match frontmatter references.
 
