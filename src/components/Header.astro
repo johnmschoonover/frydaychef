@@ -10,13 +10,14 @@ const navItems = [
 const pathname = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
 ---
 
-<header>
-  <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:1.5rem;">
-    <a href="/" style="display:inline-flex;align-items:center;gap:0.4rem;color:var(--fg);font-weight:700;font-size:1.25rem;">
-      Fryday Chef
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="/" class="site-brand">
+      <span class="site-brand__title">Fryday Chef</span>
+      <span class="site-brand__subtitle">Kitchen & Travel</span>
     </a>
     <nav aria-label="Primary">
-      <ul style="display:flex;list-style:none;gap:1rem;margin:0;padding:0;">
+      <ul class="site-nav">
         {navItems.map((item) => {
           const normalized = item.href.endsWith('/') ? item.href : `${item.href}/`;
           const isCurrent =
@@ -28,7 +29,7 @@ const pathname = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astr
               <a
                 href={item.href}
                 aria-current={isCurrent ? 'page' : undefined}
-                style={`font-weight:600;color:${isCurrent ? 'var(--accent)' : 'var(--accent-2)'}`}
+                class={`site-nav__link${isCurrent ? ' is-active' : ''}`}
               >
                 {item.label}
               </a>
