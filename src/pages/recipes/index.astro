@@ -72,7 +72,7 @@ const tags = Array.from(new Set(recipes.flatMap((recipe) => recipe.data.tags))).
   </main>
   <Footer />
 
-  <script type="module">
+  <script type="module" is:inline>
     const searchInput = document.querySelector('[data-filter="search"]');
     const tagButtons = Array.from(document.querySelectorAll('[data-filter="tag"]'));
     const items = Array.from(document.querySelectorAll('.recipe-item'));

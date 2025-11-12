@@ -1,11 +1,15 @@
 # Fryday Chef — Agent Guide
 
+## Before you start
+1. Read this file end-to-end; it documents our conventions.
+2. After implementing any change that could affect build output, content, or typings, run `npm run check && npm run build` locally before committing or handing off.
+
 This document captures the working agreements, tech stack choices, and conventions established so far. Reference it before making changes.
 
 ## Architecture & Stack
 - **Framework**: Astro (latest) with TypeScript enabled. Static output targeting Cloudflare Pages (`npm run build` → `dist/`).
-- **Content**: Astro Content Collections under `src/content/recipes`. Images live in `src/content/images/...`.
-- **Hero assets**: Markdown `hero` frontmatter stores paths like `/content/images/<slug>/hero.svg`. `src/utils/hero.ts` resolves those via `import.meta.glob`, so keep the prefix consistent.
+- **Content**: Astro Content Collections under `src/content/recipes`. Recipe hero images live in `src/assets/images/...`.
+- **Hero assets**: Markdown `hero` frontmatter stores paths like `/images/<slug>/hero.svg`. `src/utils/hero.ts` resolves those via `import.meta.glob`, so keep the prefix consistent.
 - **Routing**: Traditional Astro pages (`src/pages/...`) plus RSS and sitemap endpoints using `@astrojs/rss`.
 - **Components/Layout**: Header/Footer/RecipeCard/TagPill + `Base.astro` layout. Reuse these rather than duplicating markup.
 
@@ -13,7 +17,9 @@ This document captures the working agreements, tech stack choices, and conventio
 - **Node**: >= 18.14.0 (documented in `package.json`).
 - **Scripts**: `npm run dev`, `npm run check` (Astro type checker), `npm run build`, `npm run preview`.
 - **CI**: `.github/workflows/ci.yml` runs `npm ci`, `npm run check`, and `npm run build` on push/PR to `main`. Keep these scripts healthy before merging.
+- **Local validation**: After any change that could affect build output or content schema, run `npm run check && npm run build` locally before committing.
 - **Content edits**: Add Markdown to `src/content/recipes`. Preview locally via `npm run dev` and verify generated pages (`/recipes`, `/tags`, slugs, RSS, sitemap).
+- **Assets**: Drop SVGs or images into `src/assets/images/<slug>/hero.svg` to match frontmatter references.
 
 ## Styling & UX Preferences
 - Custom lightweight CSS only (`src/styles/theme.css`). No CSS frameworks.
@@ -25,7 +31,7 @@ This document captures the working agreements, tech stack choices, and conventio
   - Required: `title`, `date`, `tags`, `servings`, `ingredients`, `steps`.
   - Optional: `prep`, `cook`, `total`, `hero`, `draft`.
 - Dates must be ISO strings (`YYYY-MM-DD`) so Zod can transform to `Date`.
-- Hero paths should point to files within `src/content/images`. Include matching SVG/asset files to keep builds passing.
+- Hero paths should point to files within `src/assets/images`. Include matching SVG/asset files to keep builds passing.
 - Drafts are filtered out everywhere (`getCollection('recipes', ({ data }) => !data.draft)`).
 
 ## Coding Conventions

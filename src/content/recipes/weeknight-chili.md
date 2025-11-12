@@ -1,6 +1,6 @@
 ---
 title: Weeknight Chili
-date: 2024-03-22
+date: "2024-03-22"
 tags:
   - dinner
   - comfort
@@ -25,7 +25,7 @@ steps:
   - Stir in spices and toast for 1 minute to bloom.
   - Add tomatoes, beans, and stock; simmer uncovered 20–25 minutes until thick.
   - Season to taste and serve with lime, scallions, and crunchy toppings.
-hero: /content/images/weeknight-chili/hero.svg
+hero: /images/weeknight-chili/hero.svg
 draft: false
 ---
 

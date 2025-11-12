@@ -38,7 +38,7 @@ ingredients:
 steps:
   - Mix, rest, roll.
   - Griddle until golden.
-hero: /content/images/flatbread/hero.svg
+hero: /images/flatbread/hero.svg
 draft: false
 ---
 
@@ -49,3 +49,7 @@ A quick blurb about the recipe for RSS excerpts.
 
 1. Integrate [Pagefind](https://pagefind.app/) for instant full-site search.
 2. Add a headless CMS such as Keystatic or Decap for browser-based editing.
+
+---
+
+For project conventions and agent workflow expectations, see `AGENTS.md` in the repository root.

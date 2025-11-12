@@ -1,6 +1,6 @@
 ---
 title: Classic French Toast
-date: 2024-04-05
+date: "2024-04-05"
 tags:
   - breakfast
   - quick
@@ -22,7 +22,7 @@ steps:
   - Dip brioche slices for 10 seconds a side, letting excess drip off.
   - Cook on a buttered skillet over medium heat until deeply golden, about 3 minutes per side.
   - Serve warm with berries and powdered sugar.
-hero: /content/images/french-toast/hero.svg
+hero: /images/french-toast/hero.svg
 draft: false
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Golden Grilled Cheese
-date: 2024-04-19
+date: "2024-04-19"
 tags:
   - lunch
   - quick
@@ -19,7 +19,7 @@ steps:
   - Layer cheeses between unbuttered sides and close the sandwiches.
   - Cook in a skillet over medium-low heat, pressing gently, until deeply golden and melty, about 3–4 minutes per side.
   - Sprinkle with flaky salt and slice diagonally.
-hero: /content/images/grilled-cheese/hero.svg
+hero: /images/grilled-cheese/hero.svg
 draft: false
 ---
 
