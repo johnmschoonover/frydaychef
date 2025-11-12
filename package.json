@@ -1,0 +1,19 @@
+{
+  "name": "frydaychef",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18.14.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "check": "astro check",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/rss": "latest",
+    "astro": "latest"
+  }
+}

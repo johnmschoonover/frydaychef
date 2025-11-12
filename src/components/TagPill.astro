@@ -1,0 +1,8 @@
+---
+const { tag } = Astro.props;
+---
+
+<a class="tag-pill" href={`/tags/${encodeURIComponent(tag.toLowerCase())}/`}>
+  <span class="sr-only">Tag:</span>
+  {tag}
+</a>

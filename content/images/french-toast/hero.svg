@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title">
+  <title>French toast illustration</title>
+  <rect width="640" height="360" fill="#fffdf9" />
+  <circle cx="320" cy="180" r="140" fill="#f4c98c" stroke="#d08b5b" stroke-width="10" />
+  <rect x="240" y="140" width="160" height="80" rx="20" fill="#f7e0b8" stroke="#d08b5b" stroke-width="8" />
+  <rect x="260" y="160" width="120" height="40" rx="12" fill="#fff8eb" opacity="0.8" />
+</svg>

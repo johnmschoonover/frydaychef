@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import TagPill from './TagPill.astro';
+import { resolveHero } from '../utils/hero';
+
+const { recipe } = Astro.props as { recipe: CollectionEntry<'recipes'> };
+const formattedDate = new Intl.DateTimeFormat('en', { dateStyle: 'medium' }).format(
+  recipe.data.date
+);
+const heroSrc = resolveHero(recipe.data.hero);
+---
+
+<article class="card" style="display:flex;flex-direction:column;gap:1rem;">
+  {heroSrc ? (
+    <img
+      src={heroSrc}
+      alt={`Hero image for ${recipe.data.title}`}
+      style="border-radius:0.75rem;border:1px solid var(--border);background:var(--bg);"
+      loading="lazy"
+      width="640"
+      height="360"
+    />
+  ) : null}
+  <div style="display:flex;flex-direction:column;gap:0.5rem;">
+    <a href={`/recipes/${recipe.slug}/`}>
+      <h3 style="margin:0 0 0.25rem 0;">{recipe.data.title}</h3>
+    </a>
+    <p style="margin:0;color:var(--muted);font-size:0.95rem;">{formattedDate}</p>
+    <div style="display:flex;flex-wrap:wrap;gap:0.35rem;">
+      {recipe.data.tags.map((tag) => (
+        <TagPill tag={tag} />
+      ))}
+    </div>
+  </div>
+</article>

@@ -1,0 +1,38 @@
+---
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/recipes/', label: 'Recipes' },
+  { href: '/tags/', label: 'Tags' },
+  { href: '/about/', label: 'About' }
+];
+
+const pathname = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+---
+
+<header>
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:1.5rem;">
+    <a href="/" style="display:inline-flex;align-items:center;gap:0.4rem;color:var(--fg);font-weight:700;font-size:1.25rem;">
+      Fryday Chef
+    </a>
+    <nav aria-label="Primary">
+      <ul style="display:flex;list-style:none;gap:1rem;margin:0;padding:0;">
+        {navItems.map((item) => {
+          const normalized = item.href.endsWith('/') ? item.href : `${item.href}/`;
+          const isCurrent =
+            normalized === '/tags/' ? pathname.startsWith('/tags/') : normalized === pathname;
+          return (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isCurrent ? 'page' : undefined}
+                style={`font-weight:600;color:${isCurrent ? 'var(--accent)' : 'var(--accent-2)'}`}
+              >
+                {item.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  </div>
+</header>

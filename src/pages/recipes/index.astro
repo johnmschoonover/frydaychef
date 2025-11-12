@@ -1,0 +1,117 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import RecipeCard from '../../components/RecipeCard.astro';
+import { getCollection } from 'astro:content';
+
+const recipes = (await getCollection('recipes', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+const tags = Array.from(new Set(recipes.flatMap((recipe) => recipe.data.tags))).sort();
+---
+
+<Base title="Recipes" description="Browse every Fryday Chef recipe by craving or tag.">
+  <Header />
+  <main class="container" style="display:flex;flex-direction:column;gap:2rem;">
+    <section>
+      <h1>All Recipes</h1>
+      <p style="max-width:65ch;color:var(--muted);">
+        Use search or tag filters to find exactly what you are craving.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1rem;">
+        <label style="display:flex;flex-direction:column;gap:0.35rem;">
+          <span class="sr-only">Search recipes</span>
+          <input
+            type="search"
+            placeholder="Search by name or tag…"
+            data-filter="search"
+            style="padding:0.75rem 1rem;border-radius:999px;border:1px solid var(--border);font-size:1rem;"
+            aria-label="Search recipes"
+          />
+        </label>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+          <button
+            type="button"
+            data-filter="tag"
+            data-tag=""
+            class="tag-pill"
+            style="border:none;background-color:var(--accent);color:white;"
+          >
+            All
+          </button>
+          {tags.map((tag) => (
+            <button
+              type="button"
+              class="tag-pill"
+              data-filter="tag"
+              data-tag={tag}
+              style="border:none;cursor:pointer;"
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card-grid" id="recipe-list">
+        {recipes.map((recipe) => (
+          <div
+            class="recipe-item"
+            data-title={`${recipe.data.title} ${recipe.data.tags.join(' ')}`.toLowerCase()}
+            data-tags={recipe.data.tags.join(',').toLowerCase()}
+          >
+            <RecipeCard recipe={recipe} />
+          </div>
+        ))}
+      </div>
+      {recipes.length === 0 ? <p>No recipes yet. Check back soon!</p> : null}
+    </section>
+  </main>
+  <Footer />
+
+  <script type="module">
+    const searchInput = document.querySelector('[data-filter="search"]');
+    const tagButtons = Array.from(document.querySelectorAll('[data-filter="tag"]'));
+    const items = Array.from(document.querySelectorAll('.recipe-item'));
+    let activeTag = '';
+
+    const setActiveTagStyles = () => {
+      tagButtons.forEach((btn) => {
+        const isActive = btn.dataset.tag === activeTag;
+        btn.style.backgroundColor = isActive
+          ? 'var(--accent)'
+          : btn.dataset.tag
+          ? 'var(--border)'
+          : activeTag === ''
+          ? 'var(--accent)'
+          : 'var(--border)';
+        btn.style.color = isActive || (!activeTag && btn.dataset.tag === '')
+          ? 'white'
+          : 'var(--accent-2)';
+      });
+    };
+
+    const applyFilters = () => {
+      const query = (searchInput.value || '').trim().toLowerCase();
+      items.forEach((item) => {
+        const matchesSearch = item.dataset.title?.includes(query);
+        const hasTag = !activeTag || item.dataset.tags?.split(',').includes(activeTag.toLowerCase());
+        item.style.display = matchesSearch && hasTag ? '' : 'none';
+      });
+    };
+
+    searchInput?.addEventListener('input', applyFilters);
+    tagButtons.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        activeTag = btn.dataset.tag || '';
+        setActiveTagStyles();
+        applyFilters();
+      })
+    );
+
+    setActiveTagStyles();
+  </script>
+</Base>

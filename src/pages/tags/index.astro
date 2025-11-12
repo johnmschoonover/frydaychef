@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const recipes = await getCollection('recipes', ({ data }) => !data.draft);
+const tags = Array.from(new Set(recipes.flatMap((recipe) => recipe.data.tags))).sort();
+---
+
+<Base title="Tags" description="Browse Fryday Chef recipes by tag.">
+  <Header />
+  <main class="container" style="max-width:60ch;">
+    <h1>Tags</h1>
+    <p>Choose a tag to explore themed recipes.</p>
+    <ul style="display:flex;flex-wrap:wrap;gap:0.75rem;list-style:none;padding:0;">
+      {tags.map((tag) => (
+        <li>
+          <a class="tag-pill" href={`/tags/${tag.toLowerCase()}/`}>{tag}</a>
+        </li>
+      ))}
+    </ul>
+  </main>
+  <Footer />
+</Base>

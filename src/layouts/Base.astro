@@ -1,0 +1,33 @@
+---
+import '../styles/theme.css';
+
+const {
+  title = 'Home',
+  description = 'Fryday Chef serves cozy, modern recipes and kitchen inspiration.',
+  canonical = Astro.url.href
+} = Astro.props;
+const site = Astro.site ?? 'https://frydaychef.net';
+const ogImage = new URL('/favicon.svg', site).href;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fryday Chef — {title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={`Fryday Chef — ${title}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`Fryday Chef — ${title}`} />
+    <meta name="twitter:description" content={description} />
+  </head>
+  <body class="page">
+    <slot />
+  </body>
+</html>

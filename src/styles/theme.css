@@ -1,0 +1,110 @@
+:root {
+  --bg: #fffdf9;
+  --fg: #1f2328;
+  --muted: #6c6f73;
+  --accent: #d08b5b;
+  --accent-2: #495057;
+  --card: #ffffff;
+  --border: #ece7df;
+  font-size: 16px;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--accent-2);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: min(1200px, 90vw);
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 25px 45px rgba(15, 23, 42, 0.05);
+}
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.75rem;
+  border-radius: 999px;
+  background-color: var(--border);
+  color: var(--accent-2);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+header,
+footer {
+  background-color: var(--card);
+  border-bottom: 1px solid var(--border);
+}
+
+footer {
+  border-bottom: none;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 92vw;
+    padding: 1.5rem 0;
+  }
+}
