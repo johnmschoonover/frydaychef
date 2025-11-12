@@ -34,6 +34,7 @@ This document captures the working agreements, tech stack choices, and conventio
   - Optional: `prep`, `cook`, `total`, `hero`, `draft`.
 - Dates must be ISO strings (`YYYY-MM-DD`) so Zod can transform to `Date`.
 - Hero paths should point to files within `public/images`. Include matching SVG/asset files to keep builds passing.
+- Recipe heroes must be 1:1 (square); `npm run check:heroes` enforces this for `/src/content/recipes`.
 - Drafts are filtered out everywhere (`getCollection('recipes', ({ data }) => !data.draft)`).
 
 ## Coding Conventions

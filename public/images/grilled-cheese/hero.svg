@@ -1,7 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title">
-  <title>Grilled cheese illustration</title>
-  <rect width="640" height="360" fill="#fffdf9" />
-  <rect x="180" y="140" width="280" height="120" rx="30" fill="#f5c16c" stroke="#d08b5b" stroke-width="10" />
-  <path d="M200 180c120 80 240 80 260-10" fill="none" stroke="#f7e89b" stroke-width="18" stroke-linecap="round" />
-  <path d="M220 150c40 40 200 40 240 0" fill="none" stroke="#e28c45" stroke-width="12" stroke-linecap="round" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-labelledby="title">
+  <title>Classic grilled cheese illustration</title>
+  <rect width="640" height="640" rx="48" fill="#fffdf9" />
+  <rect x="140" y="240" width="360" height="200" rx="60" fill="#f6c26a" stroke="#c57533" stroke-width="14" />
+  <path d="M180 320c110 90 180 80 280-10" fill="none" stroke="#f9e89d" stroke-width="24" stroke-linecap="round" />
+  <circle cx="260" cy="300" r="24" fill="#6f8b3e" opacity="0.75" />
+  <circle cx="360" cy="340" r="20" fill="#f9f4d7" opacity="0.8" />
 </svg>

@@ -79,6 +79,7 @@ Trip recap content.
 ```
 
 - Save hero images under `public/images/<slug>/...` so paths like `/images/flatbread/hero.svg` resolve correctly.
+- Recipe hero art must be 1:1 (square) so cards and detail pages stay aligned; the pre-commit/CI checks will fail if dimensions drift.
 
 ## Future extensions
 
