@@ -50,7 +50,7 @@ img {
 .container {
   width: min(1200px, 90vw);
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 2rem clamp(1rem, 5vw, 2.5rem);
 }
 
 .card-grid {
@@ -65,6 +65,39 @@ img {
   border-radius: 1rem;
   padding: 1.5rem;
   box-shadow: 0 25px 45px rgba(15, 23, 42, 0.05);
+}
+
+.pane-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.pane-card {
+  position: relative;
+  padding: 1.75rem;
+  border-radius: 1.2rem;
+  border: 1px solid var(--border);
+  background: linear-gradient(135deg, #fffdf9 0%, #fff9f0 100%);
+  box-shadow: 0 25px 45px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
+}
+
+.pane-card a:not(.latest-link) {
+  font-weight: 600;
+}
+
+.pane-card .latest-card {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border-radius: 0.85rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px dashed var(--border);
+}
+
+.pane-card .latest-link {
+  font-weight: 600;
+  color: var(--accent);
 }
 
 .tag-pill {
@@ -105,6 +138,76 @@ footer {
 @media (max-width: 600px) {
   .container {
     width: 92vw;
-    padding: 1.5rem 0;
+    padding: 1.5rem 1rem;
   }
+}
+.complexity-dot-wrapper {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.complexity-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  background-color: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.complexity-dot:hover,
+.complexity-dot:focus-visible {
+  background-color: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.complexity-dot.is-active {
+  background-color: var(--accent);
+  color: #fff;
+}
+
+.dot-preview {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  left: 50%;
+  transform: translate(-50%, 0) scale(0.95);
+  background: rgba(255, 253, 249, 0.2);
+  border: 1px solid rgba(208, 139, 91, 0.2);
+  border-radius: 0.2rem;
+  padding: 0.85rem;
+  width: 220px;
+  box-shadow: 0 35px 55px rgba(15, 23, 42, 0.25);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 5;
+}
+
+.dot-preview strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.dot-preview img {
+  width: 100%;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(73, 80, 87, 0.25);
+}
+
+.complexity-dot-wrapper:hover .dot-preview,
+.complexity-dot-wrapper:focus-within .dot-preview {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
 }
