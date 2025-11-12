@@ -1,0 +1,42 @@
+# Fryday Chef — Agent Guide
+
+This document captures the working agreements, tech stack choices, and conventions established so far. Reference it before making changes.
+
+## Architecture & Stack
+- **Framework**: Astro (latest) with TypeScript enabled. Static output targeting Cloudflare Pages (`npm run build` → `dist/`).
+- **Content**: Astro Content Collections under `src/content/recipes`. Images live in `src/content/images/...`.
+- **Hero assets**: Markdown `hero` frontmatter stores paths like `/content/images/<slug>/hero.svg`. `src/utils/hero.ts` resolves those via `import.meta.glob`, so keep the prefix consistent.
+- **Routing**: Traditional Astro pages (`src/pages/...`) plus RSS and sitemap endpoints using `@astrojs/rss`.
+- **Components/Layout**: Header/Footer/RecipeCard/TagPill + `Base.astro` layout. Reuse these rather than duplicating markup.
+
+## Development Workflow
+- **Node**: >= 18.14.0 (documented in `package.json`).
+- **Scripts**: `npm run dev`, `npm run check` (Astro type checker), `npm run build`, `npm run preview`.
+- **CI**: `.github/workflows/ci.yml` runs `npm ci`, `npm run check`, and `npm run build` on push/PR to `main`. Keep these scripts healthy before merging.
+- **Content edits**: Add Markdown to `src/content/recipes`. Preview locally via `npm run dev` and verify generated pages (`/recipes`, `/tags`, slugs, RSS, sitemap).
+
+## Styling & UX Preferences
+- Custom lightweight CSS only (`src/styles/theme.css`). No CSS frameworks.
+- Color variables already defined (`--bg`, `--fg`, `--muted`, `--accent`, `--accent-2`, `--card`, `--border`). Update these to reskin the site.
+- Maintain semantic HTML, strong color contrast, and accessible navigation (e.g., `aria-current` in `Header.astro`, descriptive alt text on hero images).
+
+## Content Authoring Guidelines
+- Frontmatter schema (see `src/content/config.ts`):
+  - Required: `title`, `date`, `tags`, `servings`, `ingredients`, `steps`.
+  - Optional: `prep`, `cook`, `total`, `hero`, `draft`.
+- Dates must be ISO strings (`YYYY-MM-DD`) so Zod can transform to `Date`.
+- Hero paths should point to files within `src/content/images`. Include matching SVG/asset files to keep builds passing.
+- Drafts are filtered out everywhere (`getCollection('recipes', ({ data }) => !data.draft)`).
+
+## Coding Conventions
+- Prefer `apply_patch` for manual edits; avoid generated diffs for large assets when possible.
+- Keep comments minimal and purposeful (only for non-obvious logic).
+- When adding new filters or client interactions, stick to vanilla JS (no extra deps).
+- Update README when workflows or authoring steps change.
+
+## Nice-to-haves / Future Ideas
+- Pagefind search integration.
+- Headless CMS (Keystatic/Decap) if editing via web UI is desired.
+- Additional automated tests or linting (can extend CI once scripts exist).
+
+Use this as the shared memo between agents to keep Fryday Chef consistent and production-ready.

@@ -19,7 +19,7 @@ npm run preview    # serves ./dist
 
 ## Content authoring
 
-Add new Markdown files under `content/recipes`. Each file must match the schema in `src/content/config.ts`.
+Add new Markdown files under `src/content/recipes`. Each file must match the schema in `src/content/config.ts`.
 
 ```md
 ---

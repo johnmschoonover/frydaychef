@@ -1,4 +1,4 @@
-const heroImages = import.meta.glob('../../content/images/**/*', {
+const heroImages = import.meta.glob('../content/images/**/*', {
   eager: true,
   import: 'default'
 }) as Record<string, string>;
@@ -6,5 +6,8 @@ const heroImages = import.meta.glob('../../content/images/**/*', {
 export function resolveHero(path?: string) {
   if (!path) return undefined;
   const normalized = path.replace(/^\//, '');
-  return heroImages[`../../${normalized}`];
+  const key = normalized.startsWith('content/')
+    ? `../${normalized}`
+    : `../content/${normalized}`;
+  return heroImages[key];
 }
