@@ -2,13 +2,20 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import RecipeCard from '../components/RecipeCard.astro';
 import { getCollection } from 'astro:content';
 
 const recipes = (await getCollection('recipes', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
-const latest = recipes.slice(0, 6);
+const restaurants = (await getCollection('restaurants', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+const travelStories = (await getCollection('travel', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+const latestRecipe = recipes[0];
+const latestRestaurant = restaurants[0];
+const latestTravel = travelStories[0];
 ---
 
 <Base title="Home">
@@ -26,17 +33,84 @@ const latest = recipes.slice(0, 6);
       </p>
     </section>
 
-    <section aria-labelledby="latest-recipes">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
-        <h2 id="latest-recipes" style="margin:0;">Latest Recipes</h2>
-        <a href="/recipes/">View all →</a>
-      </div>
-      <div class="card-grid" style="margin-top:1.5rem;">
-        {latest.map((recipe) => (
-          <RecipeCard recipe={recipe} />
-        ))}
+    <section aria-labelledby="explore-sections">
+      <h2 id="explore-sections" style="margin-bottom:1rem;">Plan your next bite</h2>
+      <div class="pane-grid">
+        <article class="pane-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+            <div>
+              <p style="margin:0;color:var(--muted);text-transform:uppercase;font-size:0.8rem;">
+                Recipes
+              </p>
+              <h3 style="margin:0.25rem 0;">From stovetop to table</h3>
+            </div>
+            <a href="/recipes/">Browse all →</a>
+          </div>
+          {latestRecipe ? (
+            <div class="latest-card">
+              <p style="margin:0;color:var(--muted);font-size:0.8rem;">Latest recipe</p>
+              <a class="latest-link" href={`/recipes/${latestRecipe.slug}/`}>
+                {latestRecipe.data.title}
+              </a>
+              <p style="margin:0.5rem 0 0 0;color:var(--muted);">
+                {latestRecipe.data.steps[0]}
+              </p>
+            </div>
+          ) : (
+            <p>New recipes coming soon.</p>
+          )}
+        </article>
+        <article class="pane-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+            <div>
+              <p style="margin:0;color:var(--muted);text-transform:uppercase;font-size:0.8rem;">
+                Restaurants
+              </p>
+              <h3 style="margin:0.25rem 0;">Reservations worth planning</h3>
+            </div>
+            <a href="/restaurants/">Guide →</a>
+          </div>
+          {latestRestaurant ? (
+            <div class="latest-card">
+              <p style="margin:0;color:var(--muted);font-size:0.8rem;">Latest feature</p>
+              <a class="latest-link" href={`/restaurants/${latestRestaurant.slug}/`}>
+                {latestRestaurant.data.title}
+              </a>
+              <p style="margin:0.5rem 0 0 0;color:var(--muted);">
+                {latestRestaurant.data.summary}
+              </p>
+            </div>
+          ) : (
+            <p>Restaurant spotlights arrive soon.</p>
+          )}
+        </article>
+        <article class="pane-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+            <div>
+              <p style="margin:0;color:var(--muted);text-transform:uppercase;font-size:0.8rem;">
+                Travel
+              </p>
+              <h3 style="margin:0.25rem 0;">Trips built around meals</h3>
+            </div>
+            <a href="/travel/">City notes →</a>
+          </div>
+          {latestTravel ? (
+            <div class="latest-card">
+              <p style="margin:0;color:var(--muted);font-size:0.8rem;">Latest story</p>
+              <a class="latest-link" href={`/travel/${latestTravel.slug}/`}>
+                {latestTravel.data.title}
+              </a>
+              <p style="margin:0.5rem 0 0 0;color:var(--muted);">
+                {latestTravel.data.summary}
+              </p>
+            </div>
+          ) : (
+            <p>Travel dispatches are in progress.</p>
+          )}
+        </article>
       </div>
     </section>
+
   </main>
   <Footer />
 </Base>

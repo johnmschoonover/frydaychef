@@ -1,0 +1,60 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const restaurants = (await getCollection('restaurants', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<Base
+  title="Restaurants"
+  description="Supper clubs, chef counters, and neighborhood gems worth planning a trip around."
+>
+  <Header />
+  <main class="container" style="display:flex;flex-direction:column;gap:2rem;">
+    <section>
+      <h1>Restaurant Field Notes</h1>
+      <p style="max-width:60ch;color:var(--muted);">
+        A short list of dining rooms that inspire new dishes and day trips. Expect seasonal menus,
+        thoughtful hospitality, and plenty of ambiance tips.
+      </p>
+    </section>
+
+    <section class="card-grid">
+      {restaurants.map((spot) => {
+        const heroSrc = spot.data.hero;
+        return (
+          <article class="card" style="display:flex;flex-direction:column;gap:1rem;">
+            {heroSrc ? (
+              <img
+                src={heroSrc}
+                alt={`Dining room at ${spot.data.title}`}
+                style="border-radius:0.85rem;border:1px solid var(--border);"
+                loading="lazy"
+                width="640"
+                height="360"
+              />
+            ) : null}
+            <div style="display:flex;flex-direction:column;gap:0.35rem;">
+              <p style="margin:0;color:var(--muted);font-size:0.9rem;">
+                {spot.data.location} · {spot.data.cuisine}
+              </p>
+              <h2 style="margin:0;">
+                <a href={`/restaurants/${spot.slug}/`}>{spot.data.title}</a>
+              </h2>
+              <p style="margin:0;color:var(--muted);">{spot.data.summary}</p>
+              <a href={`/restaurants/${spot.slug}/`} style="font-weight:600;color:var(--accent);">
+                Read notes →
+              </a>
+            </div>
+          </article>
+        );
+      })}
+      {restaurants.length === 0 ? <p>No restaurant write-ups yet.</p> : null}
+    </section>
+  </main>
+  <Footer />
+</Base>

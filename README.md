@@ -1,6 +1,6 @@
 # Fryday Chef
 
-Cozy-modern Astro starter for a personal recipe site powered by Markdown content collections.
+Cozy-modern Astro starter for a personal recipe, restaurant, and travel journal powered by Markdown content collections.
 
 ## Quick start
 
@@ -19,7 +19,7 @@ npm run preview    # serves ./dist
 
 ## Content authoring
 
-Add new Markdown files under `src/content/recipes`. Each file must match the schema in `src/content/config.ts`.
+Add new Markdown files under `src/content/recipes`, `src/content/restaurants`, or `src/content/travel`. Each file must match the schema in `src/content/config.ts`.
 
 ```md
 ---

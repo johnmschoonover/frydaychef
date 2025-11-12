@@ -22,4 +22,37 @@ const recipes = defineCollection({
     })
 });
 
-export const collections = { recipes };
+const travel = defineCollection({
+  type: 'content',
+  schema: () =>
+    z.object({
+      title: z.string(),
+      date: z
+        .string()
+        .transform((str) => new Date(str)),
+      location: z.string(),
+      summary: z.string(),
+      highlights: z.array(z.string()).default([]),
+      hero: z.string().optional(),
+      draft: z.boolean().default(false)
+    })
+});
+
+const restaurants = defineCollection({
+  type: 'content',
+  schema: () =>
+    z.object({
+      title: z.string(),
+      date: z
+        .string()
+        .transform((str) => new Date(str)),
+      location: z.string(),
+      cuisine: z.string(),
+      summary: z.string(),
+      mustTry: z.array(z.string()).default([]),
+      hero: z.string().optional(),
+      draft: z.boolean().default(false)
+    })
+});
+
+export const collections = { recipes, travel, restaurants };

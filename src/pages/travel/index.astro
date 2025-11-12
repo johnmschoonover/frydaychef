@@ -1,0 +1,57 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const travelStories = (await getCollection('travel', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<Base
+  title="Travel"
+  description="City walks, food itineraries, and itinerant notes built around memorable meals."
+>
+  <Header />
+  <main class="container" style="display:flex;flex-direction:column;gap:2rem;">
+    <section>
+      <h1>Travel Dispatches</h1>
+      <p style="max-width:60ch;color:var(--muted);">
+        Bite-sized itineraries for destinations planned around what to eat and where to linger.
+      </p>
+    </section>
+
+    <section class="card-grid">
+      {travelStories.map((story) => {
+        const heroSrc = story.data.hero;
+        return (
+          <article class="card" style="display:flex;flex-direction:column;gap:1rem;">
+            {heroSrc ? (
+              <img
+                src={heroSrc}
+                alt={`Travel scene for ${story.data.title}`}
+                style="border-radius:0.85rem;border:1px solid var(--border);"
+                loading="lazy"
+                width="640"
+                height="360"
+              />
+            ) : null}
+            <div style="display:flex;flex-direction:column;gap:0.35rem;">
+              <p style="margin:0;color:var(--muted);font-size:0.9rem;">{story.data.location}</p>
+              <h2 style="margin:0;">
+                <a href={`/travel/${story.slug}/`}>{story.data.title}</a>
+              </h2>
+              <p style="margin:0;color:var(--muted);">{story.data.summary}</p>
+              <a href={`/travel/${story.slug}/`} style="font-weight:600;color:var(--accent);">
+                Read guide →
+              </a>
+            </div>
+          </article>
+        );
+      })}
+      {travelStories.length === 0 ? <p>No travel stories yet.</p> : null}
+    </section>
+  </main>
+  <Footer />
+</Base>

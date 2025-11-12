@@ -3,15 +3,18 @@ import { getCollection } from 'astro:content';
 export async function GET(context) {
   const base = context.site ?? 'https://frydaychef.net';
   const recipes = await getCollection('recipes', ({ data }) => !data.draft);
-  const tags = Array.from(new Set(recipes.flatMap((recipe) => recipe.data.tags.map((tag) => tag.toLowerCase()))));
+  const restaurants = await getCollection('restaurants', ({ data }) => !data.draft);
+  const travel = await getCollection('travel', ({ data }) => !data.draft);
 
   const urls = [
     '/',
     '/about/',
     '/recipes/',
-    '/tags/',
+    '/restaurants/',
+    '/travel/',
     ...recipes.map((recipe) => `/recipes/${recipe.slug}/`),
-    ...tags.map((tag) => `/tags/${tag}/`)
+    ...restaurants.map((spot) => `/restaurants/${spot.slug}/`),
+    ...travel.map((story) => `/travel/${story.slug}/`)
   ];
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title">
+  <title>Kyoto twilight illustration</title>
+  <rect width="640" height="360" fill="#fffdf9" />
+  <rect x="40" y="220" width="560" height="60" rx="20" fill="#f4c98c" />
+  <path d="M60 230C140 150 500 140 580 230" fill="#f5e6c8" stroke="#d08b5b" stroke-width="6" />
+  <path d="M100 150h440v80H100z" fill="#495057" opacity="0.9" />
+  <circle cx="500" cy="90" r="35" fill="#f9d27c" />
+  <path d="M120 260c80-40 320-40 400 0" fill="none" stroke="#d08b5b" stroke-width="8" stroke-linecap="round" />
+</svg>

@@ -2,7 +2,8 @@
 const navItems = [
   { href: '/', label: 'Home' },
   { href: '/recipes/', label: 'Recipes' },
-  { href: '/tags/', label: 'Tags' },
+  { href: '/restaurants/', label: 'Restaurants' },
+  { href: '/travel/', label: 'Travel' },
   { href: '/about/', label: 'About' }
 ];
 
@@ -19,7 +20,9 @@ const pathname = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astr
         {navItems.map((item) => {
           const normalized = item.href.endsWith('/') ? item.href : `${item.href}/`;
           const isCurrent =
-            normalized === '/tags/' ? pathname.startsWith('/tags/') : normalized === pathname;
+            normalized === '/'
+              ? pathname === '/'
+              : pathname.startsWith(normalized);
           return (
             <li>
               <a
