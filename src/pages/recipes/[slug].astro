@@ -25,11 +25,19 @@ const timeBlocks = [
 const heroSrc = resolveHero(recipe.data.hero);
 const recipes = await getCollection('recipes', ({ data }) => !data.draft);
 const variantGroup = recipe.data.variantGroup;
-const siblings = variantGroup
+const variantList = variantGroup
   ? recipes
-      .filter((entry) => entry.data.variantGroup === variantGroup && entry.slug !== recipe.slug)
+      .filter((entry) => entry.data.variantGroup === variantGroup)
       .sort((a, b) => (a.data.complexityLevel ?? 0) - (b.data.complexityLevel ?? 0))
   : [];
+const currentIndex = variantGroup
+  ? variantList.findIndex((entry) => entry.slug === recipe.slug)
+  : -1;
+const nextVariant =
+  currentIndex !== -1 && currentIndex < variantList.length - 1
+    ? variantList[currentIndex + 1]
+    : undefined;
+const siblings = variantList.filter((entry) => entry.slug !== recipe.slug);
 ---
 
 <Base title={recipe.data.title} description={`Cook ${recipe.data.title} with Fryday Chef.`}>
@@ -37,9 +45,52 @@ const siblings = variantGroup
   <main class="container" style="max-width:70ch;">
     <a href="/recipes/">← Back to recipes</a>
     <article style="margin-top:1.5rem;">
-      <header style="display:flex;flex-direction:column;gap:1rem;">
+      <header style="display:flex;flex-direction:column;gap:1rem;position:relative;">
         <p style="margin:0;color:var(--muted);">{formattedDate}</p>
-        <h1 style="margin:0;">{recipe.data.title}</h1>
+        <div style="display:flex;align-items:flex-start;gap:1rem;">
+          <h1 style="margin:0;flex:1;">{recipe.data.title}</h1>
+          {variantList.length ? (
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.35rem;">
+              <span style="font-size:0.8rem;text-transform:uppercase;color:var(--muted);">
+                Complexity
+              </span>
+              <div style="display:flex;align-items:center;gap:0.75rem;">
+                <div style="display:flex;gap:0.4rem;align-items:center;">
+                  {variantList.map((entry, index) => {
+                    const isActive = entry.slug === recipe.slug;
+                    const level = entry.data.complexityLevel ?? index + 1;
+                    const style = `width:14px;height:14px;border-radius:50%;display:inline-flex;border:2px solid var(--accent);${
+                      isActive ? 'background-color:var(--accent);' : 'background-color:transparent;'
+                    }`;
+                    return isActive ? (
+                      <span
+                        style={style}
+                        aria-label={`Current complexity level ${level}: ${entry.data.title}`}
+                        aria-current="true"
+                      />
+                    ) : (
+                      <a
+                        href={`/recipes/${entry.slug}/`}
+                        style={style}
+                        aria-label={`Go to complexity level ${level}: ${entry.data.title}`}
+                      />
+                    );
+                  })}
+                </div>
+                {nextVariant ? (
+                  <a
+                    href={`/recipes/${nextVariant.slug}/`}
+                    style="font-size:0.85rem;font-weight:600;color:var(--accent);"
+                  >
+                    Next →
+                  </a>
+                ) : (
+                  <span style="font-size:0.8rem;color:var(--muted);">Max</span>
+                )}
+              </div>
+            </div>
+          ) : null}
+        </div>
         <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
           {recipe.data.tags.map((tag) => (
             <TagPill tag={tag} />
