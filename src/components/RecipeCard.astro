@@ -1,13 +1,12 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import TagPill from './TagPill.astro';
-import { resolveHero } from '../utils/hero';
 
 const { recipe } = Astro.props as { recipe: CollectionEntry<'recipes'> };
 const formattedDate = new Intl.DateTimeFormat('en', { dateStyle: 'medium' }).format(
   recipe.data.date
 );
-const heroSrc = resolveHero(recipe.data.hero);
+const heroSrc = recipe.data.hero;
 ---
 
 <article class="card" style="display:flex;flex-direction:column;gap:1rem;">

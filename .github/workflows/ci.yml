@@ -25,5 +25,8 @@ jobs:
       - name: Type check
         run: npm run check
 
+      - name: Verify hero assets
+        run: npm run check:heroes
+
       - name: Build
         run: npm run build

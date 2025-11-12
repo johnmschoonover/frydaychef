@@ -45,6 +45,41 @@ draft: false
 A quick blurb about the recipe for RSS excerpts.
 ```
 
+Restaurant and travel entries follow similar patterns:
+
+```md
+---
+title: Copper Spork Supper Club
+date: 2024-04-10
+location: Asheville, NC
+cuisine: Appalachian tasting menu        # restaurants only
+summary: Fire-kissed vegetables...
+mustTry:                                  # restaurants only
+  - Embered sweet potato with sorghum butter
+hero: /images/restaurants/copper-spork.svg
+draft: false
+---
+
+Long-form visit notes.
+```
+
+```md
+---
+title: Twilight Markets in Kyoto
+date: 2024-04-15
+location: Kyoto, Japan
+summary: Lantern-lit alleys...
+highlights:                               # travel only
+  - Sip hojicha by the river
+hero: /images/travel/kyoto-twilight.svg
+draft: false
+---
+
+Trip recap content.
+```
+
+- Save hero images under `public/images/<slug>/...` so paths like `/images/flatbread/hero.svg` resolve correctly.
+
 ## Future extensions
 
 1. Integrate [Pagefind](https://pagefind.app/) for instant full-site search.

@@ -21,7 +21,7 @@ steps:
   - Layer cheeses, caramelized onions, and baby kale.
   - Grill slowly over medium-low heat, covering the pan to melt through, 5–6 minutes per side.
   - Rest 1 minute before slicing so molten cheese sets slightly.
-hero: /images/grilled-cheese/hero-deluxe.svg
+hero: /images/grilled-cheese/hero-deluxe.webp
 variantGroup: grilled-cheese
 complexityLevel: 3
 draft: false
