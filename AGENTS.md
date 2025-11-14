@@ -34,6 +34,9 @@ This document captures the working agreements, tech stack choices, and conventio
 - Frontmatter schema (see `src/content/config.ts`):
   - Required: `title`, `date`, `tags`, `servings`, `ingredients`, `steps`.
   - Optional: `prep`, `cook`, `total`, `hero`, `draft`.
+- Recipe `steps` can be plain strings or structured objects with `text`, optional `detail`, and `options`. Use `optionsLabel` +
+  an array of `{ title, description }` when documenting multiple finish/variant choices inside a single step (e.g., smoked wings
+  sauced vs. dry).
 - Dates must be ISO strings (`YYYY-MM-DD`) so Zod can transform to `Date`.
 - Hero paths should point to files within `public/images`. Include matching SVG/asset files to keep builds passing.
 - Recipe heroes must be 1:1 (square); `npm run check:heroes` enforces this for `/src/content/recipes`.

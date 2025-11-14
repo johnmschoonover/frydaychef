@@ -14,6 +14,22 @@ export async function getStaticPaths() {
   }));
 }
 
+type StepOption = {
+  title?: string;
+  description: string;
+};
+
+type StructuredStep = {
+  text: string;
+  detail?: string;
+  optionsLabel?: string;
+  options?: StepOption[];
+};
+
+type RecipeStep = string | StructuredStep;
+
+const isStructuredStep = (step: RecipeStep): step is StructuredStep => typeof step !== 'string';
+
 const { recipe } = Astro.props as { recipe: CollectionEntry<'recipes'> };
 const formattedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(recipe.data.date);
 const timeBlocks = [
@@ -137,10 +153,37 @@ const formatPreviewText = (entry: CollectionEntry<'recipes'>) =>
         </div>
         <div>
           <h2>Steps</h2>
-          <ol>
-            {recipe.data.steps.map((step) => (
-              <li>{step}</li>
-            ))}
+          <ol class="recipe-steps">
+            {recipe.data.steps.map((step, index) => {
+              const structured = isStructuredStep(step) ? step : null;
+              const primaryText = structured ? structured.text : step;
+              return (
+                <li class="recipe-step">
+                  <div class="step-number" aria-hidden="true">
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                  </div>
+                  <div class="step-content">
+                    <p>{primaryText}</p>
+                    {structured?.detail ? <p class="step-detail">{structured.detail}</p> : null}
+                    {structured?.options?.length ? (
+                      <div class="step-options">
+                        {structured.optionsLabel ? (
+                          <p class="step-options-label">{structured.optionsLabel}</p>
+                        ) : null}
+                        <div class="step-options-grid">
+                          {structured.options.map((option) => (
+                            <div class="step-option">
+                              {option.title ? <h4>{option.title}</h4> : null}
+                              <p>{option.description}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                </li>
+              );
+            })}
           </ol>
         </div>
       </section>
