@@ -31,7 +31,7 @@ steps:
     - If you like tacky sauce on your wings, pull them out, brush them with sauce on all sides, then back in for nearly the same amount of time on each side until the desired stickiness is achieved.
     - If you like saucy wings, ensure the outside is appropriately crispy, drench/coat in sauce, and heat the wings and sauce just until it starts bubbling on top.
     - If you like dry-rub, sprinkle with the finest salt you can find IMMEDIATELY after pulling from the heat.
-hero: /images/chicken-wings/orange-wood-wings.webm
+# hero: /images/chicken-wings/orange-wood-wings.webm
 variantGroup: chicken-wings
 complexityLevel: 2
 ---
