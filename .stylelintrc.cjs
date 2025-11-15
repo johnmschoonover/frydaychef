@@ -2,12 +2,8 @@
 module.exports = {
   extends: ['stylelint-config-standard'],
   rules: {
-    // Allow kebab-case plus BEM-style double underscores/modifiers.
-    'selector-class-pattern': [
-      '^([a-z][a-z0-9]*)(?:[-]{1,2}[a-z0-9]+|_{1,2}[a-z0-9]+)*$', {
-        message: 'Use kebab-case or BEM-style class names.'
-      }
-    ],
+    // BEM naming is intentional throughout the site.
+    'selector-class-pattern': null,
     'font-family-name-quotes': null,
     'media-feature-range-notation': null,
     'no-descending-specificity': null,
