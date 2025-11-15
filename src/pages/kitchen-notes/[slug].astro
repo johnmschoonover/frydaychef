@@ -1,0 +1,71 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('kitchen-notes');
+  return notes.map((note) => {
+    const slug = note.data.slug ?? note.slug;
+    return {
+      params: { slug },
+      props: { note }
+    };
+  });
+}
+
+const { note } = Astro.props as { note: CollectionEntry<'kitchen-notes'> };
+const { Content } = await note.render();
+const formatter = new Intl.DateTimeFormat('en', { dateStyle: 'long' });
+const recipes = await getCollection('recipes', ({ data }) => !data.draft);
+const canonicalSlug = note.data.slug ?? note.slug;
+const relatedRecipes = recipes.filter((recipe) => recipe.data.kitchenNotes?.includes(canonicalSlug));
+---
+
+<Base
+  title={note.data.title}
+  description={note.data.summary}
+  canonical={new URL(`/kitchen-notes/${canonicalSlug}/`, Astro.site ?? 'https://frydaychef.net').href}
+>
+  <Header />
+  <main class="container kitchen-note-detail">
+    <a href="/kitchen-notes/">← Back to Kitchen Notes</a>
+    <article class="note-detail">
+      <header class="note-detail__header">
+        <p class="note-date">{formatter.format(note.data.publishedAt)}</p>
+        <h1>{note.data.title}</h1>
+        {note.data.tags.length ? (
+          <div class="note-tags">
+            {note.data.tags.map((tag) => (
+              <span class="tag-pill tag-pill--static">{tag}</span>
+            ))}
+          </div>
+        ) : null}
+      </header>
+      <div class="note-body">
+        <Content />
+      </div>
+    </article>
+    {relatedRecipes.length ? (
+      <section class="related-recipes" aria-labelledby="related-recipes-title">
+        <h2 id="related-recipes-title">Related Recipes</h2>
+        <div class="related-recipes__grid">
+          {relatedRecipes.map((recipe) => (
+            <article class="related-card">
+              <h3>
+                <a href={`/recipes/${recipe.slug}/`}>
+                  {recipe.data.title}
+                </a>
+              </h3>
+              <p>
+                {recipe.data.steps?.[0] ?? 'Open the recipe for full details.'}
+              </p>
+            </article>
+          ))}
+        </div>
+      </section>
+    ) : null}
+  </main>
+  <Footer />
+</Base>

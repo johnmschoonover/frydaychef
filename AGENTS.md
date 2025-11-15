@@ -10,6 +10,7 @@ This document captures the working agreements, tech stack choices, and conventio
 ## Architecture & Stack
 - **Framework**: Astro (latest) with TypeScript enabled. Static output targeting Cloudflare Pages (`npm run build` → `dist/`).
 - **Content**: Astro Content Collections under `src/content/recipes` plus blog-style collections for restaurants and travel (see `src/content/config.ts`). Hero images live in `public/images/...`.
+- **Kitchen Notes**: Long-form experiments live under `src/content/kitchen-notes`. Frontmatter requires `title`, `summary`, `tags`, and `publishedAt`. Use the file name as the slug (or set `slug` manually) so recipes can reference notes via the `kitchenNotes` array.
 - **Hero assets**: Markdown `hero` frontmatter stores paths like `/images/<slug>/hero.webp` that map directly to files under `public/images`.
 - **Routing**: Traditional Astro pages (`src/pages/...`) plus RSS and sitemap endpoints using `@astrojs/rss`.
 - **Components/Layout**: Header/Footer/RecipeCard/TagPill + `Base.astro` layout. Reuse these rather than duplicating markup.
@@ -34,6 +35,7 @@ This document captures the working agreements, tech stack choices, and conventio
 - Frontmatter schema (see `src/content/config.ts`):
   - Required: `title`, `date`, `tags`, `servings`, `ingredients`, `steps`.
   - Optional: `prep`, `cook`, `total`, `hero`, `draft`.
+- Recipes can optionally specify `kitchenNotes` as an array of slugs; the detail template pulls matching Kitchen Notes to render a "Kitchen Notes for this recipe" panel and cross-links from the note side.
 - Recipe `steps` can be plain strings or structured objects with `text`, optional `detail`, and `options`. Use `optionsLabel` +
   an array of `{ title, description }` when documenting multiple finish/variant choices inside a single step (e.g., smoked wings
   sauced vs. dry).

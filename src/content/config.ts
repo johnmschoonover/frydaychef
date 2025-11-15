@@ -25,6 +25,7 @@ const recipes = defineCollection({
         .transform((str) => new Date(str)),
       tags: z.array(z.string()).default([]),
       servings: z.number().int().min(1).default(2),
+      kitchenNotes: z.array(z.string()).optional(),
       prep: z.string().optional(),
       cook: z.string().optional(),
       total: z.string().optional(),
@@ -70,4 +71,18 @@ const restaurants = defineCollection({
     })
 });
 
-export const collections = { recipes, travel, restaurants };
+const kitchenNotes = defineCollection({
+  type: 'content',
+  schema: () =>
+    z.object({
+      title: z.string(),
+      slug: z.string().optional(),
+      summary: z.string(),
+      tags: z.array(z.string()).default([]),
+      publishedAt: z
+        .string()
+        .transform((str) => new Date(str))
+    })
+});
+
+export const collections = { recipes, travel, restaurants, 'kitchen-notes': kitchenNotes };

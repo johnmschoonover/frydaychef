@@ -5,6 +5,8 @@ tags:
   - Smoker
   - Easy
   - Saucy
+kitchenNotes:
+  - wood-pellets-i-trust-for-smoking
 servings: 2
 prep: 10m
 cook: 2h

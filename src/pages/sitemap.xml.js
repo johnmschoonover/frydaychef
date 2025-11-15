@@ -5,6 +5,7 @@ export async function GET(context) {
   const recipes = await getCollection('recipes', ({ data }) => !data.draft);
   const restaurants = await getCollection('restaurants', ({ data }) => !data.draft);
   const travel = await getCollection('travel', ({ data }) => !data.draft);
+  const kitchenNotes = await getCollection('kitchen-notes');
 
   const urls = [
     '/',
@@ -12,9 +13,11 @@ export async function GET(context) {
     '/recipes/',
     '/restaurants/',
     '/travel/',
+    '/kitchen-notes/',
     ...recipes.map((recipe) => `/recipes/${recipe.slug}/`),
     ...restaurants.map((spot) => `/restaurants/${spot.slug}/`),
-    ...travel.map((story) => `/travel/${story.slug}/`)
+    ...travel.map((story) => `/travel/${story.slug}/`),
+    ...kitchenNotes.map((note) => `/kitchen-notes/${(note.data.slug ?? note.slug)}/`)
   ];
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>

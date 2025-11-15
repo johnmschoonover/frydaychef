@@ -85,7 +85,7 @@ const tags = Array.from(new Set(recipes.flatMap((recipe) => recipe.data.tags))).
           : 'var(--border)';
         btn.style.color = isActive || (!activeTag && btn.dataset.tag === '')
           ? 'white'
-          : 'var(--accent-2)';
+          : 'var(--fg)';
       });
     };
 

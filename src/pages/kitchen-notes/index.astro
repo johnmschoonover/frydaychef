@@ -1,0 +1,57 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const notes = (await getCollection('kitchen-notes')).sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
+);
+const formatter = new Intl.DateTimeFormat('en', { dateStyle: 'medium' });
+---
+
+<Base
+  title="Kitchen Notes"
+  description="Deep-dive experiments, tools, and ingredient notes from the Fryday Chef kitchen."
+>
+  <Header />
+  <main class="container kitchen-notes">
+    <header class="kitchen-notes__intro">
+      <p class="heading-ornament">Behind the scenes</p>
+      <h1>Kitchen Notes</h1>
+      <p class="intro-copy">
+        Kitchen Notes is where I stash the nerdy details behind the food. Think wood pellets and smoke profiles, favorite tools,
+        ingredient tests, and little experiments that don’t quite fit inside a single recipe card. If you like seeing how the
+        sausage gets made (sometimes literally), you’re in the right place.
+      </p>
+    </header>
+    <section class="notes-grid" aria-label="Kitchen note collection">
+      {notes.map((note) => {
+        const slug = note.data.slug ?? note.slug;
+        return (
+          <article class="note-card">
+            <p class="note-date">{formatter.format(note.data.publishedAt)}</p>
+            <h2>
+              <a href={`/kitchen-notes/${slug}/`}>
+                {note.data.title}
+              </a>
+            </h2>
+            <p class="note-summary">{note.data.summary}</p>
+            {note.data.tags.length ? (
+              <div class="note-tags">
+                {note.data.tags.map((tag) => (
+                  <span class="tag-pill tag-pill--static">{tag}</span>
+                ))}
+              </div>
+            ) : null}
+            <a class="note-link" href={`/kitchen-notes/${slug}/`}>
+              Read the full note →
+            </a>
+          </article>
+        );
+      })}
+      {notes.length === 0 ? <p>No notes just yet. Check back soon.</p> : null}
+    </section>
+  </main>
+  <Footer />
+</Base>

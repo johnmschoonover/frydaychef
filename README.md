@@ -19,7 +19,7 @@ npm run preview    # serves ./dist
 
 ## Content authoring
 
-Add new Markdown files under `src/content/recipes`, `src/content/restaurants`, or `src/content/travel`. Each file must match the schema in `src/content/config.ts`.
+Add new Markdown files under `src/content/recipes`, `src/content/restaurants`, `src/content/travel`, or `src/content/kitchen-notes`. Each file must match the schema in `src/content/config.ts`.
 
 ```md
 ---
@@ -80,6 +80,38 @@ Trip recap content.
 
 - Save hero images under `public/images/<slug>/...` so paths like `/images/flatbread/hero.svg` resolve correctly.
 - Recipe hero art must be 1:1 (square) so cards and detail pages stay aligned; the pre-commit/CI checks will fail if dimensions drift.
+
+## Kitchen Notes workflow
+
+- Kitchen Notes live under `src/content/kitchen-notes`.
+- Frontmatter fields:
+
+  ```md
+  ---
+  title: Wood Pellets I Trust for Smoking
+  slug: wood-pellets-i-trust-for-smoking   # optional when the file name already matches
+  summary: Short teaser used on the listing page
+  tags:
+    - smoking
+    - pellets
+  publishedAt: "2024-04-18"
+  ---
+  ```
+
+- Content can be Markdown or MDX; detail pages render everything inside `<Content />`.
+- Each note automatically shows up on `/kitchen-notes` and has its own detail page at `/kitchen-notes/<slug>/`.
+
+### Link a recipe to Kitchen Notes
+
+Add an optional `kitchenNotes` array of slugs to any recipe frontmatter:
+
+```yaml
+kitchenNotes:
+  - wood-pellets-i-trust-for-smoking
+  - the-case-for-overbuilding-your-stock
+```
+
+The recipe page surfaces a "Kitchen Notes for this recipe" section for each linked slug, and Kitchen Notes display "Related Recipes" automatically when at least one recipe references them.
 
 ## Future extensions
 

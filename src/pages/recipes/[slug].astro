@@ -47,6 +47,16 @@ const variantList = variantGroup
   : [];
 const formatPreviewText = (entry: CollectionEntry<'recipes'>) =>
   (entry.data.ingredients ?? []).slice(0, 2).join(', ');
+const kitchenNoteSlugs = recipe.data.kitchenNotes ?? [];
+const allKitchenNotes = kitchenNoteSlugs.length
+  ? await getCollection('kitchen-notes')
+  : [];
+const kitchenNoteMap = new Map(
+  allKitchenNotes.map((note) => [note.data.slug ?? note.slug, note])
+);
+const linkedKitchenNotes = kitchenNoteSlugs
+  .map((slug) => kitchenNoteMap.get(slug))
+  .filter((note): note is CollectionEntry<'kitchen-notes'> => Boolean(note));
 ---
 
 <Base title={recipe.data.title} description={`Cook ${recipe.data.title} with Fryday Chef.`}>
@@ -187,6 +197,23 @@ const formatPreviewText = (entry: CollectionEntry<'recipes'>) =>
           </ol>
         </div>
       </section>
+      {linkedKitchenNotes.length ? (
+        <section class="kitchen-note-callout">
+          <h2>Kitchen Notes for this recipe</h2>
+          <div class="note-callout-grid">
+            {linkedKitchenNotes.map((note) => (
+              <article class="note-callout-card">
+                <h3>
+                  <a href={`/kitchen-notes/${note.data.slug ?? note.slug}/`}>
+                    {note.data.title}
+                  </a>
+                </h3>
+                <p>{note.data.summary}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
       <div style="margin-top:2rem;">
         <slot />
       </div>
