@@ -10,7 +10,7 @@ This document captures the working agreements, tech stack choices, and conventio
 ## Architecture & Stack
 - **Framework**: Astro (latest) with TypeScript enabled. Static output targeting Cloudflare Pages (`npm run build` → `dist/`).
 - **Content**: Astro Content Collections under `src/content/recipes` plus blog-style collections for restaurants and travel (see `src/content/config.ts`). Hero images live in `public/images/...`.
-- **Kitchen Notes**: Long-form experiments live under `src/content/kitchen-notes`. Frontmatter requires `title`, `summary`, `tags`, and `publishedAt`. Use the file name as the slug (or set `slug` manually) so recipes can reference notes via the `kitchenNotes` array.
+- **Kitchen Notes**: Long-form experiments live under `src/content/kitchen-notes`. Frontmatter requires `title`, `summary`, `tags`, and `publishedAt`. Use the filename as the slug (or set `slug` manually) so recipes can reference notes via the `kitchenNotes` array.
 - **Hero assets**: Markdown `hero` frontmatter stores paths like `/images/<slug>/hero.webp` that map directly to files under `public/images`.
 - **Routing**: Traditional Astro pages (`src/pages/...`) plus RSS and sitemap endpoints using `@astrojs/rss`.
 - **Components/Layout**: Header/Footer/RecipeCard/TagPill + `Base.astro` layout. Reuse these rather than duplicating markup.
@@ -19,7 +19,7 @@ This document captures the working agreements, tech stack choices, and conventio
 - **Node**: >= 18.14.0 (documented in `package.json`).
 - **Scripts**: `npm run dev`, `npm run check` (Astro type checker), `npm run build`, `npm run preview`.
 - **CI**: `.github/workflows/ci.yml` runs `npm ci`, `npm run check`, and `npm run build` on push/PR to `main`. Keep these scripts healthy before merging.
-- **Quality Gate**: `.github/workflows/quality.yml` executes GitHub Super-Linter across the repo. Fix lint findings locally before retrying CI.
+- **Quality Gate**: `.github/workflows/quality.yml` executes GitHub Super-Linter across the repository. Fix lint findings locally before retrying CI.
 - **Code Scanning**: `.github/workflows/codeql.yml` runs CodeQL on push/PR plus a weekly cron. Address security alerts promptly.
 - **Local validation**: After any change that could affect build output or content schema, run `npm run check && npm run build` locally before committing.
 - **Commits**: Write descriptive messages summarizing motivation + scope (e.g., “Add grilled cheese variants with sibling nav”). Avoid generic phrases.

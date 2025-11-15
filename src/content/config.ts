@@ -15,6 +15,15 @@ const recipeStepSchema = z.union([
   })
 ]);
 
+const baseDatedEntryFields = () => ({
+  title: z.string(),
+  date: z
+    .string()
+    .transform((str) => new Date(str)),
+  hero: z.string().optional(),
+  draft: z.boolean().default(false)
+});
+
 const recipes = defineCollection({
   type: 'content',
   schema: () =>
@@ -42,15 +51,10 @@ const travel = defineCollection({
   type: 'content',
   schema: () =>
     z.object({
-      title: z.string(),
-      date: z
-        .string()
-        .transform((str) => new Date(str)),
+      ...baseDatedEntryFields(),
       location: z.string(),
       summary: z.string(),
-      highlights: z.array(z.string()).default([]),
-      hero: z.string().optional(),
-      draft: z.boolean().default(false)
+      highlights: z.array(z.string()).default([])
     })
 });
 
@@ -58,16 +62,11 @@ const restaurants = defineCollection({
   type: 'content',
   schema: () =>
     z.object({
-      title: z.string(),
-      date: z
-        .string()
-        .transform((str) => new Date(str)),
+      ...baseDatedEntryFields(),
       location: z.string(),
       cuisine: z.string(),
       summary: z.string(),
-      mustTry: z.array(z.string()).default([]),
-      hero: z.string().optional(),
-      draft: z.boolean().default(false)
+      mustTry: z.array(z.string()).default([])
     })
 });
 
