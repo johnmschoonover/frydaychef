@@ -4,6 +4,8 @@ date: "2024-03-22"
 tags:
   - dinner
   - comfort
+kitchenNotes:
+  - the-case-for-overbuilding-your-stock
 servings: 6
 prep: 15m
 cook: 35m

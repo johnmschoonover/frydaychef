@@ -48,13 +48,11 @@ const latestTravel = travelStories[0];
             <a href="/recipes/">Browse all</a>
           </div>
           {latestRecipe ? (
-            <div class="latest-card">
+            <a class="latest-card" href={`/recipes/${latestRecipe.slug}/`}>
               <p>Latest recipe</p>
-              <a class="latest-link" href={`/recipes/${latestRecipe.slug}/`}>
-                {latestRecipe.data.title}
-              </a>
+              <span class="latest-link">{latestRecipe.data.title}</span>
               <p>{latestRecipe.data.steps?.[0] ?? 'See the full recipe for details.'}</p>
-            </div>
+            </a>
           ) : (
             <p>New recipes coming soon.</p>
           )}
@@ -66,13 +64,11 @@ const latestTravel = travelStories[0];
             <a href="/restaurants/">Guide</a>
           </div>
           {latestRestaurant ? (
-            <div class="latest-card">
+            <a class="latest-card" href={`/restaurants/${latestRestaurant.slug}/`}>
               <p>Latest feature</p>
-              <a class="latest-link" href={`/restaurants/${latestRestaurant.slug}/`}>
-                {latestRestaurant.data.title}
-              </a>
+              <span class="latest-link">{latestRestaurant.data.title}</span>
               <p>{latestRestaurant.data.summary ?? 'Discover our latest restaurant pick.'}</p>
-            </div>
+            </a>
           ) : (
             <p>Restaurant spotlights arrive soon.</p>
           )}
@@ -84,13 +80,11 @@ const latestTravel = travelStories[0];
             <a href="/travel/">City notes</a>
           </div>
           {latestTravel ? (
-            <div class="latest-card">
+            <a class="latest-card" href={`/travel/${latestTravel.slug}/`}>
               <p>Latest story</p>
-              <a class="latest-link" href={`/travel/${latestTravel.slug}/`}>
-                {latestTravel.data.title}
-              </a>
+              <span class="latest-link">{latestTravel.data.title}</span>
               <p>{latestTravel.data.summary ?? 'Follow along on our newest food-focused getaway.'}</p>
-            </div>
+            </a>
           ) : (
             <p>Travel dispatches are in progress.</p>
           )}
