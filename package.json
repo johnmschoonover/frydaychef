@@ -11,6 +11,8 @@
     "check": "astro check",
     "build": "astro build",
     "preview": "astro preview",
+    "format:md": "prettier --cache --write \"**/*.md\"",
+    "lint:md": "markdownlint \"**/*.md\"",
     "check:heroes": "node scripts/check-heroes.mjs",
     "prepare": "husky"
   },
@@ -23,6 +25,15 @@
     "gray-matter": "^4.0.3",
     "husky": "^9.1.7",
     "image-size": "^2.0.2",
+    "lint-staged": "^16.2.6",
+    "markdownlint-cli": "^0.45.0",
+    "prettier": "^3.6.2",
     "typescript": "^5.9.3"
+  },
+  "lint-staged": {
+    "**/*.md": [
+      "prettier --write",
+      "markdownlint --config .markdownlint.json"
+    ]
   }
 }
