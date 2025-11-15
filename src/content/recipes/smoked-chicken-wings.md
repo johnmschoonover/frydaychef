@@ -26,10 +26,19 @@ steps:
   - When the smoker is ready, dust the chicken wings with an appropriate amount of the remaining dry seasoning.
   - Place the wings into the smoker, away from direct heat, with ample spacing to accommodate air/smoke flow around them.
   - Rotate them at 45 minutes, then every 15 minutes until the outside is dry, no longer wet/tacky.
-  - Once the chicken has reached a safe temperature (like 165F), remove them to a sheet tray and crank up the heat (~500F) or turn on the broiler in the oven.
   - text: >-
-      Once the high-heat is ready, put the chicken wings in for 10 minutes on each side (3 minutes if using a powerful broiler
-      or higher heat).
+      Once the chicken has reached a safe temperature (165F), remove them to a sheet tray.
+    optionsLabel: Get 'em ready for prime-time!
+    options:
+      - title: High-heat smoker
+        description: >-
+          Turn the smoker to the highest heat settings (at least 500F).
+          Put the chicken wings back in for up to 10 minutes on each side to dry the outside of the wing.
+      - title: Oven Broiler
+        description: >-
+          Turn on the broiler in the oven. Broil for 3-5 minutes on each side.
+  - text: >-
+      Pull the sheet tray out to dress and finish them:
     optionsLabel: Finish them your way
     options:
       - title: Tacky sauce finish
