@@ -28,12 +28,25 @@
     "lint-staged": "^16.2.6",
     "markdownlint-cli": "^0.45.0",
     "prettier": "^3.6.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "zod": "^3.25.76"
   },
   "lint-staged": {
-    "**/*.md": [
+    "**/*.{md,mdx}": [
       "prettier --write",
       "markdownlint --config .markdownlint.json"
+    ],
+    "src/content/recipes/**/*.{md,mdx}": [
+      "node scripts/validate-content.mjs recipes"
+    ],
+    "src/content/restaurants/**/*.{md,mdx}": [
+      "node scripts/validate-content.mjs restaurants"
+    ],
+    "src/content/travel/**/*.{md,mdx}": [
+      "node scripts/validate-content.mjs travel"
+    ],
+    "src/content/kitchen-notes/**/*.{md,mdx}": [
+      "node scripts/validate-content.mjs kitchen-notes"
     ]
   }
 }

@@ -12,12 +12,13 @@ npm run build
 npm run preview    # serves ./dist
 ```
 
-## Markdown formatting & linting
+## Markdown formatting, linting & schema checks
 
-- Run `npm run format:md` to apply Prettier across every Markdown file;
+- Run `npm run format:md` to apply Prettier across every Markdown/MDX file;
   `npm run lint:md` surfaces markdownlint issues using `.markdownlint.json`.
 - The Husky pre-commit hook now executes `lint-staged`, which formats staged
-  Markdown with Prettier and re-lints it before `npm run check:heroes`.
+  Markdown/MDX with Prettier, re-lints it, validates staged content entries via
+  `scripts/validate-content.mjs`, and then runs `npm run check:heroes`.
 - Open the workspace in VS Code (accept the recommended extensions) to get
   Prettier formatting and markdownlint diagnostics automatically on save via
   `.vscode/settings.json`.
