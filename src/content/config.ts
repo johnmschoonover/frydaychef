@@ -1,9 +1,9 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, z } from 'astro:content'
 
 const stepOptionSchema = z.object({
   title: z.string().optional(),
   description: z.string()
-});
+})
 
 const recipeStepSchema = z.union([
   z.string(),
@@ -13,7 +13,16 @@ const recipeStepSchema = z.union([
     optionsLabel: z.string().optional(),
     options: z.array(stepOptionSchema).optional()
   })
-]);
+])
+
+const baseDatedEntrySchema = z.object({
+  title: z.string(),
+  date: z
+    .string()
+    .transform((str) => new Date(str)),
+  hero: z.string().optional(),
+  draft: z.boolean().default(false)
+})
 
 const recipes = defineCollection({
   type: 'content',
@@ -36,40 +45,28 @@ const recipes = defineCollection({
       complexityLevel: z.number().int().min(1).optional(),
       draft: z.boolean().default(false)
     })
-});
+})
 
 const travel = defineCollection({
   type: 'content',
   schema: () =>
-    z.object({
-      title: z.string(),
-      date: z
-        .string()
-        .transform((str) => new Date(str)),
+    baseDatedEntrySchema.extend({
       location: z.string(),
       summary: z.string(),
-      highlights: z.array(z.string()).default([]),
-      hero: z.string().optional(),
-      draft: z.boolean().default(false)
+      highlights: z.array(z.string()).default([])
     })
-});
+})
 
 const restaurants = defineCollection({
   type: 'content',
   schema: () =>
-    z.object({
-      title: z.string(),
-      date: z
-        .string()
-        .transform((str) => new Date(str)),
+    baseDatedEntrySchema.extend({
       location: z.string(),
       cuisine: z.string(),
       summary: z.string(),
-      mustTry: z.array(z.string()).default([]),
-      hero: z.string().optional(),
-      draft: z.boolean().default(false)
+      mustTry: z.array(z.string()).default([])
     })
-});
+})
 
 const kitchenNotes = defineCollection({
   type: 'content',
@@ -83,6 +80,6 @@ const kitchenNotes = defineCollection({
         .string()
         .transform((str) => new Date(str))
     })
-});
+})
 
-export const collections = { recipes, travel, restaurants, 'kitchen-notes': kitchenNotes };
+export const collections = { recipes, travel, restaurants, 'kitchen-notes': kitchenNotes }

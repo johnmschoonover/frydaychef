@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "selector-class-pattern": null,
+    "font-family-name-quotes": null,
+    "media-feature-range-notation": null,
+    "no-descending-specificity": null,
+    "shorthand-property-no-redundant-values": null,
+    "property-no-vendor-prefix": null,
+    "value-keyword-case": [
+      "lower",
+      {
+        "ignoreKeywords": ["currentColor", "currentcolor"]
+      }
+    ]
+  }
+}

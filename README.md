@@ -1,6 +1,7 @@
 # Fryday Chef
 
-Cozy-modern Astro starter for a personal recipe, restaurant, and travel journal powered by Markdown content collections.
+Cozy-modern Astro starter for a personal recipe, restaurant, and travel journal
+powered by Markdown content collections.
 
 ## Quick start
 
@@ -11,6 +12,17 @@ npm run build
 npm run preview    # serves ./dist
 ```
 
+## Markdown formatting, linting & schema checks
+
+- Run `npm run format:md` to apply Prettier across every Markdown/MDX file;
+  `npm run lint:md` surfaces markdownlint issues using `.markdownlint.json`.
+- The Husky pre-commit hook now executes `lint-staged`, which formats staged
+  Markdown/MDX with Prettier, re-lints it, validates staged content entries via
+  `scripts/validate-content.mjs`, and then runs `npm run check:heroes`.
+- Open the workspace in VS Code (accept the recommended extensions) to get
+  Prettier formatting and markdownlint diagnostics automatically on save via
+  `.vscode/settings.json`.
+
 ## Cloudflare Pages deploy
 
 - Build command: `npm run build`
@@ -19,13 +31,19 @@ npm run preview    # serves ./dist
 
 ## Continuous integration
 
-- `CI` workflow installs dependencies, runs `npm run check`, verifies hero assets, and builds the site for every push/PR to `main`.
-- `Quality Gate` workflow runs [GitHub Super-Linter](https://github.com/super-linter/super-linter) to keep formatting and code quality consistent across Markdown, YAML, and scripts.
-- `CodeQL` workflow scans the repository weekly and on every push/PR for security issues in JavaScript/TypeScript code.
+- `CI` workflow installs dependencies, runs `npm run check`, verifies hero
+  assets, and builds the site for every push/PR to `main`.
+- `Quality Gate` workflow runs
+  [GitHub Super-Linter](https://github.com/super-linter/super-linter) to keep
+  formatting and code quality consistent across Markdown, YAML, and scripts.
+- `CodeQL` workflow scans the repository weekly and on every push/PR for
+  security issues in JavaScript/TypeScript code.
 
 ## Content authoring
 
-Add new Markdown files under `src/content/recipes`, `src/content/restaurants`, `src/content/travel`, or `src/content/kitchen-notes`. Each file must match the schema in `src/content/config.ts`.
+Add new Markdown files under `src/content/recipes`, `src/content/restaurants`,
+`src/content/travel`, or `src/content/kitchen-notes`. Each file must match the
+schema in `src/content/config.ts`.
 
 ```md
 ---
@@ -58,9 +76,9 @@ Restaurant and travel entries follow similar patterns:
 title: Copper Spork Supper Club
 date: 2024-04-10
 location: Asheville, NC
-cuisine: Appalachian tasting menu        # restaurants only
+cuisine: Appalachian tasting menu # restaurants only
 summary: Fire-kissed vegetables...
-mustTry:                                  # restaurants only
+mustTry: # restaurants only
   - Embered sweet potato with sorghum butter
 hero: /images/restaurants/copper-spork.svg
 draft: false
@@ -75,7 +93,7 @@ title: Twilight Markets in Kyoto
 date: 2024-04-15
 location: Kyoto, Japan
 summary: Lantern-lit alleys...
-highlights:                               # travel only
+highlights: # travel only
   - Sip hojicha by the river
 hero: /images/travel/kyoto-twilight.svg
 draft: false
@@ -84,8 +102,10 @@ draft: false
 Trip recap content.
 ```
 
-- Save hero images under `public/images/<slug>/...` so paths like `/images/flatbread/hero.svg` resolve correctly.
-- Recipe hero art must be 1:1 (square) so cards and detail pages stay aligned; the pre-commit/CI checks will fail if dimensions drift.
+- Save hero images under `public/images/<slug>/...` so paths like
+  `/images/flatbread/hero.svg` resolve correctly.
+- Recipe hero art must be 1:1 (square) so cards and detail pages stay aligned;
+  the pre-commit/CI checks will fail if dimensions drift.
 
 ## Kitchen Notes workflow
 
@@ -95,7 +115,7 @@ Trip recap content.
   ```md
   ---
   title: Wood Pellets I Trust for Smoking
-  slug: wood-pellets-i-trust-for-smoking   # optional when the file name already matches
+  slug: wood-pellets-i-trust-for-smoking # optional when the file name already matches
   summary: Short teaser used on the listing page
   tags:
     - smoking
@@ -104,8 +124,10 @@ Trip recap content.
   ---
   ```
 
-- Content can be Markdown or MDX; detail pages render everything inside `<Content />`.
-- Each note automatically shows up on `/kitchen-notes` and has its own detail page at `/kitchen-notes/<slug>/`.
+- Content can be Markdown or MDX; detail pages render everything inside
+  `<Content />`.
+- Each note automatically shows up on `/kitchen-notes` and has its own detail
+  page at `/kitchen-notes/<slug>/`.
 
 ### Link a recipe to Kitchen Notes
 
@@ -117,7 +139,9 @@ kitchenNotes:
   - the-case-for-overbuilding-your-stock
 ```
 
-The recipe page surfaces a "Kitchen Notes for this recipe" section for each linked slug, and Kitchen Notes display "Related Recipes" automatically when at least one recipe references them.
+The recipe page surfaces a "Kitchen Notes for this recipe" section for each
+linked slug, and Kitchen Notes display "Related Recipes" automatically when at
+least one recipe references them.
 
 ## Future extensions
 
@@ -126,4 +150,5 @@ The recipe page surfaces a "Kitchen Notes for this recipe" section for each link
 
 ---
 
-For project conventions and agent workflow expectations, see `AGENTS.md` in the repository root.
+For project conventions and agent workflow expectations, see `AGENTS.md` in the
+repository root.
