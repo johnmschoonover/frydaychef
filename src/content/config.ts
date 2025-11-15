@@ -15,7 +15,7 @@ const recipeStepSchema = z.union([
   })
 ])
 
-const baseDatedEntryFields = (): z.ZodRawShape => ({
+const baseDatedEntrySchema = z.object({
   title: z.string(),
   date: z
     .string()
@@ -50,8 +50,7 @@ const recipes = defineCollection({
 const travel = defineCollection({
   type: 'content',
   schema: () =>
-    z.object({
-      ...baseDatedEntryFields(),
+    baseDatedEntrySchema.extend({
       location: z.string(),
       summary: z.string(),
       highlights: z.array(z.string()).default([])
@@ -61,8 +60,7 @@ const travel = defineCollection({
 const restaurants = defineCollection({
   type: 'content',
   schema: () =>
-    z.object({
-      ...baseDatedEntryFields(),
+    baseDatedEntrySchema.extend({
       location: z.string(),
       cuisine: z.string(),
       summary: z.string(),
