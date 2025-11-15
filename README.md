@@ -17,6 +17,12 @@ npm run preview    # serves ./dist
 - Output directory: `dist`
 - (Optional) Connect your GitHub repository for automatic deploys and previews.
 
+## Continuous integration
+
+- `CI` workflow installs dependencies, runs `npm run check`, verifies hero assets, and builds the site for every push/PR to `main`.
+- `Quality Gate` workflow runs [GitHub Super-Linter](https://github.com/super-linter/super-linter) to keep formatting and code quality consistent across Markdown, YAML, and scripts.
+- `CodeQL` workflow scans the repository weekly and on every push/PR for security issues in JavaScript/TypeScript code.
+
 ## Content authoring
 
 Add new Markdown files under `src/content/recipes`, `src/content/restaurants`, `src/content/travel`, or `src/content/kitchen-notes`. Each file must match the schema in `src/content/config.ts`.
