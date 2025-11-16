@@ -64,6 +64,8 @@ const restaurants = defineCollection({
       location: z.string(),
       cuisine: z.string(),
       summary: z.string(),
+      rating: z.number().min(0).max(5),
+      ratingSymbol: z.string().optional(),
       mustTry: z.array(z.string()).default([])
     })
 })

@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import KnifeRating from '../../components/KnifeRating.astro';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 
@@ -16,18 +17,34 @@ export async function getStaticPaths() {
 const { entry } = Astro.props as { entry: CollectionEntry<'restaurants'> };
 const heroSrc = entry.data.hero;
 const formattedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(entry.data.date);
+const { Content } = await entry.render();
 ---
 
 <Base title={entry.data.title} description={entry.data.summary}>
   <Header />
-  <main class="container" style="max-width:70ch;">
-    <a href="/restaurants/">← Back to restaurants</a>
-    <article style="margin-top:1.5rem;">
+  <main class="container restaurant-layout">
+    <aside class="jump-nav">
+      <nav aria-label="Visit sections">
+        <ul>
+          <li><a href="#visits"><span>Visits</span></a></li>
+          <li><a href="#atmosphere"><span>Atmosphere & Service</span></a></li>
+          <li><a href="#starters"><span>Starters & Sides</span></a></li>
+          <li><a href="#steaks"><span>Steak & Mains</span></a></li>
+          <li><a href="#sauces"><span>Sauces & Pairings</span></a></li>
+          <li><a href="#price"><span>Price & Value</span></a></li>
+          <li><a href="#verdict"><span>Verdict</span></a></li>
+        </ul>
+      </nav>
+    </aside>
+    <article class="restaurant-article">
       <header style="display:flex;flex-direction:column;gap:0.75rem;">
         <p style="margin:0;color:var(--muted);">
           {entry.data.location} · {entry.data.cuisine} · {formattedDate}
         </p>
         <h1 style="margin:0;">{entry.data.title}</h1>
+        {typeof entry.data.rating === 'number' ? (
+          <KnifeRating rating={entry.data.rating} symbol={entry.data.ratingSymbol} />
+        ) : null}
       </header>
 
       {heroSrc ? (
@@ -56,9 +73,97 @@ const formattedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
       <section>
         <h2>Visit notes</h2>
-        <slot />
+        <div class="entry-content">
+          <Content />
+        </div>
       </section>
     </article>
   </main>
   <Footer />
 </Base>
+
+<style>
+  .restaurant-layout {
+    display: flex;
+    gap: 2rem;
+    max-width: 100ch;
+  }
+
+  .jump-nav {
+    display: none;
+  }
+
+  .jump-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .jump-nav li {
+    position: relative;
+  }
+
+  .jump-nav a {
+    color: var(--muted);
+    text-decoration: none;
+    display: block;
+    padding: 0.25rem 0;
+    transition: color 0.2s ease;
+    position: relative;
+  }
+
+  .jump-nav a span {
+    position: relative;
+    display: inline-block;
+  }
+
+  .jump-nav a span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background: var(--accent);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+  }
+
+  .jump-nav li:hover a,
+  .jump-nav li:focus-within a {
+    color: var(--accent);
+  }
+
+  .jump-nav li:hover a span::after,
+  .jump-nav li:focus-within a span::after {
+    transform: scaleX(1);
+  }
+
+  .restaurant-article {
+    flex: 1;
+  }
+
+  @media (min-width: 1024px) {
+    .jump-nav {
+      display: block;
+      position: sticky;
+      top: 5rem;
+      padding-top: 2rem;
+      padding-bottom: 1rem;
+      align-self: flex-start;
+      width: 220px;
+    }
+
+    .restaurant-layout {
+      max-width: 110ch;
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
