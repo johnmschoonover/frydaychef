@@ -15,12 +15,15 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props as { entry: CollectionEntry<'travel'> };
 const heroSrc = entry.data.hero;
-const formattedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(entry.data.date);
+const formattedDate = new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric' }).format(
+  entry.data.date
+);
+const { Content } = await entry.render();
 ---
 
 <Base title={entry.data.title} description={entry.data.summary}>
   <Header />
-  <main class="container" style="max-width:70ch;">
+  <main class="container" style="max-width:100ch;">
     <a href="/travel/">← Back to travel</a>
     <article style="margin-top:1.5rem;">
       <header style="display:flex;flex-direction:column;gap:0.75rem;">
@@ -56,7 +59,9 @@ const formattedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).forma
 
       <section>
         <h2>Itinerary Notes</h2>
-        <slot />
+        <div class="entry-content">
+          <Content />
+        </div>
       </section>
     </article>
   </main>

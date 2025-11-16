@@ -78,6 +78,35 @@ img {
   border-radius: 1rem;
   padding: 1.5rem;
   box-shadow: 0 25px 45px rgb(15 23 42 / 5%);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card-link {
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.card-link:hover,
+.card-link:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 30px 55px rgb(47 36 58 / 12%);
+  transform: translateY(-2px);
+}
+
+.card-link__hit {
+  display: block;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 2;
+  text-decoration: none;
+  color: transparent;
+}
+
+.card-link__hit:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
 }
 
 .pane-grid {
@@ -189,6 +218,10 @@ img {
   font-size: 0.85rem;
   font-weight: 600;
   text-transform: capitalize;
+  text-decoration: none;
+  position: relative;
+  z-index: 5;
+  cursor: pointer;
 }
 
 .tag-pill--static {
@@ -668,6 +701,24 @@ img {
   max-width: 65ch;
 }
 
+.notes-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.notes-filter__label {
+  margin: 0;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.notes-filter__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .notes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -708,14 +759,6 @@ img {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-}
-
-.note-link {
-  font-weight: 600;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-size: 0.8rem;
 }
 
 .kitchen-note-detail {

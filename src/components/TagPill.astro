@@ -1,8 +1,9 @@
 ---
-const { tag } = Astro.props;
+const { tag, href } = Astro.props as { tag: string; href?: string };
+const targetHref = href ?? `/recipes/?tag=${encodeURIComponent(tag.toLowerCase())}`;
 ---
 
-<a class="tag-pill" href={`/recipes/?tag=${encodeURIComponent(tag.toLowerCase())}`}>
+<a class="tag-pill" href={targetHref}>
   <span class="sr-only">Tag:</span>
   {tag}
 </a>
