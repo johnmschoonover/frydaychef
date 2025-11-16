@@ -2,12 +2,16 @@
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import TagPill from '../../components/TagPill.astro';
 import { getCollection } from 'astro:content';
 
 const notes = (await getCollection('kitchen-notes')).sort(
   (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
 );
 const formatter = new Intl.DateTimeFormat('en', { dateStyle: 'medium' });
+const tags = Array.from(new Set(notes.flatMap((note) => note.data.tags))).sort((a, b) =>
+  a.localeCompare(b)
+);
 ---
 
 <Base
@@ -25,28 +29,58 @@ const formatter = new Intl.DateTimeFormat('en', { dateStyle: 'medium' });
         sausage gets made (sometimes literally), you’re in the right place.
       </p>
     </header>
+    {tags.length ? (
+      <section class="notes-filter" aria-label="Filter kitchen notes">
+        <label style="display:flex;flex-direction:column;gap:0.35rem;">
+          <span class="sr-only">Search kitchen notes</span>
+          <input
+            type="search"
+            placeholder="Search by title or tag…"
+            data-filter="search"
+            style="padding:0.75rem 1rem;border-radius:999px;border:1px solid var(--border);font-size:1rem;"
+            aria-label="Search kitchen notes"
+          />
+        </label>
+        <div class="notes-filter__tags">
+          <button type="button" class="tag-pill" data-filter="tag" data-tag="" style="border:none;cursor:pointer;">
+            All
+          </button>
+          {tags.map((tag) => (
+            <button
+              type="button"
+              class="tag-pill"
+              data-filter="tag"
+              data-tag={tag}
+              style="border:none;cursor:pointer;"
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      </section>
+    ) : null}
     <section class="notes-grid" aria-label="Kitchen note collection">
       {notes.map((note) => {
         const slug = note.data.slug ?? note.slug;
+        const detailUrl = `/kitchen-notes/${slug}/`;
+        const searchable = `${note.data.title} ${note.data.summary} ${note.data.tags.join(' ')}`.toLowerCase();
         return (
-          <article class="note-card">
+          <article
+            class="note-card card-link note-item"
+            data-title={searchable}
+            data-tags={note.data.tags.map((tag) => tag.toLowerCase()).join(',')}
+          >
+            <a class="card-link__hit" href={detailUrl} aria-label={`Read kitchen note: ${note.data.title}`}></a>
             <p class="note-date">{formatter.format(note.data.publishedAt)}</p>
-            <h2>
-              <a href={`/kitchen-notes/${slug}/`}>
-                {note.data.title}
-              </a>
-            </h2>
+            <h2>{note.data.title}</h2>
             <p class="note-summary">{note.data.summary}</p>
             {note.data.tags.length ? (
               <div class="note-tags">
                 {note.data.tags.map((tag) => (
-                  <span class="tag-pill tag-pill--static">{tag}</span>
+                  <TagPill tag={tag} href={`/kitchen-notes/?tag=${encodeURIComponent(tag.toLowerCase())}`} />
                 ))}
               </div>
             ) : null}
-            <a class="note-link" href={`/kitchen-notes/${slug}/`}>
-              Read the full note →
-            </a>
           </article>
         );
       })}
@@ -54,4 +88,70 @@ const formatter = new Intl.DateTimeFormat('en', { dateStyle: 'medium' });
     </section>
   </main>
   <Footer />
+
+  {tags.length ? (
+    <script type="module" is:inline>
+      const searchInput = document.querySelector('[data-filter="search"]');
+      const tagButtons = Array.from(document.querySelectorAll('[data-filter="tag"]'));
+      const noteCards = Array.from(document.querySelectorAll('.note-item'));
+      const params = new URLSearchParams(window.location.search);
+      let activeTag = params.get('tag') || '';
+
+      const setActiveTagStyles = () => {
+        tagButtons.forEach((btn) => {
+          const isActive = btn.dataset.tag === activeTag;
+          btn.style.backgroundColor = isActive
+            ? 'var(--accent)'
+            : btn.dataset.tag
+            ? 'var(--border)'
+            : activeTag === ''
+            ? 'var(--accent)'
+            : 'var(--border)';
+          btn.style.color = isActive || (!activeTag && btn.dataset.tag === '')
+            ? 'white'
+            : 'var(--fg)';
+        });
+      };
+
+      const applyFilters = () => {
+        const query = (searchInput?.value || '').trim().toLowerCase();
+        noteCards.forEach((card) => {
+          const matchesSearch = !query || card.dataset.title?.includes(query);
+          const tags = card.dataset.tags ? card.dataset.tags.split(',') : [];
+          const hasTag = !activeTag || tags.includes(activeTag.toLowerCase());
+          card.style.display = matchesSearch && hasTag ? '' : 'none';
+        });
+      };
+
+      const updateUrl = () => {
+        const url = new URL(window.location.href);
+        if (activeTag) {
+          url.searchParams.set('tag', activeTag);
+        } else {
+          url.searchParams.delete('tag');
+        }
+        window.history.replaceState({}, '', url);
+      };
+
+      searchInput?.addEventListener('input', applyFilters);
+      tagButtons.forEach((btn) =>
+        btn.addEventListener('click', () => {
+          activeTag = btn.dataset.tag || '';
+          setActiveTagStyles();
+          applyFilters();
+          updateUrl();
+        })
+      );
+
+      window.addEventListener('popstate', () => {
+        const nextParams = new URLSearchParams(window.location.search);
+        activeTag = nextParams.get('tag') || '';
+        setActiveTagStyles();
+        applyFilters();
+      });
+
+      setActiveTagStyles();
+      applyFilters();
+    </script>
+  ) : null}
 </Base>

@@ -27,8 +27,10 @@ const restaurants = (await getCollection('restaurants', ({ data }) => !data.draf
     <section class="card-grid">
       {restaurants.map((spot) => {
         const heroSrc = spot.data.hero;
+        const detailUrl = `/restaurants/${spot.slug}/`;
         return (
-          <article class="card" style="display:flex;flex-direction:column;gap:1rem;">
+          <article class="card card-link" style="display:flex;flex-direction:column;gap:1rem;">
+            <a class="card-link__hit" href={detailUrl} aria-label={`Read restaurant notes: ${spot.data.title}`}></a>
             {heroSrc ? (
               <img
                 src={heroSrc}
@@ -43,16 +45,11 @@ const restaurants = (await getCollection('restaurants', ({ data }) => !data.draf
               <p style="margin:0;color:var(--muted);font-size:0.9rem;">
                 {spot.data.location} · {spot.data.cuisine}
               </p>
-              <h2 style="margin:0;">
-                <a href={`/restaurants/${spot.slug}/`}>{spot.data.title}</a>
-              </h2>
+              <h2 style="margin:0;">{spot.data.title}</h2>
               {typeof spot.data.rating === 'number' ? (
                 <KnifeRating rating={spot.data.rating} symbol={spot.data.ratingSymbol} />
               ) : null}
               <p style="margin:0;color:var(--muted);">{spot.data.summary}</p>
-              <a href={`/restaurants/${spot.slug}/`} style="font-weight:600;color:var(--accent);">
-                Read notes →
-              </a>
             </div>
           </article>
         );
