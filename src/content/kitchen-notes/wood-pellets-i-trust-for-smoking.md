@@ -84,6 +84,6 @@ great.
 
 ### Making a mistake
 
-If you're exploring and pick up an inferior, just use it up (as long as it's
-food-safe!). No sense in wasting money, and it'll still smoke. Ideally you
+If you're exploring and pick up an inferior product, just use it up (as long as
+it's food-safe!). No sense in wasting money, and it'll still smoke. Ideally you
 didn't buy a big pallet of stuff you don't like!
