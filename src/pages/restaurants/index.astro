@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import KnifeRating from '../../components/KnifeRating.astro';
 import { getCollection } from 'astro:content';
 
 const restaurants = (await getCollection('restaurants', ({ data }) => !data.draft)).sort(
@@ -18,7 +19,7 @@ const restaurants = (await getCollection('restaurants', ({ data }) => !data.draf
     <section>
       <h1>Restaurant Field Notes</h1>
       <p style="max-width:60ch;color:var(--muted);">
-        A short list of dining rooms that inspire new dishes and day trips. Expect seasonal menus,
+        A (not so) short list of dining rooms that inspire new dishes and day trips. Expect seasonal menus,
         thoughtful hospitality, and plenty of ambiance tips.
       </p>
     </section>
@@ -45,6 +46,9 @@ const restaurants = (await getCollection('restaurants', ({ data }) => !data.draf
               <h2 style="margin:0;">
                 <a href={`/restaurants/${spot.slug}/`}>{spot.data.title}</a>
               </h2>
+              {typeof spot.data.rating === 'number' ? (
+                <KnifeRating rating={spot.data.rating} symbol={spot.data.ratingSymbol} />
+              ) : null}
               <p style="margin:0;color:var(--muted);">{spot.data.summary}</p>
               <a href={`/restaurants/${spot.slug}/`} style="font-weight:600;color:var(--accent);">
                 Read notes →

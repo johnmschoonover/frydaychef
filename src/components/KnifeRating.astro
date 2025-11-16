@@ -1,0 +1,73 @@
+---
+const { rating, symbol = '🔪' } = Astro.props as { rating?: number; symbol?: string };
+const hasRating = typeof rating === 'number' && Number.isFinite(rating);
+const displayValue = hasRating
+  ? (Number.isInteger(rating as number)
+      ? (rating as number).toFixed(0)
+      : (rating as number).toFixed(1).replace(/\.0$/, ''))
+  : '';
+const fillPercent = hasRating ? Math.max(0, Math.min(100, ((rating as number) / 5) * 100)) : 0;
+const icons = Array.from({ length: 5 });
+---
+{hasRating ? (
+  <span class="knife-rating" aria-label={`Rating ${displayValue} out of 5 chef knives`}>
+    <span class="knife-rating__iconWrap">
+      <span class="knife-rating__iconRow knife-rating__iconRow--base">
+        {icons.map(() => (
+          <span aria-hidden="true" class="knife-rating__icon">{symbol}</span>
+        ))}
+      </span>
+      <span
+        class="knife-rating__iconRow knife-rating__iconRow--fill"
+        style={`width:${fillPercent}%;`}
+        aria-hidden="true"
+      >
+        {icons.map(() => (
+          <span class="knife-rating__icon">{symbol}</span>
+        ))}
+      </span>
+    </span>
+    <span class="knife-rating__value">({displayValue}/5)</span>
+  </span>
+) : null}
+
+<style>
+  .knife-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.95rem;
+  }
+
+  .knife-rating__iconWrap {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+  }
+
+  .knife-rating__iconRow {
+    display: inline-flex;
+    gap: 0.15rem;
+    font-size: 1rem;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .knife-rating__iconRow--base {
+    color: var(--muted);
+    opacity: 0.25;
+  }
+
+  .knife-rating__iconRow--fill {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    color: var(--accent);
+  }
+
+  .knife-rating__value {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+</style>
