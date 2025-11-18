@@ -12,6 +12,12 @@ npm run build
 npm run preview    # serves ./dist
 ```
 
+After changing `src/content/config.ts` or pulling schema updates from the repo,
+run `npm run sync` once to regenerate Astro's typed content collections. Astro's
+[`sync` command](https://docs.astro.build/en/reference/programmatic-reference/#sync)
+generates TypeScript types for every Astro module, so rerunning it keeps
+`astro check` and your editor aware of the latest collection fields.
+
 ## Markdown formatting, linting & schema checks
 
 - Run `npm run format:md` to apply Prettier across every Markdown/MDX file;
