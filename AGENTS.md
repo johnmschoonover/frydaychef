@@ -81,7 +81,10 @@ conventions established so far. Reference it before making changes.
 - Recipe steps now support local checklists. Keep the checkbox + step number
   pairing and persist state to `localStorage` using the `data-recipe-key`
   pattern introduced on `.recipe-steps`. Lean on accent colors for checkbox
-  styling and avoid adding additional dependencies.
+  styling and avoid adding additional dependencies. The entire step tile should
+  toggle completion when clicked anywhere outside of links, and completed steps
+  collapse into compact badges that expose only the checkbox, step number, and a
+  short “Done” label to keep unfinished steps prominent.
 
 ## Content Authoring Guidelines
 
