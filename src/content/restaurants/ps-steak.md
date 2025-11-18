@@ -6,6 +6,7 @@ cuisine: Steakhouse · New American · Wagyu
 summary:
   Chill, attentive service and a dialed steak program; pressed half‑chicken and
   dry‑aged ribeye are standouts, with sauces and sides that sing.
+hero: /images/restaurants/copper-spork.svg
 mustTry:
   - Dry‑aged bone‑in ribeye
   - Pressed half‑chicken
@@ -44,9 +45,9 @@ draft: false
 ## Steak & Mains
 
 - First visit (large group): the steak trio arrived under the requested
-  medium‑rare — one steak was closer to rare and the others hovered between
-  rare and mid‑rare. Saucing helped; for big tables, it helps to ask for a
-  “firmer mid‑rare” and confirm doneness on arrival.
+  medium‑rare — one steak was closer to rare and the others hovered between rare
+  and mid‑rare. Saucing helped; for big tables, it helps to ask for a “firmer
+  mid‑rare” and confirm doneness on arrival.
 - Across later visits, temps were dialed: the ribeye landed true medium‑rare
   edge‑to‑edge with a deep, even Maillard crust, and the Denver steak carried a
   confident sear without tipping into chew.

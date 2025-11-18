@@ -45,6 +45,7 @@ const variantList = variantGroup
       .filter((entry) => entry.data.variantGroup === variantGroup)
       .sort((a, b) => (a.data.complexityLevel ?? 0) - (b.data.complexityLevel ?? 0))
   : [];
+const showVariantSelector = variantList.length > 1;
 const formatPreviewText = (entry: CollectionEntry<'recipes'>) =>
   (entry.data.ingredients ?? []).slice(0, 2).join(', ');
 const kitchenNoteSlugs = recipe.data.kitchenNotes ?? [];
@@ -70,7 +71,7 @@ const linkedKitchenNotes = kitchenNoteSlugs
         <p style="margin:0;color:var(--muted);">{formattedDate}</p>
         <div style="display:flex;align-items:flex-start;gap:1rem;">
           <h1 style="margin:0;flex:1;">{recipe.data.title}</h1>
-          {variantList.length ? (
+          {showVariantSelector ? (
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.35rem;">
               <span style="font-size:0.8rem;text-transform:uppercase;color:var(--muted);">
                 Complexity
@@ -163,14 +164,23 @@ const linkedKitchenNotes = kitchenNoteSlugs
         </div>
         <div>
           <h2>Steps</h2>
-          <ol class="recipe-steps">
+          <ol class="recipe-steps" data-recipe-key={`recipe-steps:${recipe.slug}`}>
             {recipe.data.steps.map((step, index) => {
               const structured = isStructuredStep(step) ? step : null;
               const primaryText = structured ? structured.text : step;
               return (
                 <li class="recipe-step">
-                  <div class="step-number" aria-hidden="true">
-                    <span>{String(index + 1).padStart(2, '0')}</span>
+                  <div class="step-marker">
+                    <input
+                      class="step-checkbox"
+                      id={`step-${index + 1}`}
+                      type="checkbox"
+                      data-step-index={index}
+                      aria-label={`Mark step ${index + 1} as complete`}
+                    />
+                    <div class="step-number" aria-hidden="true">
+                      <span>{String(index + 1).padStart(2, '0')}</span>
+                    </div>
                   </div>
                   <div class="step-content">
                     <p>{primaryText}</p>
@@ -221,3 +231,51 @@ const linkedKitchenNotes = kitchenNoteSlugs
   </main>
   <Footer />
 </Base>
+<script>
+  const stepList = document.querySelector('.recipe-steps');
+
+  if (stepList) {
+    const storageKey = stepList.getAttribute('data-recipe-key') ?? '';
+
+    const stored = (() => {
+      try {
+        return storageKey ? JSON.parse(localStorage.getItem(storageKey) ?? '[]') : [];
+      } catch (error) {
+        console.warn('Unable to read saved steps', error);
+        return [];
+      }
+    })();
+
+    const completed = new Set(stored);
+    const checkboxes = Array.from(stepList.querySelectorAll<HTMLInputElement>('.step-checkbox'));
+
+    const persist = () => {
+      if (!storageKey) return;
+      localStorage.setItem(storageKey, JSON.stringify(Array.from(completed)));
+    };
+
+    const syncStep = (checkbox: HTMLInputElement) => {
+      const stepIndex = Number(checkbox.dataset.stepIndex ?? '');
+      const container = checkbox.closest('.recipe-step');
+
+      if (completed.has(stepIndex)) {
+        checkbox.checked = true;
+        container?.classList.add('is-complete');
+      }
+
+      checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+          completed.add(stepIndex);
+          container?.classList.add('is-complete');
+        } else {
+          completed.delete(stepIndex);
+          container?.classList.remove('is-complete');
+        }
+
+        persist();
+      });
+    };
+
+    checkboxes.forEach(syncStep);
+  }
+</script>

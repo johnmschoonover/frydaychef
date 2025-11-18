@@ -6,6 +6,7 @@ summary:
   A belated honeymoon wrapped in priority boarding, quiet luxury, late-night
   “emergency pizza,” and a sun-drenched rafting trip through Jamaica’s Martha
   Brae River.
+hero: /images/travel/kyoto-twilight.svg
 highlights:
   - Drift down the Martha Brae River and share mystery fruit straight from
     overhanging trees.
