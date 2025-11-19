@@ -26,6 +26,10 @@ const heroHighlightSrc = featuredRecipe?.data.hero ?? '/images/grilled-cheese/he
 const heroHighlightAlt = featuredRecipe
   ? `Featured recipe hero: ${featuredRecipe.data.title}`
   : 'Featured Fryday Chef recipe';
+const featuredRecipeHref = featuredRecipe ? `/recipes/${featuredRecipe.slug}/` : undefined;
+const featuredRecipeLabel = featuredRecipe
+  ? `View the ${featuredRecipe.data.title} recipe`
+  : undefined;
 const getFallbackInitial = (entry?: { data: { title?: string } }) =>
   entry?.data.title?.slice(0, 1).toUpperCase() ?? 'F';
 const getFirstStepText = (entry?: (typeof recipes)[number]) => {
@@ -62,6 +66,13 @@ const getFirstStepText = (entry?: (typeof recipes)[number]) => {
           </div>
         </div>
         <figure class="hero-visual">
+          {featuredRecipe ? (
+            <a
+              class="hero-visual__overlay"
+              href={featuredRecipeHref!}
+              aria-label={featuredRecipeLabel ?? 'View the featured recipe'}
+            ></a>
+          ) : null}
           <div class="hero-visual__image">
             <img src={heroHighlightSrc} alt={heroHighlightAlt} loading="lazy" width="640" height="640" />
           </div>

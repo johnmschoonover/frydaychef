@@ -489,6 +489,27 @@ img {
   background: linear-gradient(135deg, rgb(255 255 255 / 90%), rgb(255 236 219 / 70%));
   border: 1px solid var(--border);
   box-shadow: 0 24px 60px rgb(47 36 58 / 14%);
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+
+.hero-visual:hover,
+.hero-visual:focus-within {
+  box-shadow: 0 30px 70px rgb(47 36 58 / 24%);
+  transform: translateY(-4px);
+}
+
+.hero-visual__overlay {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: inherit;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.hero-visual__overlay:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
 }
 
 .hero-visual__image {
