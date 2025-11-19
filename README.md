@@ -12,8 +12,9 @@ npm run build
 npm run preview    # serves ./dist
 ```
 
-After changing `src/content/config.ts` or pulling schema updates from the repo,
-run `npm run sync` once to regenerate Astro's typed content collections. Astro's
+After changing `src/content/config.ts` or pulling schema updates from the
+repository, run `npm run sync` once to regenerate Astro's typed content
+collections. Astro's
 [`sync` command](https://docs.astro.build/en/reference/programmatic-reference/#sync)
 generates TypeScript types for every Astro module, so rerunning it keeps
 `astro check` and your editor aware of the latest collection fields.
@@ -112,6 +113,12 @@ Trip recap content.
   `/images/flatbread/hero.svg` resolve correctly.
 - Recipe hero art must be 1:1 (square) so cards and detail pages stay aligned;
   the pre-commit/CI checks will fail if dimensions drift.
+
+If you want to introduce a new content collection (for example, `events` or
+`gear`), update `src/content/config.ts` using Astro's `defineCollection` API and
+Zod schema helpers from `astro:content`, then run `npm run sync` so the
+generated types stay in sync. See the official Astro content collections guide
+for more patterns around `reference()` and cross-linked collections.
 
 ## Kitchen Notes workflow
 

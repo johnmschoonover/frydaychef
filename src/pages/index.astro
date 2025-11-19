@@ -13,25 +13,52 @@ const restaurants = (await getCollection('restaurants', ({ data }) => !data.draf
 const travelStories = (await getCollection('travel', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
+const kitchenNotes = (await getCollection('kitchen-notes')).sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
+);
 const latestRecipe = recipes[0];
 const latestRestaurant = restaurants[0];
 const latestTravel = travelStories[0];
+const latestKitchenNote = kitchenNotes[0];
+const paneCardCount = 4;
+const featuredRecipe = recipes.find((entry) => Boolean(entry.data.hero)) ?? latestRecipe;
+const heroHighlightSrc = featuredRecipe?.data.hero ?? '/images/grilled-cheese/hero-deluxe.webp';
+const heroHighlightAlt = featuredRecipe
+  ? `Featured recipe hero: ${featuredRecipe.data.title}`
+  : 'Featured Fryday Chef recipe';
+const getFallbackInitial = (entry?: { data: { title?: string } }) =>
+  entry?.data.title?.slice(0, 1).toUpperCase() ?? 'F';
 ---
 
 <Base title="Home">
   <Header />
   <main class="home">
     <section class="home-hero">
-      <div class="container hero-content">
-        <h1 class="hero-title">Southern-inspired dishes with a modern sway.</h1>
-        <p class="hero-subtitle">
-          Browse tried-and-true plates, destination dining notes, and travel stories celebrating relaxed gatherings and
-          easy hospitality.
-        </p>
-        <div class="hero-actions">
-          <a class="button button--primary" href="/recipes/">Explore recipes</a>
-          <a class="button button--ghost" href="/about/">Our story</a>
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1 class="hero-title">Southern-inspired dishes with a modern sway.</h1>
+          <p class="hero-subtitle">
+            Browse tried-and-true plates, destination dining notes, and travel stories celebrating relaxed gatherings and
+            easy hospitality.
+          </p>
+          <div class="hero-actions">
+            <a class="button button--primary" href="/recipes/">Explore recipes</a>
+          </div>
         </div>
+        <figure class="hero-visual">
+          <div class="hero-visual__image">
+            <img src={heroHighlightSrc} alt={heroHighlightAlt} loading="lazy" width="640" height="640" />
+          </div>
+          {featuredRecipe ? (
+            <figcaption>
+              <span class="hero-pill">Featured</span>
+              <div>
+                <p class="hero-eyebrow">Latest recipe</p>
+                <p class="hero-highlight">{featuredRecipe.data.title}</p>
+              </div>
+            </figcaption>
+          ) : null}
+        </figure>
       </div>
     </section>
 
@@ -40,7 +67,7 @@ const latestTravel = travelStories[0];
         <span class="heading-ornament">Collections</span>
         <h2 id="explore-sections">Plan your next bite</h2>
       </div>
-      <div class="pane-grid">
+      <div class="pane-grid" data-count={paneCardCount}>
         <article class="pane-card">
           <span class="pane-card__eyebrow">Recipes</span>
           <div class="pane-card__header">
@@ -49,9 +76,24 @@ const latestTravel = travelStories[0];
           </div>
           {latestRecipe ? (
             <a class="latest-card" href={`/recipes/${latestRecipe.slug}/`}>
-              <p>Latest recipe</p>
-              <span class="latest-link">{latestRecipe.data.title}</span>
-              <p>{latestRecipe.data.steps?.[0] ?? 'See the full recipe for details.'}</p>
+              <div class="latest-media" aria-hidden={!latestRecipe.data.hero}>
+                {latestRecipe.data.hero ? (
+                  <img
+                    src={latestRecipe.data.hero}
+                    alt={`Preview for ${latestRecipe.data.title}`}
+                    loading="lazy"
+                    width="320"
+                    height="320"
+                  />
+                ) : (
+                  <div class="latest-placeholder">{getFallbackInitial(latestRecipe)}</div>
+                )}
+              </div>
+              <div class="latest-card__body">
+                <p>Latest recipe</p>
+                <span class="latest-link">{latestRecipe.data.title}</span>
+                <p>{latestRecipe.data.steps?.[0] ?? 'See the full recipe for details.'}</p>
+              </div>
             </a>
           ) : (
             <p>New recipes coming soon.</p>
@@ -65,12 +107,51 @@ const latestTravel = travelStories[0];
           </div>
           {latestRestaurant ? (
             <a class="latest-card" href={`/restaurants/${latestRestaurant.slug}/`}>
-              <p>Latest feature</p>
-              <span class="latest-link">{latestRestaurant.data.title}</span>
-              <p>{latestRestaurant.data.summary ?? 'Discover our latest restaurant pick.'}</p>
+              <div class="latest-media" aria-hidden={!latestRestaurant.data.hero}>
+                {latestRestaurant.data.hero ? (
+                  <img
+                    src={latestRestaurant.data.hero}
+                    alt={`Preview for ${latestRestaurant.data.title}`}
+                    loading="lazy"
+                    width="320"
+                    height="320"
+                  />
+                ) : (
+                  <div class="latest-placeholder">{getFallbackInitial(latestRestaurant)}</div>
+                )}
+              </div>
+              <div class="latest-card__body">
+                <p>Latest feature</p>
+                <span class="latest-link">{latestRestaurant.data.title}</span>
+                <p>{latestRestaurant.data.summary ?? 'Discover our latest restaurant pick.'}</p>
+              </div>
             </a>
           ) : (
             <p>Restaurant spotlights arrive soon.</p>
+          )}
+        </article>
+        <article class="pane-card">
+          <span class="pane-card__eyebrow">Kitchen Notes</span>
+          <div class="pane-card__header">
+            <h3>Behind the scenes</h3>
+            <a href="/kitchen-notes/">Browse notes</a>
+          </div>
+          {latestKitchenNote ? (
+            <a
+              class="latest-card"
+              href={`/kitchen-notes/${latestKitchenNote.data.slug ?? latestKitchenNote.slug}/`}
+            >
+              <div class="latest-media" aria-hidden="true">
+                <div class="latest-placeholder">✍️</div>
+              </div>
+              <div class="latest-card__body">
+                <p>Latest note</p>
+                <span class="latest-link">{latestKitchenNote.data.title}</span>
+                <p>{latestKitchenNote.data.summary}</p>
+              </div>
+            </a>
+          ) : (
+            <p>Kitchen notes return soon.</p>
           )}
         </article>
         <article class="pane-card">
@@ -81,9 +162,24 @@ const latestTravel = travelStories[0];
           </div>
           {latestTravel ? (
             <a class="latest-card" href={`/travel/${latestTravel.slug}/`}>
-              <p>Latest story</p>
-              <span class="latest-link">{latestTravel.data.title}</span>
-              <p>{latestTravel.data.summary ?? 'Follow along on our newest food-focused getaway.'}</p>
+              <div class="latest-media" aria-hidden={!latestTravel.data.hero}>
+                {latestTravel.data.hero ? (
+                  <img
+                    src={latestTravel.data.hero}
+                    alt={`Preview for ${latestTravel.data.title}`}
+                    loading="lazy"
+                    width="320"
+                    height="320"
+                  />
+                ) : (
+                  <div class="latest-placeholder">{getFallbackInitial(latestTravel)}</div>
+                )}
+              </div>
+              <div class="latest-card__body">
+                <p>Latest story</p>
+                <span class="latest-link">{latestTravel.data.title}</span>
+                <p>{latestTravel.data.summary ?? 'Follow along on our newest food-focused getaway.'}</p>
+              </div>
             </a>
           ) : (
             <p>Travel dispatches are in progress.</p>
