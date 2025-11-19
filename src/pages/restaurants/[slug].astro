@@ -88,14 +88,38 @@ const { Content } = await entry.render();
   </main>
   <Footer />
   <script is:inline>
-    const normalizeText = (value) => {
-      return value
+    const normalizeText = (value) =>
+      value
         .toLowerCase()
         .normalize('NFKD')
         .replace(/[\u0300-\u036f]/g, '')
         .replace(/[^a-z0-9]+/g, ' ')
         .trim();
+
+    const getDishKey = (dish) => {
+      const withoutParentheses = dish.replace(/\(.*?\)/g, ' ');
+      return normalizeText(withoutParentheses);
     };
+
+    const stopWords = new Set([
+      'with',
+      'and',
+      'or',
+      'the',
+      'a',
+      'an',
+      'plus',
+      'amp',
+      'of',
+      'for',
+      'on',
+      'in',
+      'served',
+      'sauce',
+      'sauces',
+      'sided',
+      'combo'
+    ]);
 
     const initMustTryHighlighter = () => {
       const panel = document.querySelector('.must-try-panel');
@@ -136,11 +160,29 @@ const { Content } = await entry.render();
           button.classList.add(activeClass);
           button.setAttribute('aria-pressed', 'true');
 
-          const normalizedDish = normalizeText(dish);
+          const dishKey = getDishKey(dish);
+          const dishTokens = dishKey.split(' ').filter(Boolean);
+          let meaningfulTokens = dishTokens.filter((token) => {
+            if (stopWords.has(token)) return false;
+            if (/\d/.test(token)) return true;
+            return token.length > 3;
+          });
+          if (!meaningfulTokens.length) {
+            meaningfulTokens = dishTokens;
+          }
+          const requiredTokens =
+            meaningfulTokens.length <= 1
+              ? meaningfulTokens.length
+              : Math.min(meaningfulTokens.length, Math.max(2, Math.ceil(meaningfulTokens.length / 2)));
           let firstMatch = null;
           highlightTargets.forEach((node) => {
             const normalizedTarget = normalizeText(node.textContent || '');
-            if (normalizedTarget.includes(normalizedDish)) {
+            const fullMatch = dishKey && normalizedTarget.includes(dishKey);
+            const tokenMatch =
+              !fullMatch &&
+              meaningfulTokens.length >= requiredTokens &&
+              meaningfulTokens.filter((token) => normalizedTarget.includes(token)).length >= requiredTokens;
+            if (fullMatch || tokenMatch) {
               node.classList.add(highlightClass);
               if (!firstMatch) {
                 firstMatch = node;
