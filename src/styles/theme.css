@@ -900,6 +900,46 @@ img {
   width: 100%;
 }
 
+.wake-toggle {
+  position: fixed;
+  bottom: clamp(0.75rem, 4vw, 1.5rem);
+  right: clamp(0.75rem, 4vw, 1.5rem);
+  writing-mode: vertical-rl;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 1.1rem 0.6rem;
+  background: rgb(255 255 255 / 90%);
+  color: var(--muted);
+  box-shadow: 0 20px 40px rgb(47 36 58 / 16%);
+  z-index: 25;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wake-toggle:hover,
+.wake-toggle:focus-visible {
+  background: var(--accent);
+  color: #fff;
+  outline: none;
+  transform: translateY(-2px);
+  box-shadow: 0 25px 50px rgb(47 36 58 / 22%);
+}
+
+.wake-toggle.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+@media (min-width: 901px) {
+  .wake-toggle {
+    display: none;
+  }
+}
+
 .recipe-step.is-complete {
   border-color: var(--accent-soft);
   background: linear-gradient(120deg, rgb(242 237 255 / 70%), rgb(255 241 236 / 70%));
