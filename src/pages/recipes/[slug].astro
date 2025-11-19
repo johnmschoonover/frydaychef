@@ -176,7 +176,7 @@ const normalizedPhases: RecipePhase[] = (hasPhases
       ) : null}
 
       <section class="recipe-phase-stack">
-        <h2 class="recipe-phase-stack__title">Ingredients &amp; Steps</h2>
+        <h2 class="recipe-phase-stack__title">From prep to plate</h2>
         <div class="recipe-phase-stack__inner">
           {normalizedPhases.map((phase, phaseIndex) => {
             const phaseKey = hasPhases ? `phase-${phaseIndex + 1}` : 'base';
@@ -188,7 +188,7 @@ const normalizedPhases: RecipePhase[] = (hasPhases
                 <div class="recipe-phase__columns">
                   {phase.ingredients.length ? (
                     <div>
-                      <h3>Ingredients</h3>
+                      <h3>Mise en place (Ingredients)</h3>
                       <ul class="recipe-ingredients" data-recipe-key={ingredientKey}>
                         {phase.ingredients.map((ingredient, index) => (
                           <li class="recipe-ingredient">
