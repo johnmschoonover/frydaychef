@@ -156,9 +156,18 @@ const linkedKitchenNotes = kitchenNoteSlugs
       <section style="display:grid;gap:2rem;">
         <div>
           <h2>Ingredients</h2>
-          <ul>
-            {recipe.data.ingredients.map((ingredient) => (
-              <li>{ingredient}</li>
+          <ul class="recipe-ingredients" data-recipe-key={`recipe-ingredients:${recipe.slug}`}>
+            {recipe.data.ingredients.map((ingredient, index) => (
+              <li class="recipe-ingredient">
+                <input
+                  class="ingredient-checkbox"
+                  id={`ingredient-${index + 1}`}
+                  type="checkbox"
+                  data-ingredient-index={index}
+                  aria-label={`Mark ingredient ${index + 1} as gathered`}
+                />
+                <span class="ingredient-text">{ingredient}</span>
+              </li>
             ))}
           </ul>
         </div>
@@ -286,5 +295,63 @@ const linkedKitchenNotes = kitchenNoteSlugs
     };
 
     checkboxes.forEach(syncStep);
+  }
+
+  // Ingredient checklist logic
+  const ingredientList = document.querySelector('.recipe-ingredients');
+
+  if (ingredientList) {
+    const storageKey = ingredientList.getAttribute('data-recipe-key') ?? '';
+
+    const stored = (() => {
+      try {
+        return storageKey ? JSON.parse(localStorage.getItem(storageKey) ?? '[]') : [];
+      } catch (error) {
+        console.warn('Unable to read saved ingredients', error);
+        return [];
+      }
+    })();
+
+    const gathered = new Set<number>(stored);
+    const checkboxes = Array.from(
+      ingredientList.querySelectorAll<HTMLInputElement>('.ingredient-checkbox')
+    );
+
+    const persist = () => {
+      if (!storageKey) return;
+      localStorage.setItem(storageKey, JSON.stringify(Array.from(gathered)));
+    };
+
+    const syncIngredient = (checkbox: HTMLInputElement) => {
+      const index = Number(checkbox.dataset.ingredientIndex ?? '');
+      const container = checkbox.closest('.recipe-ingredient');
+
+      if (gathered.has(index)) {
+        checkbox.checked = true;
+        container?.classList.add('is-complete');
+      }
+
+      checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+          gathered.add(index);
+          container?.classList.add('is-complete');
+        } else {
+          gathered.delete(index);
+          container?.classList.remove('is-complete');
+        }
+
+        persist();
+      });
+
+      container?.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement | null;
+        if (!target || target.closest('a') || target.closest('.ingredient-checkbox')) return;
+
+        checkbox.checked = !checkbox.checked;
+        checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    };
+
+    checkboxes.forEach(syncIngredient);
   }
 </script>
