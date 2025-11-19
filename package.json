@@ -15,7 +15,7 @@
     "format:md": "prettier --cache --write \"**/*.md\"",
     "lint:md": "markdownlint \"**/*.md\"",
     "check:heroes": "node scripts/check-heroes.mjs",
-    "prepare": "husky"
+    "prepare": "node scripts/prepare-husky.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "latest",
@@ -31,8 +31,12 @@
     "prettier": "^3.6.2",
     "stylelint": "^16.25.0",
     "stylelint-config-standard": "^39.0.1",
+    "ts-standard": "^12.0.2",
     "typescript": "^5.9.3",
     "zod": "^3.25.76"
+  },
+  "overrides": {
+    "glob": "11.1.0"
   },
   "lint-staged": {
     "**/*.{md,mdx}": [

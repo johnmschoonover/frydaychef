@@ -3,10 +3,10 @@ module.exports = {
   plugins: [],
   overrides: [
     {
-      files: "*.md",
+      files: '*.md',
       options: {
-        proseWrap: "always"
+        proseWrap: 'always'
       }
     }
   ]
-};
+}
