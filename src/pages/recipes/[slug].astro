@@ -89,7 +89,11 @@ const progressTtlMs = progressTtlHours * 60 * 60 * 1000;
 
 <Base title={recipe.data.title} description={`Cook ${recipe.data.title} with Fryday Chef.`}>
   <Header />
-  <main class="container recipe-layout" data-progress-ttl-ms={progressTtlMs}>
+  <main
+    class="container recipe-layout"
+    data-progress-ttl-ms={progressTtlMs}
+    data-recipe-slug={recipe.slug}
+  >
     <a href="/recipes/">← Back to recipes</a>
     <article style="margin-top:1.5rem;">
       <header
@@ -233,7 +237,10 @@ const progressTtlMs = progressTtlHours * 60 * 60 * 1000;
                           const structured = isStructuredStep(step) ? step : null;
                           const primaryText = structured ? structured.text : step;
                           return (
-                            <li class="recipe-step">
+                            <li
+                              class="recipe-step"
+                              id={`recipe-${recipe.slug}-${phaseKey}-step-${index + 1}`}
+                            >
                               <div class="step-marker">
                                 <input
                                   class="step-checkbox"
@@ -313,17 +320,151 @@ const progressTtlMs = progressTtlHours * 60 * 60 * 1000;
     </article>
   </main>
   <Footer />
+  <button
+    type="button"
+    class="wake-toggle"
+    data-wake-toggle
+    hidden
+    aria-pressed="false"
+  >
+    Keep Screen Awake
+  </button>
 </Base>
 <script>
   const recipeLayout = document.querySelector<HTMLElement>('.recipe-layout');
   const fallbackTtl = 24 * 60 * 60 * 1000;
   const ttlAttr = Number(recipeLayout?.dataset.progressTtlMs ?? '');
   const progressTtlMs = Number.isFinite(ttlAttr) && ttlAttr > 0 ? ttlAttr : fallbackTtl;
+  const recipeSlug = recipeLayout?.dataset.recipeSlug ?? '';
+  const locationStorageKey = recipeSlug ? `recipe-location:${recipeSlug}` : '';
 
   const shouldResetForTtl = (timestamp: number) => {
     if (!progressTtlMs || !Number.isFinite(progressTtlMs)) return false;
     return Date.now() - timestamp > progressTtlMs;
   };
+
+  type StoredLocationState = {
+    anchorId?: string;
+    scrollY?: number;
+  };
+
+  const readSavedLocation = (storageKey: string): StoredLocationState | null => {
+    if (!storageKey) return null;
+
+    try {
+      const rawValue = localStorage.getItem(storageKey);
+      if (!rawValue) return null;
+      const parsed = JSON.parse(rawValue);
+      const timestamp = Number(parsed?.timestamp ?? 0);
+
+      if (timestamp && shouldResetForTtl(timestamp)) {
+        localStorage.removeItem(storageKey);
+        return null;
+      }
+
+      const anchorId =
+        typeof parsed?.anchorId === 'string' && parsed.anchorId.length ? parsed.anchorId : undefined;
+      const scrollY =
+        typeof parsed?.scrollY === 'number' && Number.isFinite(parsed.scrollY)
+          ? parsed.scrollY
+          : undefined;
+
+      if (!anchorId && typeof scrollY === 'undefined') {
+        return null;
+      }
+
+      return { anchorId, scrollY };
+    } catch (error) {
+      console.warn('Unable to read saved recipe location', error);
+      return null;
+    }
+  };
+
+  const persistLocationPayload = (storageKey: string, payload: StoredLocationState) => {
+    if (!storageKey) return;
+    const hasAnchor = Boolean(payload.anchorId);
+    const hasScroll = typeof payload.scrollY === 'number' && Number.isFinite(payload.scrollY);
+
+    if (!hasAnchor && !hasScroll) {
+      localStorage.removeItem(storageKey);
+      return;
+    }
+
+    try {
+      localStorage.setItem(
+        storageKey,
+        JSON.stringify({
+          anchorId: hasAnchor ? payload.anchorId : undefined,
+          scrollY: hasScroll ? payload.scrollY : undefined,
+          timestamp: Date.now()
+        })
+      );
+    } catch (error) {
+      console.warn('Unable to persist recipe location', error);
+    }
+  };
+
+  const savedLocation = readSavedLocation(locationStorageKey);
+  const locationState: StoredLocationState = {
+    anchorId: savedLocation?.anchorId,
+    scrollY: savedLocation?.scrollY
+  };
+  let locationSaveHandle: number | undefined;
+
+  const queueLocationSave = () => {
+    if (!locationStorageKey) return;
+    window.clearTimeout(locationSaveHandle);
+    locationSaveHandle = window.setTimeout(() => {
+      persistLocationPayload(locationStorageKey, locationState);
+    }, 300);
+  };
+
+  const rememberLocation = (partial: StoredLocationState) => {
+    if (partial.anchorId) {
+      locationState.anchorId = partial.anchorId;
+    }
+
+    if (typeof partial.scrollY === 'number' && Number.isFinite(partial.scrollY)) {
+      locationState.scrollY = partial.scrollY;
+    }
+
+    queueLocationSave();
+  };
+
+  const applySavedLocation = (location: StoredLocationState) => {
+    if (location.anchorId) {
+      const target = document.getElementById(location.anchorId);
+      if (target) {
+        target.scrollIntoView({ block: 'center' });
+        return;
+      }
+    }
+
+    if (typeof location.scrollY === 'number' && Number.isFinite(location.scrollY)) {
+      window.scrollTo({ top: location.scrollY });
+    }
+  };
+
+  if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual';
+  }
+
+  if (savedLocation && !window.location.hash) {
+    window.setTimeout(() => applySavedLocation(savedLocation), 200);
+  }
+
+  window.addEventListener(
+    'scroll',
+    () => {
+      rememberLocation({ scrollY: window.scrollY });
+    },
+    { passive: true }
+  );
+
+  window.addEventListener('beforeunload', () => {
+    if (!locationStorageKey) return;
+    persistLocationPayload(locationStorageKey, locationState);
+  });
 
   const readStoredIndexes = (storageKey: string) => {
     if (!storageKey) return [];
@@ -400,6 +541,7 @@ const progressTtlMs = progressTtlHours * 60 * 60 * 1000;
     const syncStep = (checkbox: HTMLInputElement) => {
       const stepIndex = Number(checkbox.dataset.stepIndex ?? '');
       const container = checkbox.closest('.recipe-step');
+      const anchorId = container?.id ?? '';
 
       if (completed.has(stepIndex)) {
         checkbox.checked = true;
@@ -416,6 +558,9 @@ const progressTtlMs = progressTtlHours * 60 * 60 * 1000;
         }
 
         persist();
+        if (anchorId) {
+          rememberLocation({ anchorId, scrollY: window.scrollY });
+        }
       });
 
       container?.addEventListener('click', (event) => {
@@ -512,4 +657,113 @@ const progressTtlMs = progressTtlHours * 60 * 60 * 1000;
       checklistControllers.forEach((controller) => controller.reset());
     });
   });
+
+  type NavigatorWithWakeLock = Navigator & {
+    wakeLock: {
+      request: (type: 'screen') => Promise<WakeLockSentinel>;
+    };
+  };
+
+  const wakeToggle = document.querySelector<HTMLButtonElement>('[data-wake-toggle]');
+  const canUseWakeLock = typeof navigator !== 'undefined' && 'wakeLock' in navigator;
+  const wakePreferenceKey = recipeSlug ? `recipe-wake:${recipeSlug}` : '';
+  const storedWakePreference =
+    wakePreferenceKey && localStorage.getItem(wakePreferenceKey) === 'active';
+  let shouldHoldWakeLock = Boolean(storedWakePreference);
+  let wakeLock: WakeLockSentinel | null = null;
+
+  const updateWakePreference = (next: boolean) => {
+    shouldHoldWakeLock = next;
+    if (!wakePreferenceKey) return;
+    if (next) {
+      localStorage.setItem(wakePreferenceKey, 'active');
+    } else {
+      localStorage.removeItem(wakePreferenceKey);
+    }
+  };
+
+  const setWakeToggleState = (isActive: boolean) => {
+    if (!wakeToggle) return;
+    wakeToggle.setAttribute('aria-pressed', String(isActive));
+    wakeToggle.classList.toggle('is-active', isActive);
+    wakeToggle.textContent = isActive ? 'Screen Awake' : 'Keep Screen Awake';
+  };
+
+  const updateWakeToggleVisibility = () => {
+    if (!wakeToggle) return;
+    const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    const narrowViewport = window.matchMedia('(max-width: 900px)').matches;
+    const shouldShow = canUseWakeLock && (coarsePointer || narrowViewport);
+    wakeToggle.hidden = !shouldShow;
+  };
+
+  const requestWakeLock = async () => {
+    if (!canUseWakeLock || !wakeToggle) return;
+    try {
+      wakeLock = await (navigator as NavigatorWithWakeLock).wakeLock.request('screen');
+      setWakeToggleState(true);
+      wakeLock.addEventListener('release', () => {
+        wakeLock = null;
+        setWakeToggleState(false);
+        if (shouldHoldWakeLock && document.visibilityState === 'visible') {
+          requestWakeLock();
+        }
+      });
+    } catch (error) {
+      console.warn('Unable to enable wake lock', error);
+      setWakeToggleState(false);
+      if (document.visibilityState === 'visible') {
+        updateWakePreference(false);
+      }
+    }
+  };
+
+  const releaseWakeLock = async () => {
+    if (!wakeLock) {
+      setWakeToggleState(false);
+      return;
+    }
+    try {
+      await wakeLock.release();
+    } catch (error) {
+      console.warn('Unable to release wake lock', error);
+    } finally {
+      wakeLock = null;
+      setWakeToggleState(false);
+    }
+  };
+
+  const tryEnableWakeLock = () => {
+    if (!shouldHoldWakeLock || wakeLock || !canUseWakeLock || !wakeToggle || wakeToggle.hidden) {
+      return;
+    }
+    if (document.visibilityState !== 'visible') return;
+    requestWakeLock();
+  };
+
+  wakeToggle?.addEventListener('click', () => {
+    const nextState = !shouldHoldWakeLock;
+    updateWakePreference(nextState);
+    if (nextState) {
+      requestWakeLock();
+    } else {
+      releaseWakeLock();
+    }
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      tryEnableWakeLock();
+    }
+  });
+
+  updateWakeToggleVisibility();
+  window.addEventListener('resize', () => {
+    updateWakeToggleVisibility();
+    tryEnableWakeLock();
+  });
+
+  if (shouldHoldWakeLock) {
+    tryEnableWakeLock();
+  }
 </script>
