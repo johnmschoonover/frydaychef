@@ -903,7 +903,7 @@ img {
 .wake-toggle {
   position: fixed;
   bottom: clamp(0.75rem, 4vw, 1.5rem);
-  right: clamp(0.25rem, 1.5vw, 0.75rem);
+  right: max(0.5rem, calc((100vw - 100%) / -2 + 0.5rem));
   writing-mode: vertical-rl;
   text-transform: uppercase;
   letter-spacing: 0.2em;
