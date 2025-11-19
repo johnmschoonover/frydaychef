@@ -25,6 +25,7 @@ type StructuredStep = {
   optionsLabel?: string;
   options?: StepOption[];
   completeLabel?: string;
+  warningLabel?: string;
 };
 
 type RecipeStep = string | StructuredStep;
@@ -80,11 +81,15 @@ const normalizedPhases: RecipePhase[] = (hasPhases
   ingredients: phase.ingredients ?? [],
   steps: phase.steps ?? []
 }));
+const { Content } = await recipe.render();
+const hasEntryBody = Boolean(recipe.body?.trim());
+const progressTtlHours = recipe.data.progressTtlHours ?? 24;
+const progressTtlMs = progressTtlHours * 60 * 60 * 1000;
 ---
 
 <Base title={recipe.data.title} description={`Cook ${recipe.data.title} with Fryday Chef.`}>
   <Header />
-  <main class="container recipe-layout">
+  <main class="container recipe-layout" data-progress-ttl-ms={progressTtlMs}>
     <a href="/recipes/">← Back to recipes</a>
     <article style="margin-top:1.5rem;">
       <header
@@ -164,19 +169,34 @@ const normalizedPhases: RecipePhase[] = (hasPhases
         </dl>
       </header>
 
-      {heroSrc ? (
-        <img
-          src={heroSrc}
-          alt={`Hero image for ${recipe.data.title}`}
-          style="margin:2rem 0;border-radius:1rem;border:1px solid var(--border);"
-          loading="lazy"
-          width="800"
-          height="450"
-        />
+      {heroSrc || hasEntryBody ? (
+        <section class="recipe-hero-intro">
+          {heroSrc ? (
+            <div class="recipe-hero-figure">
+              <img
+                src={heroSrc}
+                alt={`Hero image for ${recipe.data.title}`}
+                loading="lazy"
+                width="800"
+                height="450"
+              />
+            </div>
+          ) : null}
+          {hasEntryBody ? (
+            <div class="recipe-intro-copy entry-content">
+              <Content />
+            </div>
+          ) : null}
+        </section>
       ) : null}
 
       <section class="recipe-phase-stack">
-        <h2 class="recipe-phase-stack__title">From prep to plate</h2>
+        <div class="recipe-phase-stack__header">
+          <h2 class="recipe-phase-stack__title">From prep to plate</h2>
+          <button type="button" class="checklist-reset-button" data-reset-progress>
+            Reset progress
+          </button>
+        </div>
         <div class="recipe-phase-stack__inner">
           {normalizedPhases.map((phase, phaseIndex) => {
             const phaseKey = hasPhases ? `phase-${phaseIndex + 1}` : 'base';
@@ -231,6 +251,19 @@ const normalizedPhases: RecipePhase[] = (hasPhases
                               </div>
                               <div class="step-content">
                                 <p>{primaryText}</p>
+                                {structured?.warningLabel ? (
+                                  <div class="step-alert" role="note" aria-live="polite">
+                                    <span class="step-alert__icon" aria-hidden="true">
+                                      <svg width="20" height="20" viewBox="0 0 24 24" focusable="false">
+                                        <path
+                                          fill="currentColor"
+                                          d="M12 2 1 21h22zm0 4.63L19.53 19H4.47zm-1 6.37h2v4h-2zm0 5.5h2V19h-2z"
+                                        />
+                                      </svg>
+                                    </span>
+                                    <span class="step-alert__label">{structured.warningLabel}</span>
+                                  </div>
+                                ) : null}
                                 {structured?.detail ? <p class="step-detail">{structured.detail}</p> : null}
                                 {structured?.options?.length ? (
                                   <div class="step-options">
@@ -277,30 +310,83 @@ const normalizedPhases: RecipePhase[] = (hasPhases
           </div>
         </section>
       ) : null}
-      <div style="margin-top:2rem;">
-        <slot />
-      </div>
     </article>
   </main>
   <Footer />
 </Base>
 <script>
+  const recipeLayout = document.querySelector<HTMLElement>('.recipe-layout');
+  const fallbackTtl = 24 * 60 * 60 * 1000;
+  const ttlAttr = Number(recipeLayout?.dataset.progressTtlMs ?? '');
+  const progressTtlMs = Number.isFinite(ttlAttr) && ttlAttr > 0 ? ttlAttr : fallbackTtl;
+
+  const shouldResetForTtl = (timestamp: number) => {
+    if (!progressTtlMs || !Number.isFinite(progressTtlMs)) return false;
+    return Date.now() - timestamp > progressTtlMs;
+  };
+
   const readStoredIndexes = (storageKey: string) => {
     if (!storageKey) return [];
     try {
-      const parsed = JSON.parse(localStorage.getItem(storageKey) ?? '[]');
-      return Array.isArray(parsed)
-        ? parsed
-            .map((value) => Number(value))
-            .filter((value) => Number.isFinite(value))
-        : [];
+      const rawValue = localStorage.getItem(storageKey);
+      if (!rawValue) return [];
+      const parsed = JSON.parse(rawValue);
+      let values: number[] = [];
+      let timestamp = Date.now();
+
+      if (Array.isArray(parsed)) {
+        values = parsed;
+      } else if (parsed && Array.isArray(parsed.completed)) {
+        values = parsed.completed;
+        if (typeof parsed.timestamp === 'number') {
+          timestamp = parsed.timestamp;
+        }
+      } else {
+        return [];
+      }
+
+      const normalized = values
+        .map((value) => Number(value))
+        .filter((value) => Number.isFinite(value));
+
+      if (!normalized.length) {
+        localStorage.removeItem(storageKey);
+        return [];
+      }
+
+      if (shouldResetForTtl(timestamp)) {
+        localStorage.removeItem(storageKey);
+        return [];
+      }
+
+      return normalized;
     } catch (error) {
       console.warn('Unable to read saved checklist', error);
       return [];
     }
   };
 
+  const persistIndexes = (storageKey: string, indexes: Set<number>) => {
+    if (!storageKey) return;
+    if (!indexes.size) {
+      localStorage.removeItem(storageKey);
+      return;
+    }
+
+    const payload = {
+      completed: Array.from(indexes),
+      timestamp: Date.now()
+    };
+
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(payload));
+    } catch (error) {
+      console.warn('Unable to persist checklist', error);
+    }
+  };
+
   const stepLists = Array.from(document.querySelectorAll<HTMLOListElement>('.recipe-steps'));
+  const checklistControllers: Array<{ reset: () => void }> = [];
 
   stepLists.forEach((stepList) => {
     const storageKey = stepList.getAttribute('data-recipe-key') ?? '';
@@ -308,8 +394,7 @@ const normalizedPhases: RecipePhase[] = (hasPhases
     const checkboxes = Array.from(stepList.querySelectorAll<HTMLInputElement>('.step-checkbox'));
 
     const persist = () => {
-      if (!storageKey) return;
-      localStorage.setItem(storageKey, JSON.stringify(Array.from(completed)));
+      persistIndexes(storageKey, completed);
     };
 
     const syncStep = (checkbox: HTMLInputElement) => {
@@ -343,6 +428,17 @@ const normalizedPhases: RecipePhase[] = (hasPhases
     };
 
     checkboxes.forEach(syncStep);
+
+    checklistControllers.push({
+      reset: () => {
+        completed.clear();
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = false;
+          checkbox.closest('.recipe-step')?.classList.remove('is-complete');
+        });
+        persist();
+      }
+    });
   });
 
   const ingredientLists = Array.from(
@@ -357,8 +453,7 @@ const normalizedPhases: RecipePhase[] = (hasPhases
     );
 
     const persist = () => {
-      if (!storageKey) return;
-      localStorage.setItem(storageKey, JSON.stringify(Array.from(gathered)));
+      persistIndexes(storageKey, gathered);
     };
 
     const syncIngredient = (checkbox: HTMLInputElement) => {
@@ -392,5 +487,29 @@ const normalizedPhases: RecipePhase[] = (hasPhases
     };
 
     checkboxes.forEach(syncIngredient);
+
+    checklistControllers.push({
+      reset: () => {
+        gathered.clear();
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = false;
+          checkbox.closest('.recipe-ingredient')?.classList.remove('is-complete');
+        });
+        persist();
+      }
+    });
+  });
+
+  const resetButtons = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('[data-reset-progress]')
+  );
+
+  resetButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      if (!checklistControllers.length) return;
+      const shouldReset = window.confirm('Reset all ingredient and step progress for this recipe?');
+      if (!shouldReset) return;
+      checklistControllers.forEach((controller) => controller.reset());
+    });
   });
 </script>

@@ -15,6 +15,7 @@
     "format:md": "prettier --cache --write \"**/*.md\"",
     "lint:md": "markdownlint \"**/*.md\"",
     "check:heroes": "node scripts/check-heroes.mjs",
+    "check:progress-ttl": "node scripts/check-progress-ttl.mjs",
     "prepare": "node scripts/prepare-husky.mjs"
   },
   "dependencies": {

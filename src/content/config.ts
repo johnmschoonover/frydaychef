@@ -15,7 +15,8 @@ const recipeStepSchema = z.union([
     completeLabel: z
       .string()
       .max(48, 'Step completion labels should stay under 48 characters for layout constraints.')
-      .optional()
+      .optional(),
+    warningLabel: z.string().optional()
   })
 ])
 
@@ -54,6 +55,7 @@ const recipes = defineCollection({
       hero: z.string().optional(),
       variantGroup: z.string().optional(),
       complexityLevel: z.number().int().min(1).optional(),
+      progressTtlHours: z.number().int().positive().optional(),
       draft: z.boolean().default(false)
     }).refine(
       (entry) =>
