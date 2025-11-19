@@ -61,11 +61,18 @@ const { Content } = await entry.render();
       <p style="font-size:1.1rem;color:var(--muted);">{entry.data.summary}</p>
 
       {entry.data.mustTry.length ? (
-        <section style="margin:2rem 0;">
-          <h2>Must-try bites</h2>
-          <ul>
+        <section class="must-try-panel">
+          <div class="must-try-header">
+            <h2>Must-try bites</h2>
+            <p class="must-try-hint">Tap a bite to spotlight where it shows up.</p>
+          </div>
+          <ul class="must-try-list" data-count={entry.data.mustTry.length}>
             {entry.data.mustTry.map((dish) => (
-              <li>{dish}</li>
+              <li>
+                <button type="button" class="must-try-chip" data-dish={dish} aria-pressed="false">
+                  <span>{dish}</span>
+                </button>
+              </li>
             ))}
           </ul>
         </section>
@@ -80,9 +87,142 @@ const { Content } = await entry.render();
     </article>
   </main>
   <Footer />
+  <script is:inline>
+    const normalizeText = (value) => {
+      return value
+        .toLowerCase()
+        .normalize('NFKD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, ' ')
+        .trim();
+    };
+
+    const initMustTryHighlighter = () => {
+      const panel = document.querySelector('.must-try-panel');
+      const entryContent = document.querySelector('.entry-content');
+      if (!panel || !entryContent) return;
+
+      const buttons = panel.querySelectorAll('.must-try-chip');
+      if (!buttons.length) return;
+
+      const highlightTargets = Array.from(entryContent.querySelectorAll('p, li')).filter(
+        (node) => node.textContent && node.textContent.trim().length > 0
+      );
+      const highlightClass = 'dish-highlight';
+      const activeClass = 'is-active';
+
+      const clearHighlights = () => {
+        highlightTargets.forEach((node) => {
+          node.classList.remove(highlightClass);
+        });
+      };
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const dish = button.dataset.dish;
+          if (!dish) return;
+
+          const isActive = button.classList.contains(activeClass);
+          buttons.forEach((btn) => {
+            btn.classList.remove(activeClass);
+            btn.setAttribute('aria-pressed', 'false');
+          });
+          clearHighlights();
+
+          if (isActive) {
+            return;
+          }
+
+          button.classList.add(activeClass);
+          button.setAttribute('aria-pressed', 'true');
+
+          const normalizedDish = normalizeText(dish);
+          let firstMatch = null;
+          highlightTargets.forEach((node) => {
+            const normalizedTarget = normalizeText(node.textContent || '');
+            if (normalizedTarget.includes(normalizedDish)) {
+              node.classList.add(highlightClass);
+              if (!firstMatch) {
+                firstMatch = node;
+              }
+            }
+          });
+
+          if (!firstMatch) {
+            button.classList.remove(activeClass);
+            button.setAttribute('aria-pressed', 'false');
+            return;
+          }
+
+          firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initMustTryHighlighter);
+    } else {
+      initMustTryHighlighter();
+    }
+  </script>
 </Base>
 
 <style>
+  .must-try-panel {
+    margin: 2rem 0;
+    padding: 1.25rem;
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    background: var(--surface-soft);
+  }
+
+  .must-try-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .must-try-hint {
+    color: var(--muted);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .must-try-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .must-try-chip {
+    appearance: none;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: white;
+    padding: 0.4rem 0.9rem;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .must-try-chip:hover,
+  .must-try-chip:focus-visible {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .must-try-chip.is-active {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: 600;
+  }
+
   .restaurant-layout {
     display: flex;
     gap: 2rem;
@@ -165,5 +305,14 @@ const { Content } = await entry.render();
 
   html {
     scroll-behavior: smooth;
+  }
+
+  :global(.dish-highlight) {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    padding-left: 0.65rem;
+    border-radius: 0.35rem;
+    box-shadow: 0 0 0 1px var(--accent-soft);
+    transition: background 0.2s ease, border-color 0.2s ease;
   }
 </style>
