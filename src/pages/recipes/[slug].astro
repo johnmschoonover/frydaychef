@@ -24,11 +24,24 @@ type StructuredStep = {
   detail?: string;
   optionsLabel?: string;
   options?: StepOption[];
+  completeLabel?: string;
+  warningLabel?: string;
 };
 
 type RecipeStep = string | StructuredStep;
 
+type RecipePhase = {
+  title?: string;
+  ingredients: string[];
+  steps: RecipeStep[];
+};
+
 const isStructuredStep = (step: RecipeStep): step is StructuredStep => typeof step !== 'string';
+
+const getPhaseAwareIngredients = (entry: CollectionEntry<'recipes'>) => {
+  if (entry.data.ingredients.length) return entry.data.ingredients;
+  return entry.data.phases?.flatMap((phase) => phase.ingredients ?? []) ?? [];
+};
 
 const { recipe } = Astro.props as { recipe: CollectionEntry<'recipes'> };
 const formattedDate = new Intl.DateTimeFormat('en', { dateStyle: 'long' }).format(recipe.data.date);
@@ -47,7 +60,7 @@ const variantList = variantGroup
   : [];
 const showVariantSelector = variantList.length > 1;
 const formatPreviewText = (entry: CollectionEntry<'recipes'>) =>
-  (entry.data.ingredients ?? []).slice(0, 2).join(', ');
+  getPhaseAwareIngredients(entry).slice(0, 2).join(', ');
 const kitchenNoteSlugs = recipe.data.kitchenNotes ?? [];
 const allKitchenNotes = kitchenNoteSlugs.length
   ? await getCollection('kitchen-notes')
@@ -58,11 +71,25 @@ const kitchenNoteMap = new Map(
 const linkedKitchenNotes = kitchenNoteSlugs
   .map((slug) => kitchenNoteMap.get(slug))
   .filter((note): note is CollectionEntry<'kitchen-notes'> => Boolean(note));
+const phases: RecipePhase[] = recipe.data.phases ?? [];
+const hasPhases = phases.length > 0;
+const normalizedPhases: RecipePhase[] = (hasPhases
+  ? phases
+  : [{ title: undefined, ingredients: recipe.data.ingredients, steps: recipe.data.steps }]
+).map((phase) => ({
+  title: phase.title,
+  ingredients: phase.ingredients ?? [],
+  steps: phase.steps ?? []
+}));
+const { Content } = await recipe.render();
+const hasEntryBody = Boolean(recipe.body?.trim());
+const progressTtlHours = recipe.data.progressTtlHours ?? 24;
+const progressTtlMs = progressTtlHours * 60 * 60 * 1000;
 ---
 
 <Base title={recipe.data.title} description={`Cook ${recipe.data.title} with Fryday Chef.`}>
   <Header />
-  <main class="container" style="max-width:70ch;">
+  <main class="container recipe-layout" data-progress-ttl-ms={progressTtlMs}>
     <a href="/recipes/">← Back to recipes</a>
     <article style="margin-top:1.5rem;">
       <header
@@ -142,79 +169,128 @@ const linkedKitchenNotes = kitchenNoteSlugs
         </dl>
       </header>
 
-      {heroSrc ? (
-        <img
-          src={heroSrc}
-          alt={`Hero image for ${recipe.data.title}`}
-          style="margin:2rem 0;border-radius:1rem;border:1px solid var(--border);"
-          loading="lazy"
-          width="800"
-          height="450"
-        />
+      {heroSrc || hasEntryBody ? (
+        <section class="recipe-hero-intro">
+          {heroSrc ? (
+            <div class="recipe-hero-figure">
+              <img
+                src={heroSrc}
+                alt={`Hero image for ${recipe.data.title}`}
+                loading="lazy"
+                width="800"
+                height="450"
+              />
+            </div>
+          ) : null}
+          {hasEntryBody ? (
+            <div class="recipe-intro-copy entry-content">
+              <Content />
+            </div>
+          ) : null}
+        </section>
       ) : null}
 
-      <section style="display:grid;gap:2rem;">
-        <div>
-          <h2>Ingredients</h2>
-          <ul class="recipe-ingredients" data-recipe-key={`recipe-ingredients:${recipe.slug}`}>
-            {recipe.data.ingredients.map((ingredient, index) => (
-              <li class="recipe-ingredient">
-                <input
-                  class="ingredient-checkbox"
-                  id={`ingredient-${index + 1}`}
-                  type="checkbox"
-                  data-ingredient-index={index}
-                  aria-label={`Mark ingredient ${index + 1} as gathered`}
-                />
-                <span class="ingredient-text">{ingredient}</span>
-              </li>
-            ))}
-          </ul>
+      <section class="recipe-phase-stack">
+        <div class="recipe-phase-stack__header">
+          <h2 class="recipe-phase-stack__title">From prep to plate</h2>
+          <button type="button" class="checklist-reset-button" data-reset-progress>
+            Reset progress
+          </button>
         </div>
-        <div>
-          <h2>Steps</h2>
-          <ol class="recipe-steps" data-recipe-key={`recipe-steps:${recipe.slug}`}>
-            {recipe.data.steps.map((step, index) => {
-              const structured = isStructuredStep(step) ? step : null;
-              const primaryText = structured ? structured.text : step;
-              return (
-                <li class="recipe-step">
-                  <div class="step-marker">
-                    <input
-                      class="step-checkbox"
-                      id={`step-${index + 1}`}
-                      type="checkbox"
-                      data-step-index={index}
-                      aria-label={`Mark step ${index + 1} as complete`}
-                    />
-                    <div class="step-number" aria-hidden="true">
-                      <span>{String(index + 1).padStart(2, '0')}</span>
+        <div class="recipe-phase-stack__inner">
+          {normalizedPhases.map((phase, phaseIndex) => {
+            const phaseKey = hasPhases ? `phase-${phaseIndex + 1}` : 'base';
+            const ingredientKey = `recipe-ingredients:${recipe.slug}:${phaseKey}`;
+            const stepKey = `recipe-steps:${recipe.slug}:${phaseKey}`;
+            return (
+              <article class="recipe-phase">
+                {phase.title ? <p class="recipe-phase__label">{phase.title}</p> : null}
+                <div class="recipe-phase__columns">
+                  {phase.ingredients.length ? (
+                    <div>
+                      <h3>Mise en place (Ingredients)</h3>
+                      <ul class="recipe-ingredients" data-recipe-key={ingredientKey}>
+                        {phase.ingredients.map((ingredient, index) => (
+                          <li class="recipe-ingredient">
+                            <input
+                              class="ingredient-checkbox"
+                              id={`ingredient-${phaseKey}-${index + 1}`}
+                              type="checkbox"
+                              data-ingredient-index={index}
+                              aria-label={`Mark ingredient ${index + 1}${phase.title ? ` for ${phase.title}` : ''} as gathered`}
+                            />
+                            <span class="ingredient-text">{ingredient}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <span class="step-complete-label">Done</span>
-                  </div>
-                  <div class="step-content">
-                    <p>{primaryText}</p>
-                    {structured?.detail ? <p class="step-detail">{structured.detail}</p> : null}
-                    {structured?.options?.length ? (
-                      <div class="step-options">
-                        {structured.optionsLabel ? (
-                          <p class="step-options-label">{structured.optionsLabel}</p>
-                        ) : null}
-                        <div class="step-options-grid">
-                          {structured.options.map((option) => (
-                            <div class="step-option">
-                              {option.title ? <h4>{option.title}</h4> : null}
-                              <p>{option.description}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ) : null}
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
+                  ) : null}
+                  {phase.steps.length ? (
+                    <div>
+                      <h3>Steps</h3>
+                      <ol class="recipe-steps" data-recipe-key={stepKey}>
+                        {phase.steps.map((step, index) => {
+                          const structured = isStructuredStep(step) ? step : null;
+                          const primaryText = structured ? structured.text : step;
+                          return (
+                            <li class="recipe-step">
+                              <div class="step-marker">
+                                <input
+                                  class="step-checkbox"
+                                  id={`step-${phaseKey}-${index + 1}`}
+                                  type="checkbox"
+                                  data-step-index={index}
+                                  aria-label={`Mark step ${index + 1}${phase.title ? ` in ${phase.title}` : ''} as complete`}
+                                />
+                                <div class="step-number" aria-hidden="true">
+                                  <span>{String(index + 1).padStart(2, '0')}</span>
+                                </div>
+                                <span class="step-complete-label">
+                                  {structured?.completeLabel ?? 'Done'}
+                                </span>
+                              </div>
+                              <div class="step-content">
+                                <p>{primaryText}</p>
+                                {structured?.warningLabel ? (
+                                  <div class="step-alert" role="note" aria-live="polite">
+                                    <span class="step-alert__icon" aria-hidden="true">
+                                      <svg width="20" height="20" viewBox="0 0 24 24" focusable="false">
+                                        <path
+                                          fill="currentColor"
+                                          d="M12 2 1 21h22zm0 4.63L19.53 19H4.47zm-1 6.37h2v4h-2zm0 5.5h2V19h-2z"
+                                        />
+                                      </svg>
+                                    </span>
+                                    <span class="step-alert__label">{structured.warningLabel}</span>
+                                  </div>
+                                ) : null}
+                                {structured?.detail ? <p class="step-detail">{structured.detail}</p> : null}
+                                {structured?.options?.length ? (
+                                  <div class="step-options">
+                                    {structured.optionsLabel ? (
+                                      <p class="step-options-label">{structured.optionsLabel}</p>
+                                    ) : null}
+                                    <div class="step-options-grid">
+                                      {structured.options.map((option) => (
+                                        <div class="step-option">
+                                          {option.title ? <h4>{option.title}</h4> : null}
+                                          <p>{option.description}</p>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                ) : null}
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ol>
+                    </div>
+                  ) : null}
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
       {linkedKitchenNotes.length ? (
@@ -234,34 +310,91 @@ const linkedKitchenNotes = kitchenNoteSlugs
           </div>
         </section>
       ) : null}
-      <div style="margin-top:2rem;">
-        <slot />
-      </div>
     </article>
   </main>
   <Footer />
 </Base>
 <script>
-  const stepList = document.querySelector('.recipe-steps');
+  const recipeLayout = document.querySelector<HTMLElement>('.recipe-layout');
+  const fallbackTtl = 24 * 60 * 60 * 1000;
+  const ttlAttr = Number(recipeLayout?.dataset.progressTtlMs ?? '');
+  const progressTtlMs = Number.isFinite(ttlAttr) && ttlAttr > 0 ? ttlAttr : fallbackTtl;
 
-  if (stepList) {
-    const storageKey = stepList.getAttribute('data-recipe-key') ?? '';
+  const shouldResetForTtl = (timestamp: number) => {
+    if (!progressTtlMs || !Number.isFinite(progressTtlMs)) return false;
+    return Date.now() - timestamp > progressTtlMs;
+  };
 
-    const stored = (() => {
-      try {
-        return storageKey ? JSON.parse(localStorage.getItem(storageKey) ?? '[]') : [];
-      } catch (error) {
-        console.warn('Unable to read saved steps', error);
+  const readStoredIndexes = (storageKey: string) => {
+    if (!storageKey) return [];
+    try {
+      const rawValue = localStorage.getItem(storageKey);
+      if (!rawValue) return [];
+      const parsed = JSON.parse(rawValue);
+      let values: number[] = [];
+      let timestamp = Date.now();
+
+      if (Array.isArray(parsed)) {
+        values = parsed;
+      } else if (parsed && Array.isArray(parsed.completed)) {
+        values = parsed.completed;
+        if (typeof parsed.timestamp === 'number') {
+          timestamp = parsed.timestamp;
+        }
+      } else {
         return [];
       }
-    })();
 
-    const completed = new Set(stored);
+      const normalized = values
+        .map((value) => Number(value))
+        .filter((value) => Number.isFinite(value));
+
+      if (!normalized.length) {
+        localStorage.removeItem(storageKey);
+        return [];
+      }
+
+      if (shouldResetForTtl(timestamp)) {
+        localStorage.removeItem(storageKey);
+        return [];
+      }
+
+      return normalized;
+    } catch (error) {
+      console.warn('Unable to read saved checklist', error);
+      return [];
+    }
+  };
+
+  const persistIndexes = (storageKey: string, indexes: Set<number>) => {
+    if (!storageKey) return;
+    if (!indexes.size) {
+      localStorage.removeItem(storageKey);
+      return;
+    }
+
+    const payload = {
+      completed: Array.from(indexes),
+      timestamp: Date.now()
+    };
+
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(payload));
+    } catch (error) {
+      console.warn('Unable to persist checklist', error);
+    }
+  };
+
+  const stepLists = Array.from(document.querySelectorAll<HTMLOListElement>('.recipe-steps'));
+  const checklistControllers: Array<{ reset: () => void }> = [];
+
+  stepLists.forEach((stepList) => {
+    const storageKey = stepList.getAttribute('data-recipe-key') ?? '';
+    const completed = new Set<number>(readStoredIndexes(storageKey));
     const checkboxes = Array.from(stepList.querySelectorAll<HTMLInputElement>('.step-checkbox'));
 
     const persist = () => {
-      if (!storageKey) return;
-      localStorage.setItem(storageKey, JSON.stringify(Array.from(completed)));
+      persistIndexes(storageKey, completed);
     };
 
     const syncStep = (checkbox: HTMLInputElement) => {
@@ -295,31 +428,32 @@ const linkedKitchenNotes = kitchenNoteSlugs
     };
 
     checkboxes.forEach(syncStep);
-  }
 
-  // Ingredient checklist logic
-  const ingredientList = document.querySelector('.recipe-ingredients');
-
-  if (ingredientList) {
-    const storageKey = ingredientList.getAttribute('data-recipe-key') ?? '';
-
-    const stored = (() => {
-      try {
-        return storageKey ? JSON.parse(localStorage.getItem(storageKey) ?? '[]') : [];
-      } catch (error) {
-        console.warn('Unable to read saved ingredients', error);
-        return [];
+    checklistControllers.push({
+      reset: () => {
+        completed.clear();
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = false;
+          checkbox.closest('.recipe-step')?.classList.remove('is-complete');
+        });
+        persist();
       }
-    })();
+    });
+  });
 
-    const gathered = new Set<number>(stored);
+  const ingredientLists = Array.from(
+    document.querySelectorAll<HTMLUListElement>('.recipe-ingredients')
+  );
+
+  ingredientLists.forEach((ingredientList) => {
+    const storageKey = ingredientList.getAttribute('data-recipe-key') ?? '';
+    const gathered = new Set<number>(readStoredIndexes(storageKey));
     const checkboxes = Array.from(
       ingredientList.querySelectorAll<HTMLInputElement>('.ingredient-checkbox')
     );
 
     const persist = () => {
-      if (!storageKey) return;
-      localStorage.setItem(storageKey, JSON.stringify(Array.from(gathered)));
+      persistIndexes(storageKey, gathered);
     };
 
     const syncIngredient = (checkbox: HTMLInputElement) => {
@@ -353,5 +487,29 @@ const linkedKitchenNotes = kitchenNoteSlugs
     };
 
     checkboxes.forEach(syncIngredient);
-  }
+
+    checklistControllers.push({
+      reset: () => {
+        gathered.clear();
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = false;
+          checkbox.closest('.recipe-ingredient')?.classList.remove('is-complete');
+        });
+        persist();
+      }
+    });
+  });
+
+  const resetButtons = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('[data-reset-progress]')
+  );
+
+  resetButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      if (!checklistControllers.length) return;
+      const shouldReset = window.confirm('Reset all ingredient and step progress for this recipe?');
+      if (!shouldReset) return;
+      checklistControllers.forEach((controller) => controller.reset());
+    });
+  });
 </script>

@@ -11,9 +11,20 @@ const recipeStepSchema = z.union([
     text: z.string(),
     detail: z.string().optional(),
     optionsLabel: z.string().optional(),
-    options: z.array(stepOptionSchema).optional()
+    options: z.array(stepOptionSchema).optional(),
+    completeLabel: z
+      .string()
+      .max(48, 'Step completion labels should stay under 48 characters for layout constraints.')
+      .optional(),
+    warningLabel: z.string().optional()
   })
 ])
+
+const recipePhaseSchema = z.object({
+  title: z.string().optional(),
+  ingredients: z.array(z.string()).default([]),
+  steps: z.array(recipeStepSchema)
+})
 
 const baseDatedEntrySchema = z.object({
   title: z.string(),
@@ -38,13 +49,22 @@ const recipes = defineCollection({
       prep: z.string().optional(),
       cook: z.string().optional(),
       total: z.string().optional(),
-      ingredients: z.array(z.string()),
-      steps: z.array(recipeStepSchema),
+      ingredients: z.array(z.string()).default([]),
+      steps: z.array(recipeStepSchema).default([]),
+      phases: z.array(recipePhaseSchema).optional(),
       hero: z.string().optional(),
       variantGroup: z.string().optional(),
       complexityLevel: z.number().int().min(1).optional(),
+      progressTtlHours: z.number().int().positive().optional(),
       draft: z.boolean().default(false)
-    })
+    }).refine(
+      (entry) =>
+        (entry.ingredients.length > 0 && entry.steps.length > 0) ||
+        Boolean(entry.phases?.length),
+      {
+        message: 'Recipes must include either base ingredients/steps or at least one phase.'
+      }
+    )
 })
 
 const travel = defineCollection({
