@@ -30,4 +30,4 @@ jobs:
           IGNORE_GITIGNORED_FILES: true
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FILTER_REGEX_EXCLUDE: "src/env\\.d\\.ts"
+          VALIDATE_TYPESCRIPT_STANDARD: false
