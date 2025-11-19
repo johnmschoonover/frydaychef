@@ -59,6 +59,10 @@ conventions established so far. Reference it before making changes.
   `/travel`, RSS, sitemap).
 - **Assets**: Drop SVGs/WebP files into `public/images/<slug>/hero.ext` to match
   frontmatter references.
+- **Git hooks**: Pre-commit runs lint-staged, `npm run check:heroes`, and
+  `node scripts/check-must-try-highlights.mjs`. The last step only warns when a
+  must-try chip would highlight more than three blocks—fix upstream if the
+  warning makes sense.
 
 ## Styling & UX Preferences
 

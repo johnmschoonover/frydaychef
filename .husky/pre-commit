@@ -1,3 +1,4 @@
 #!/bin/sh
 npx lint-staged --quiet
 npm run check:heroes
+node scripts/check-must-try-highlights.mjs
