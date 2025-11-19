@@ -17,7 +17,8 @@ This document captures the working agreements, tech stack choices, and conventio
 
 ## Development Workflow
 - **Node**: >= 18.14.0 (documented in `package.json`).
-- **Scripts**: `npm run dev`, `npm run check` (Astro type checker), `npm run build`, `npm run preview`.
+- **Scripts**: `npm run dev`, `npm run sync` (regenerates Astro's typed content collections), `npm run check` (Astro type checker), `npm run build`, `npm run preview`.
+- Run `npm run sync` after editing `src/content/config.ts` or pulling schema updates so the generated types stay in sync. Astro's [`sync` command`](https://docs.astro.build/en/reference/programmatic-reference/#sync) produces the TypeScript module definitions that `astro check` and editors consume.
 - **CI**: `.github/workflows/ci.yml` runs `npm ci`, `npm run check`, and `npm run build` on push/PR to `main`. Keep these scripts healthy before merging.
 - **Quality Gate**: `.github/workflows/quality.yml` executes GitHub Super-Linter across the repository. Fix lint findings locally before retrying CI.
 - **Code Scanning**: `.github/workflows/codeql.yml` runs CodeQL on push/PR plus a weekly cron. Address security alerts promptly.

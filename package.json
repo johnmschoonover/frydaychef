@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "astro dev",
     "check": "astro check",
+    "sync": "astro sync",
     "build": "astro build",
     "preview": "astro preview",
     "format:md": "prettier --cache --write \"**/*.md\"",
