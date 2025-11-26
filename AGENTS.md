@@ -121,6 +121,12 @@ conventions established so far. Reference it before making changes.
 - Drafts are filtered out everywhere
   (`getCollection('recipes', ({ data }) => !data.draft)`).
 
+## Cross-linking recipes
+
+- When adding a recipe that references another recipe that doesn't exist yet,
+  include a lightweight placeholder entry with a clear "coming soon" note so
+  links stay intact and future work has an obvious spot to land.
+
 ## Coding Conventions
 
 - Prefer `apply_patch` for manual edits; avoid generated diffs for large assets
