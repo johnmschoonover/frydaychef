@@ -88,6 +88,9 @@ conventions established so far. Reference it before making changes.
   Keep the collection grid tidy by setting the `data-count` on `.pane-grid` to
   match the number of cards and ensure desktop layouts stay capped at the
   desired columns (see `theme.css`).
+  - The homepage hero should always spotlight the newest recipe entry even if it
+    lacks a custom hero image; keep the fallback image in place and add a 1:1
+    hero asset when available so the highlight stays fresh.
 - Recipe steps now support local checklists. Keep the checkbox + step number
   pairing and persist state to `localStorage` using the `data-recipe-key`
   pattern introduced on `.recipe-steps`. Lean on accent colors for checkbox
@@ -120,6 +123,19 @@ conventions established so far. Reference it before making changes.
   `/src/content/recipes`.
 - Drafts are filtered out everywhere
   (`getCollection('recipes', ({ data }) => !data.draft)`).
+- When a recipe intentionally omits quantities or exact measurements, keep
+  ingredient lines qualitative (e.g., "smoked pulled pork," "bold, sweet BBQ
+  sauce") and align prep steps with the specified heating method so future edits
+  don’t reintroduce conflicting directions.
+
+## Cross-linking recipes
+
+- When adding a recipe that references another recipe that doesn't exist yet,
+  include a lightweight placeholder entry with a clear "coming soon" note so
+  links stay intact and future work has an obvious spot to land.
+- For sodium citrate cheese sauces and other melting blends, prefer listing
+  cheese, water, and emulsifying salts in grams so future conversions stay
+  precise while the steps remain unchanged.
 
 ## Coding Conventions
 
