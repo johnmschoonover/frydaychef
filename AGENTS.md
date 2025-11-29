@@ -88,6 +88,9 @@ conventions established so far. Reference it before making changes.
   Keep the collection grid tidy by setting the `data-count` on `.pane-grid` to
   match the number of cards and ensure desktop layouts stay capped at the
   desired columns (see `theme.css`).
+  - The homepage hero should always spotlight the newest recipe entry even if it
+    lacks a custom hero image; keep the fallback image in place and add a 1:1
+    hero asset when available so the highlight stays fresh.
 - Recipe steps now support local checklists. Keep the checkbox + step number
   pairing and persist state to `localStorage` using the `data-recipe-key`
   pattern introduced on `.recipe-steps`. Lean on accent colors for checkbox

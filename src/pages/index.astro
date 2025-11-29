@@ -21,7 +21,7 @@ const latestRestaurant = restaurants[0];
 const latestTravel = travelStories[0];
 const latestKitchenNote = kitchenNotes[0];
 const paneCardCount = 4;
-const featuredRecipe = recipes.find((entry) => Boolean(entry.data.hero)) ?? latestRecipe;
+const featuredRecipe = latestRecipe;
 const heroHighlightSrc = featuredRecipe?.data.hero ?? '/images/grilled-cheese/hero-deluxe.webp';
 const heroHighlightAlt = featuredRecipe
   ? `Featured recipe hero: ${featuredRecipe.data.title}`
