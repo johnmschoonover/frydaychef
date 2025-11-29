@@ -133,9 +133,9 @@ conventions established so far. Reference it before making changes.
 - When adding a recipe that references another recipe that doesn't exist yet,
   include a lightweight placeholder entry with a clear "coming soon" note so
   links stay intact and future work has an obvious spot to land.
-- For sodium citrate cheese sauces and other melting blends, prefer listing
-  cheese, water, and emulsifying salts in grams so future conversions stay
-  precise while the steps remain unchanged.
+- Prefer grams for ingredient measurements wherever practical to keep recipes
+  consistent and reduce conversion churn; this includes liquids when density is
+  predictable and specialty ingredients like sodium citrate in cheese sauces.
 
 ## Coding Conventions
 
