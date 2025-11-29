@@ -28,9 +28,9 @@ phases:
         completeLabel: Pork warmed and sauced
   - title: Make the sodium citrate cheese sauce
     ingredients:
-      - 4 oz smoked sharp white cheddar, freshly grated
-      - 4 oz water
-      - 1/2 tbsp sodium citrate
+      - 115 g smoked sharp white cheddar, freshly grated
+      - 115 g water
+      - 4.6 g sodium citrate
       - 1-2 tsp pickled jalapeño brine (just a splash)
     steps:
       - text:
