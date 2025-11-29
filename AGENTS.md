@@ -120,6 +120,10 @@ conventions established so far. Reference it before making changes.
   `/src/content/recipes`.
 - Drafts are filtered out everywhere
   (`getCollection('recipes', ({ data }) => !data.draft)`).
+- When a recipe intentionally omits quantities or exact measurements, keep
+  ingredient lines qualitative (e.g., "smoked pulled pork," "bold, sweet BBQ
+  sauce") and align prep steps with the specified heating method so future edits
+  don’t reintroduce conflicting directions.
 
 ## Cross-linking recipes
 

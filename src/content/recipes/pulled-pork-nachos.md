@@ -16,15 +16,15 @@ steps: []
 phases:
   - title: Warm the pork and sauce
     ingredients:
-      - 2–3 cups smoked pulled pork
-      - 1/2 cup bold, sweet BBQ sauce
+      - Smoked pulled pork
+      - Bold, sweet BBQ sauce
     steps:
       - text:
-          Add the pulled pork and BBQ sauce to a skillet and warm over medium
-          heat until glossy and just steamy.
+          Add the pulled pork and BBQ sauce to a zip-top or vacuum bag and warm
+          in a 165°F sous vide bath until hot and glossy.
         detail:
-          Warming now keeps the chips from steaming later. If the pork was
-          refrigerated or sous-vided, aim for hot but not sizzling.
+          Warming now keeps the chips from steaming later—bring the pork to
+          serving temp before layering.
         completeLabel: Pork warmed and sauced
   - title: Make the sodium citrate cheese sauce
     ingredients:
