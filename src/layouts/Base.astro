@@ -1,5 +1,6 @@
 ---
 import '../styles/theme.css';
+import { pwaInfo } from 'virtual:pwa-info';
 
 const {
   title = 'Home',
@@ -26,6 +27,11 @@ const ogImage = new URL('/favicon.svg', site).href;
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={`Fryday Chef — ${title}`} />
     <meta name="twitter:description" content={description} />
+    {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+    <script>
+      import { registerSW } from 'virtual:pwa-register'
+      registerSW({ immediate: true })
+    </script>
   </head>
   <body class="page">
     <slot />

@@ -19,7 +19,9 @@
     "prepare": "node scripts/prepare-husky.mjs"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/rss": "latest",
+    "@vite-pwa/astro": "^1.2.0",
     "astro": "^5.15.8"
   },
   "devDependencies": {
