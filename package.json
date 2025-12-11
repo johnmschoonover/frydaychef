@@ -20,9 +20,15 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.12",
+    "@astrojs/markdoc": "^0.15.10",
+    "@astrojs/react": "^4.4.2",
     "@astrojs/rss": "latest",
+    "@keystatic/astro": "^5.0.6",
+    "@keystatic/core": "^0.5.48",
     "@vite-pwa/astro": "^1.2.0",
-    "astro": "^5.15.8"
+    "astro": "^5.15.8",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.5",
