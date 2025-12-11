@@ -38,14 +38,10 @@ const stepsList = fields.array(
 );
 
 export default config({
-  storage: import.meta.env.PROD
-    ? {
-        kind: 'github',
-        repo: 'johnmschoonover/frydaychef',
-      }
-    : {
-        kind: 'local',
-      },
+  storage: {
+    kind: 'github',
+    repo: 'johnmschoonover/frydaychef',
+  },
   collections: {
     recipes: collection({
       label: 'Recipes',
