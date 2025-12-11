@@ -1,6 +1,6 @@
-export const prerender = true;
-
 import { getCollection } from 'astro:content'
+
+export const prerender = true
 
 export async function GET (context) {
   const base = context.site ?? 'https://frydaychef.net'

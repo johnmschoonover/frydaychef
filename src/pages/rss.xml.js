@@ -1,7 +1,7 @@
-export const prerender = true;
-
 import rss from '@astrojs/rss'
 import { getCollection } from 'astro:content'
+
+export const prerender = true
 
 export async function GET (context) {
   const recipes = (await getCollection('recipes', ({ data }) => !data.draft)).sort(
