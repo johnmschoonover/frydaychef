@@ -1,18 +1,25 @@
 import { defineConfig } from 'astro/config'
 import cloudflare from '@astrojs/cloudflare'
 import AstroPWA from '@vite-pwa/astro'
+import react from '@astrojs/react'
+import markdoc from '@astrojs/markdoc'
+import keystatic from '@keystatic/astro'
 
 export default defineConfig({
   site: 'https://frydaychef.net',
-  output: 'static',
+  output: 'server',
   adapter: cloudflare(),
   integrations: [
+    react(),
+    markdoc(),
+    keystatic(),
     AstroPWA({
       registerType: 'autoUpdate',
       scope: '/',
       workbox: {
         navigateFallback: null,
         globPatterns: ['**/*.{css,js,html,svg,png,ico,txt}'],
+        globIgnores: ['**/*keystatic*.js'],
         runtimeCaching: [
           {
             urlPattern: ({ request }) => request.mode === 'navigate',
