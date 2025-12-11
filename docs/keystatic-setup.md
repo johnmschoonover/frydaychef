@@ -47,3 +47,27 @@ Trigger a new deployment on Cloudflare Pages (e.g., by merging the `keystatic-in
 Visit `https://frydaychef.net/keystatic` to log in and manage content.
 
 In development (`npm run dev`), Keystatic runs in **Local Mode** at `http://localhost:4321/keystatic` and saves changes directly to your file system.
+
+## Troubleshooting
+
+### "Authorization Failed" Error
+
+If you see an "Authorization Failed" error when logging in, it is usually due to a **Callback URL mismatch** or **missing environment variables**.
+
+#### 1. Callback URL Mismatch (Preview Deployments)
+The GitHub App is configured with a specific Callback URL (e.g., `https://frydaychef.net/api/keystatic/github/oauth/callback`).
+*   **Issue:** If you are testing on a **Cloudflare Pages Preview URL** (e.g., `https://keystatic-integration.frydaychef.pages.dev`), the callback URL sent by Keystatic will match the *current* domain, but GitHub will reject it because it doesn't match the *configured* domain.
+*   **Solution:**
+    *   **Test on Production:** Merge and test on the live `frydaychef.net` domain.
+    *   **Temporary Update:** Update the GitHub App's "Callback URL" to match your current Preview URL.
+    *   **Dev App:** Create a separate GitHub App for development/previews.
+
+#### 2. Local Preview (`npm run preview`)
+Running `npm run preview` builds the site in production mode (`PROD=true`), triggering GitHub storage mode.
+*   **Issue:** The app runs on `http://localhost:4321`, but tries to authenticate with the production GitHub App.
+*   **Solution:** Use `npm run dev` for local content management (uses Local Mode).
+
+#### 3. Environment Variables
+Ensure all 4 environment variables are set in **Cloudflare Pages > Settings > Environment variables**.
+*   Check for typos or extra spaces.
+*   Ensure they are applied to the correct environment (Preview vs Production).
