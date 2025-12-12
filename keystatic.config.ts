@@ -74,7 +74,7 @@ export default config({
         variantGroup: fields.text({ label: 'Variant Group' }),
         complexityLevel: fields.integer({ label: 'Complexity Level' }),
         progressTtlHours: fields.integer({ label: 'Progress TTL (Hours)' }),
-        content: fields.markdoc({ label: 'Content' }),
+        content: fields.markdoc({ label: 'Content', extension: 'md' }),
       },
     }),
     travel: collection({
@@ -88,7 +88,7 @@ export default config({
         summary: fields.text({ label: 'Summary', multiline: true }),
         highlights: fields.array(fields.text({ label: 'Highlight' }), { label: 'Highlights', itemLabel: (props) => props.value }),
         hero: heroImage,
-        content: fields.markdoc({ label: 'Content' }),
+        content: fields.markdoc({ label: 'Content', extension: 'md' }),
       }
     }),
     restaurants: collection({
@@ -105,7 +105,7 @@ export default config({
         ratingSymbol: fields.text({ label: 'Rating Symbol' }),
         mustTry: fields.array(fields.text({ label: 'Must Try' }), { label: 'Must Try Items', itemLabel: (props) => props.value }),
         hero: heroImage,
-        content: fields.markdoc({ label: 'Content' }),
+        content: fields.markdoc({ label: 'Content', extension: 'md' }),
       }
     }),
     'kitchen-notes': collection({
@@ -118,7 +118,7 @@ export default config({
         summary: fields.text({ label: 'Summary', multiline: true }),
         tags: fields.array(fields.text({ label: 'Tag' }), { label: 'Tags', itemLabel: (props) => props.value }),
         publishedAt: fields.date({ label: 'Published At', validation: { isRequired: true } }),
-        content: fields.markdoc({ label: 'Content' }),
+        content: fields.markdoc({ label: 'Content', extension: 'md' }),
       }
     })
   },
