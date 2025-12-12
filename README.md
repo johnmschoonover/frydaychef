@@ -12,6 +12,16 @@ npm run build
 npm run preview    # serves ./dist
 ```
 
+## Content Management (CMS)
+
+This project uses [Keystatic](https://keystatic.com/) for content management.
+
+- **Local Development**: Run `npm run dev` and visit
+  `http://localhost:4321/keystatic`. Content is saved directly to your local
+  file system.
+- **Production**: When deployed, Keystatic uses GitHub mode to manage content
+  via Pull Requests.
+
 After changing `src/content/config.ts` or pulling schema updates from the
 repository, run `npm run sync` once to regenerate Astro's typed content
 collections. Astro's
@@ -159,7 +169,6 @@ least one recipe references them.
 ## Future extensions
 
 1. Integrate [Pagefind](https://pagefind.app/) for instant full-site search.
-2. Add a headless CMS such as Keystatic or Decap for browser-based editing.
 
 ---
 

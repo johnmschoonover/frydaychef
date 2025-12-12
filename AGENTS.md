@@ -53,10 +53,18 @@ conventions established so far. Reference it before making changes.
   committing.
 - **Commits**: Write descriptive messages summarizing motivation + scope (e.g.,
   “Add grilled cheese variants with sibling nav”). Avoid generic phrases.
-- **Content edits**: Add Markdown to `src/content/recipes`,
-  `src/content/restaurants`, or `src/content/travel`. Preview locally via
-  `npm run dev` and verify generated pages (`/recipes`, `/restaurants`,
-  `/travel`, RSS, sitemap).
+- **Content edits**: Add new Markdown files under `src/content/recipes`,
+  `src/content/restaurants`, `src/content/travel`, or
+  `src/content/kitchen-notes`.
+
+**Preferred Method**: Use the Keystatic admin UI at `/keystatic` (locally or in
+production) to create and edit content. This ensures schema validation and
+manages assets automatically.
+
+Alternatively, you can manually create files matching the schema in
+`src/content/config.ts`. Preview locally via `npm run dev` and verify generated
+pages (`/recipes`, `/restaurants`, `/travel`, RSS, sitemap).
+
 - **Assets**: Drop SVGs/WebP files into `public/images/<slug>/hero.ext` to match
   frontmatter references.
 - **Git hooks**: Pre-commit runs lint-staged, `npm run check:heroes`, and
@@ -149,7 +157,6 @@ conventions established so far. Reference it before making changes.
 ## Nice-to-haves / Future Ideas
 
 - Pagefind search integration.
-- Headless CMS (Keystatic/Decap) if editing via web UI is desired.
 - Additional automated tests or linting (can extend CI once scripts exist).
 
 ## When drafting recommendations
