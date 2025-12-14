@@ -64,7 +64,8 @@ const schemas = {
     slug: z.string().optional(),
     summary: z.string(),
     tags: z.array(z.string()).optional(),
-    publishedAt: isoDateField
+    publishedAt: isoDateField,
+    draft: z.boolean().optional()
   })
 }
 
@@ -92,6 +93,7 @@ const prettyPath = (filePath) => filePath.replace(process.cwd(), '').replace(/^\
 let hadError = false
 
 for (const file of files) {
+  if (file.endsWith('_AGENTS.md')) continue
   try {
     const source = await readFile(file, 'utf8')
     const { data } = matter(source)
