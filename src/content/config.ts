@@ -100,7 +100,8 @@ const kitchenNotes = defineCollection({
       tags: z.array(z.string()).default([]),
       publishedAt: z
         .string()
-        .transform((str) => new Date(str))
+        .transform((str) => new Date(str)),
+      draft: z.boolean().default(false)
     })
 })
 
