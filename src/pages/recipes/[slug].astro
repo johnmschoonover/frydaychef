@@ -72,6 +72,26 @@ const kitchenNoteMap = new Map(
 const linkedKitchenNotes = kitchenNoteSlugs
   .map((slug) => kitchenNoteMap.get(slug))
   .filter((note): note is CollectionEntry<'kitchen-notes'> => Boolean(note));
+
+const relatedRecipeSlugs = recipe.data.relatedRecipes ?? [];
+const recipeMap = new Map(recipes.map((r) => [r.slug, r]));
+const linkedRecipes = relatedRecipeSlugs
+  .map((slug) => recipeMap.get(slug))
+  .filter((r): r is CollectionEntry<'recipes'> => Boolean(r));
+
+const relatedRestaurantSlugs = recipe.data.relatedRestaurants ?? [];
+const allRestaurants = relatedRestaurantSlugs.length ? await getCollection('restaurants') : [];
+const restaurantMap = new Map(allRestaurants.map((r) => [r.slug, r]));
+const linkedRestaurants = relatedRestaurantSlugs
+  .map((slug) => restaurantMap.get(slug))
+  .filter((r): r is CollectionEntry<'restaurants'> => Boolean(r));
+
+const relatedTravelSlugs = recipe.data.relatedTravel ?? [];
+const allTravel = relatedTravelSlugs.length ? await getCollection('travel') : [];
+const travelMap = new Map(allTravel.map((t) => [t.slug, t]));
+const linkedTravel = relatedTravelSlugs
+  .map((slug) => travelMap.get(slug))
+  .filter((t): t is CollectionEntry<'travel'> => Boolean(t));
 const phases: RecipePhase[] = recipe.data.phases ?? [];
 const hasPhases = phases.length > 0;
 const normalizedPhases: RecipePhase[] = (hasPhases
@@ -297,21 +317,75 @@ const progressTtlMs = progressTtlHours * 60 * 60 * 1000;
           })}
         </div>
       </section>
-      {linkedKitchenNotes.length ? (
+      {linkedKitchenNotes.length || linkedRecipes.length || linkedRestaurants.length || linkedTravel.length ? (
         <section class="kitchen-note-callout">
-          <h2>Kitchen Notes for this recipe</h2>
-          <div class="note-callout-grid">
-            {linkedKitchenNotes.map((note) => (
-              <article class="note-callout-card">
-                <h3>
-                  <a href={`/kitchen-notes/${note.data.slug ?? note.slug}/`}>
-                    {note.data.title}
-                  </a>
-                </h3>
-                <p>{note.data.summary}</p>
-              </article>
-            ))}
-          </div>
+          <h2>See More</h2>
+          
+          {linkedKitchenNotes.length ? (
+            <div style="margin-bottom: 1.5rem;">
+              <h3 style="font-size: 0.9rem; text-transform: uppercase; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 0.75rem;">Kitchen Notes</h3>
+              <div class="note-callout-grid">
+                {linkedKitchenNotes.map((note) => (
+                  <article class="note-callout-card">
+                    <h3>
+                      <a href={`/kitchen-notes/${note.data.slug ?? note.slug}/`}>
+                        {note.data.title}
+                      </a>
+                    </h3>
+                    <p>{note.data.summary}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {linkedRecipes.length ? (
+            <div style="margin-bottom: 1.5rem;">
+              <h3 style="font-size: 0.9rem; text-transform: uppercase; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 0.75rem;">Related Recipes</h3>
+              <div class="note-callout-grid">
+                {linkedRecipes.map((r) => (
+                  <article class="note-callout-card">
+                    <h3>
+                      <a href={`/recipes/${r.slug}/`}>{r.data.title}</a>
+                    </h3>
+                    <p>Prep: {r.data.prep || 'N/A'} | Cook: {r.data.cook || 'N/A'}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {linkedRestaurants.length ? (
+            <div style="margin-bottom: 1.5rem;">
+              <h3 style="font-size: 0.9rem; text-transform: uppercase; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 0.75rem;">Restaurants</h3>
+              <div class="note-callout-grid">
+                {linkedRestaurants.map((r) => (
+                  <article class="note-callout-card">
+                    <h3>
+                      <a href={`/restaurants/${r.slug}/`}>{r.data.title}</a>
+                    </h3>
+                    <p>{r.data.summary}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {linkedTravel.length ? (
+            <div style="margin-bottom: 1.5rem;">
+              <h3 style="font-size: 0.9rem; text-transform: uppercase; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 0.75rem;">Travel</h3>
+              <div class="note-callout-grid">
+                {linkedTravel.map((t) => (
+                  <article class="note-callout-card">
+                    <h3>
+                      <a href={`/travel/${t.slug}/`}>{t.data.title}</a>
+                    </h3>
+                    <p>{t.data.summary}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </section>
       ) : null}
     </article>
