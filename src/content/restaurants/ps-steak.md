@@ -6,7 +6,7 @@ cuisine: Steakhouse · New American · Wagyu
 summary:
   Chill, attentive service and a dialed steak program; pressed half‑chicken and
   dry‑aged ribeye are standouts, with sauces and sides that sing.
-hero: /images/restaurants/copper-spork.svg
+
 mustTry:
   - Dry‑aged bone‑in ribeye
   - Pressed half‑chicken
