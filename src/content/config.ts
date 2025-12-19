@@ -44,7 +44,6 @@ const recipes = defineCollection({
         .string()
         .transform((str) => new Date(str)),
       tags: z.array(z.string()).default([]),
-      servings: z.number().int().min(1).default(2),
       kitchenNotes: z.array(z.string()).optional(),
       prep: z.string().optional(),
       cook: z.string().optional(),
@@ -59,6 +58,7 @@ const recipes = defineCollection({
       draft: z.boolean().default(false)
     }).refine(
       (entry) =>
+        entry.draft ||
         (entry.ingredients.length > 0 && entry.steps.length > 0) ||
         Boolean(entry.phases?.length),
       {
@@ -100,7 +100,8 @@ const kitchenNotes = defineCollection({
       tags: z.array(z.string()).default([]),
       publishedAt: z
         .string()
-        .transform((str) => new Date(str))
+        .transform((str) => new Date(str)),
+      draft: z.boolean().default(false)
     })
 })
 

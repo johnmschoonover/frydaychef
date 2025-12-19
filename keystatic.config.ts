@@ -54,9 +54,11 @@ export default config({
       format: { contentField: 'content' },
       schema: {
         ...commonFields,
-        tags: fields.array(fields.text({ label: 'Tag' }), { label: 'Tags', itemLabel: (props) => props.value }),
-        servings: fields.integer({ label: 'Servings', defaultValue: 2 }),
-        kitchenNotes: fields.array(fields.relationship({ collection: 'kitchen-notes', label: 'Kitchen Note' }), { label: 'Kitchen Notes' }),
+                tags: fields.array(fields.text({ label: 'Tag' }), {
+                  label: 'Tags',
+                  itemLabel: (props) => props.value
+                }),
+                kitchenNotes: fields.array(fields.relationship({ collection: 'kitchen-notes', label: 'Kitchen Note' }), { label: 'Kitchen Notes' }),
         prep: fields.text({ label: 'Prep Time' }),
         cook: fields.text({ label: 'Cook Time' }),
         total: fields.text({ label: 'Total Time' }),

@@ -5,10 +5,8 @@ tags:
   - barbecue
   - nachos
   - sheet-pan
-kitchenNotes:
-  - smoked-pork-shoulder
-servings: 6
-prep: 20m
+kitchenNotes: []
+prep: "20m"
 cook: 20m
 total: 40m
 ingredients: []

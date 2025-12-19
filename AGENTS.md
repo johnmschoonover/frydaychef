@@ -115,7 +115,7 @@ pages (`/recipes`, `/restaurants`, `/travel`, RSS, sitemap).
 ## Content Authoring Guidelines
 
 - Frontmatter schema (see `src/content/config.ts`):
-  - Required: `title`, `date`, `tags`, `servings`, `ingredients`, `steps`.
+  - Required: `title`, `date`, `tags`, `ingredients`, `steps`.
   - Optional: `prep`, `cook`, `total`, `hero`, `draft`.
 - Recipes can optionally specify `kitchenNotes` as an array of slugs; the detail
   template pulls matching Kitchen Notes to render a "Kitchen Notes for this
