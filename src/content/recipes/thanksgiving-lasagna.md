@@ -137,7 +137,7 @@ phases:
           garlic bread."
         warningLabel: "Do not cut early or layers will slide!"
         completeLabel: "Rested"
-hero: "/images/thanksgiving-lasagna/hero.png"
+hero: "/images/thanksgiving-lasagna/hero.webp"
 complexityLevel: 4
 draft: true
 ---
