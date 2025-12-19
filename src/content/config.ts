@@ -28,9 +28,7 @@ const recipePhaseSchema = z.object({
 
 const baseDatedEntrySchema = z.object({
   title: z.string(),
-  date: z
-    .string()
-    .transform((str) => new Date(str)),
+  date: z.coerce.date(),
   hero: z.string().optional(),
   draft: z.boolean().default(false)
 })
@@ -40,9 +38,7 @@ const recipes = defineCollection({
   schema: () =>
     z.object({
       title: z.string(),
-      date: z
-        .string()
-        .transform((str) => new Date(str)),
+      date: z.coerce.date(),
       tags: z.array(z.string()).default([]),
       kitchenNotes: z.array(z.string()).optional(),
       prep: z.string().optional(),
@@ -98,9 +94,7 @@ const kitchenNotes = defineCollection({
       slug: z.string().optional(),
       summary: z.string(),
       tags: z.array(z.string()).default([]),
-      publishedAt: z
-        .string()
-        .transform((str) => new Date(str)),
+      publishedAt: z.coerce.date(),
       draft: z.boolean().default(false)
     })
 })
