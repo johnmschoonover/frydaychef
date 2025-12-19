@@ -77,9 +77,8 @@ This folder contains recipes.
 ```yaml
 title: string # Recipe name
 date: string # Date added (YYYY-MM-DD)
-tags: string[] # e.g. ["dinner", "pork", "sous-vide"]
-servings: number # Default: 2
-kitchenNotes: string[]? # Optional references to kitchen-notes slugs
+tags: string[] # Default: []
+kitchenNotes: string[] # Optional list of kitchen note slugs (e.g., ["wood-pellets-i-trust"])
 prep: string? # e.g. "20m"
 cook: string? # e.g. "1h"
 total: string? # e.g. "1h 20m"

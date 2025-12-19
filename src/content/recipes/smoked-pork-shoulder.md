@@ -6,7 +6,6 @@ tags:
   - pork
   - low-and-slow
 kitchenNotes: []
-servings: 12
 prep: 20m
 cook: 10-14h
 total: 10-14h20m

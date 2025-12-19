@@ -27,9 +27,8 @@ const schemas = {
   recipes: z.object({
     title: z.string(),
     date: isoDateField,
-    tags: z.array(z.string()).optional(),
-    servings: z.number().int().min(1).optional(),
-    kitchenNotes: z.array(z.string()).optional(),
+  tags: z.array(z.string()).default([]),
+  kitchenNotes: z.array(z.string()).optional(),
     prep: z.string().optional(),
     cook: z.string().optional(),
     total: z.string().optional(),

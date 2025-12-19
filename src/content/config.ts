@@ -44,7 +44,6 @@ const recipes = defineCollection({
         .string()
         .transform((str) => new Date(str)),
       tags: z.array(z.string()).default([]),
-      servings: z.number().int().min(1).default(2),
       kitchenNotes: z.array(z.string()).optional(),
       prep: z.string().optional(),
       cook: z.string().optional(),

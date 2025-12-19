@@ -6,7 +6,6 @@ tags:
   - comfort
   - stovetop
 kitchenNotes: []
-servings: 4
 prep: "5m"
 cook: "10m"
 total: "15m"

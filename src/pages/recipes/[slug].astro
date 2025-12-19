@@ -161,10 +161,6 @@ const progressTtlMs = progressTtlHours * 60 * 60 * 1000;
           ))}
         </div>
         <dl style="display:flex;flex-wrap:wrap;gap:1.5rem;margin:0;">
-          <div style="min-width:120px;">
-            <dt style="font-weight:600;color:var(--muted);">Servings</dt>
-            <dd style="margin:0;font-size:1.25rem;">{recipe.data.servings}</dd>
-          </div>
           {timeBlocks.map((block) => (
             <div style="min-width:120px;">
               <dt style="font-weight:600;color:var(--muted);">{block.label}</dt>
