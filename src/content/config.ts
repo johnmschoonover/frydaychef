@@ -58,6 +58,7 @@ const recipes = defineCollection({
       draft: z.boolean().default(false)
     }).refine(
       (entry) =>
+        entry.draft ||
         (entry.ingredients.length > 0 && entry.steps.length > 0) ||
         Boolean(entry.phases?.length),
       {

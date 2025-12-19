@@ -11,6 +11,5 @@ steps: []
 phases: []
 hero: "/images/thanksgiving-lasagna/hero.webp"
 complexityLevel: 1
-progressTtlHours: 0
 draft: true
 ---
