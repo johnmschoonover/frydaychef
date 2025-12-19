@@ -1,6 +1,5 @@
 ---
 title: The Case for Whole Ingredients
-slug: the-case-for-whole-ingredients
 summary: Draft discussion on why whole ingredients often trump processed ones.
 tags:
   - ingredients

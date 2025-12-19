@@ -1,6 +1,5 @@
 ---
 title: The Case for Pre-Dried Ingredients
-slug: the-case-for-pre-dried-ingredients
 summary: Draft discussion on the merits of pre-dried ingredients.
 tags:
   - ingredients

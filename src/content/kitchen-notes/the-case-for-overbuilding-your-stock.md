@@ -1,6 +1,5 @@
 ---
 title: The Case for Overbuilding Your Stock
-slug: the-case-for-overbuilding-your-stock
 summary:
   Why I’d rather make one intense pot of stock and freeze it than phone it in
   every Sunday.

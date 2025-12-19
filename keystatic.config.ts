@@ -120,6 +120,7 @@ export default config({
         summary: fields.text({ label: 'Summary', multiline: true }),
         tags: fields.array(fields.text({ label: 'Tag' }), { label: 'Tags', itemLabel: (props) => props.value }),
         publishedAt: fields.date({ label: 'Published At', validation: { isRequired: true } }),
+        draft: fields.checkbox({ label: 'Draft', defaultValue: false }),
         content: fields.markdoc({ label: 'Content', extension: 'md' }),
       }
     })
