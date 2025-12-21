@@ -9,8 +9,6 @@ kitchenNotes: []
 prep: "5m"
 cook: "10m"
 total: "15m"
-ingredients: []
-steps: []
 phases:
   - title: Prep Kernels & Seasoning
     ingredients:

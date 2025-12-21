@@ -40,7 +40,6 @@ type RecipePhase = {
 const isStructuredStep = (step: RecipeStep): step is StructuredStep => typeof step !== 'string';
 
 const getPhaseAwareIngredients = (entry: CollectionEntry<'recipes'>) => {
-  if (entry.data.ingredients.length) return entry.data.ingredients;
   return entry.data.phases?.flatMap((phase) => phase.ingredients ?? []) ?? [];
 };
 
@@ -94,10 +93,7 @@ const linkedTravel = relatedTravelSlugs
   .filter((t): t is CollectionEntry<'travel'> => Boolean(t));
 const phases: RecipePhase[] = recipe.data.phases ?? [];
 const hasPhases = phases.length > 0;
-const normalizedPhases: RecipePhase[] = (hasPhases
-  ? phases
-  : [{ title: undefined, ingredients: recipe.data.ingredients, steps: recipe.data.steps }]
-).map((phase) => ({
+const normalizedPhases: RecipePhase[] = phases.map((phase) => ({
   title: phase.title,
   ingredients: phase.ingredients ?? [],
   steps: phase.steps ?? []

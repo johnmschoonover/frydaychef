@@ -59,11 +59,12 @@ export default config({
                   itemLabel: (props) => props.value
                 }),
                 kitchenNotes: fields.array(fields.relationship({ collection: 'kitchen-notes', label: 'Kitchen Note' }), { label: 'Kitchen Notes' }),
+        relatedRecipes: fields.array(fields.relationship({ collection: 'recipes', label: 'Related Recipe' }), { label: 'Related Recipes' }),
+        relatedRestaurants: fields.array(fields.relationship({ collection: 'restaurants', label: 'Related Restaurant' }), { label: 'Related Restaurants' }),
+        relatedTravel: fields.array(fields.relationship({ collection: 'travel', label: 'Related Travel' }), { label: 'Related Travel' }),
         prep: fields.text({ label: 'Prep Time' }),
         cook: fields.text({ label: 'Cook Time' }),
         total: fields.text({ label: 'Total Time' }),
-        ingredients: ingredientsSchema,
-        steps: stepsList,
         phases: fields.array(
           fields.object({
             title: fields.text({ label: 'Phase Title' }),

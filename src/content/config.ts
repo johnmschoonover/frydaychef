@@ -47,9 +47,7 @@ const recipes = defineCollection({
       prep: z.string().optional(),
       cook: z.string().optional(),
       total: z.string().optional(),
-      ingredients: z.array(z.string()).default([]),
-      steps: z.array(recipeStepSchema).default([]),
-      phases: z.array(recipePhaseSchema).optional(),
+      phases: z.array(recipePhaseSchema).default([]),
       hero: z.string().optional(),
       variantGroup: z.string().optional(),
       complexityLevel: z.number().int().min(1).optional(),
@@ -58,10 +56,9 @@ const recipes = defineCollection({
     }).refine(
       (entry) =>
         entry.draft ||
-        (entry.ingredients.length > 0 && entry.steps.length > 0) ||
         Boolean(entry.phases?.length),
       {
-        message: 'Recipes must include either base ingredients/steps or at least one phase.'
+        message: 'Recipes must include at least one phase.'
       }
     )
 })

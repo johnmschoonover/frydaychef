@@ -9,8 +9,6 @@ kitchenNotes: []
 prep: "20m"
 cook: 20m
 total: 40m
-ingredients: []
-steps: []
 phases:
   - title: Warm the pork and sauce
     ingredients:

@@ -1,6 +1,6 @@
 ---
 title: The Ultimate Thanksgiving Lasagna
-date: "2025-12-18"
+date: 2025-12-18
 draft: false
 tags:
   - pasta
@@ -12,23 +12,23 @@ kitchenNotes:
   - the-case-for-overbuilding-your-stock
 relatedRecipes:
   - from-scratch-meatballs
+relatedRestaurants: []
+relatedTravel: []
 prep: 2h
 cook: 6h
 total: 8h
-ingredients: []
-steps: []
 phases:
   - title: The Pasta
     ingredients:
       - '"00" flour (super finely ground)'
       - Fresh whole eggs (1 egg per 100g flour)
     steps:
-      - text: >-
+      - text:
           Mix and knead the dough until it feels solid and not quite malleable.
         detail: It’s a workout to knead, but essential for silky noodles.
         options: []
         completeLabel: Dough kneaded
-      - text: >-
+      - text:
           Wrap the dough tightly in plastic wrap and rest in the refrigerator.
         detail: >-
           This relaxes the gluten and makes it easier to roll later. Leave it
@@ -115,12 +115,12 @@ phases:
       - text: >-
           Remove short ribs and hand-shred the meat. Be picky: discard bones,
           gristle, and anything "halfway unacceptable."
-        detail:
+        detail: >-
           Only return the highest quality meat to the pot. We want a perfect
           texture for the final sauce.
-        warningLabel: CAUTION - Meat will be very hot!
         options: []
         completeLabel: Ribs shredded
+        warningLabel: CAUTION - Meat will be very hot!
       - text: Stir shredded meat back in and meld for 1 hour.
         options: []
         completeLabel: Sauce finished
@@ -153,8 +153,7 @@ phases:
           baking dish.
         options: []
         completeLabel: Sheets rolled
-      - text: >-
-          Lay finished sheets on a floured surface so they don't stick.
+      - text: Lay finished sheets on a floured surface so they don't stick.
         detail: Make as many layers as you can—extras are good to have!
         options: []
         completeLabel: Sheets staged
@@ -182,15 +181,15 @@ phases:
           parmesan, and a heavy layer of low-moisture mozzarella.
         options: []
         completeLabel: Topped
-      - text: >-
-          Place dish on a baking sheet and bake at 350°F for 30-40 minutes.
+      - text: Place dish on a baking sheet and bake at 350°F for 30-40 minutes.
         detail: >-
           Look for bubbling around the perimeter. If it's bubbling but not
           brown, broil briefly to finish.
         options: []
         completeLabel: Baked
   - title: The Finish
-    ingredients: []
+    ingredients:
+      - Patience
     steps:
       - text:
           Remove from oven and tent loosely with foil (cut a vent in the top).
@@ -199,16 +198,16 @@ phases:
         options: []
         completeLabel: Tented
       - text: Rest for at least 30-45 minutes. DO NOT SKIP.
-        detail:
+        detail: >-
           Essential for structural integrity. Use this time to toast your garlic
           bread.
         options: []
         completeLabel: Rested
         warningLabel: Do not cut early or layers will slide!
-      - text:
+      - text: >-
           Slice only what you need for the current meal; leave the rest
           undisturbed.
-        detail:
+        detail: >-
           Keeps the structure intact for effective portioning for leftovers (or
           for building Lasagna Pizza later).
         options: []

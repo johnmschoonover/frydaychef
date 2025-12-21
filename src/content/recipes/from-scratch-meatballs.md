@@ -11,8 +11,6 @@ kitchenNotes:
 prep: 1h
 cook: 45m
 total: 2h
-ingredients: []
-steps: []
 phases:
   - title: The Meat Matrix (Grind & Mix)
     ingredients:

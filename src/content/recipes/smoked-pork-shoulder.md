@@ -9,19 +9,6 @@ kitchenNotes: []
 prep: 20m
 cook: 10-14h
 total: 10-14h20m
-ingredients:
-  - 8-10 lb bone-in pork shoulder (Boston butt)
-  - 1/4 cup yellow mustard or hot sauce (binder)
-  - 1/2 cup barbecue rub
-  - Wood chunks or pellets suited for pork (hickory, apple, or cherry)
-steps:
-  - text:
-      This is a placeholder entry so you can link pulled pork nachos to a
-      shoulder cook. Full timing, wrapping, and rest details are coming soon.
-    detail:
-      For now, season the shoulder with binder and rub, smoke at 250°F until
-      tender, and rest wrapped in paper or foil before pulling.
-    completeLabel: Placeholder cook noted
 phases:
   - title: High-level roadmap (coming soon)
     ingredients:
@@ -36,7 +23,7 @@ phases:
         completeLabel: Roadmap reviewed
 variantGroup: pulled-pork
 complexityLevel: 2
-draft: false
+draft: true
 ---
 
 A staging recipe for the soon-to-ship pulled pork shoulder method. It keeps

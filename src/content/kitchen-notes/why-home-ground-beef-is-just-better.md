@@ -5,10 +5,11 @@ summary: >-
   into gold, utilizes inexpensive retail cuts, and gives you total "thermal
   control" over your final product.
 tags:
-  - cooking
-  - bbq
+  - technique
+  - barbecue
   - beef
   - butchery
+  - gear
 publishedAt: "2025-12-19"
 ---
 

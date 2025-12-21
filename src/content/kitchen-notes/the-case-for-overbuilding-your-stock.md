@@ -7,6 +7,7 @@ tags:
   - stock
   - prep
   - freezer
+  - technique
 publishedAt: "2025-11-15"
 ---
 
