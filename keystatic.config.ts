@@ -73,10 +73,22 @@ export default config({
           }),
           { label: 'Phases', itemLabel: (props) => props.fields.title.value }
         ),
-        kitchenNotes: fields.array(fields.relationship({ collection: 'kitchen-notes', label: 'Kitchen Note' }), { label: 'Kitchen Notes' }),
-        relatedRecipes: fields.array(fields.relationship({ collection: 'recipes', label: 'Related Recipe' }), { label: 'Related Recipes' }),
-        relatedRestaurants: fields.array(fields.relationship({ collection: 'restaurants', label: 'Related Restaurant' }), { label: 'Related Restaurants' }),
-        relatedTravel: fields.array(fields.relationship({ collection: 'travel', label: 'Related Travel' }), { label: 'Related Travel' }),
+        kitchenNotes: fields.array(fields.relationship({ collection: 'kitchen-notes', label: 'Kitchen Note' }), {
+          label: 'Kitchen Notes',
+          itemLabel: (props) => props.value
+        }),
+        relatedRecipes: fields.array(fields.relationship({ collection: 'recipes', label: 'Related Recipe' }), {
+          label: 'Related Recipes',
+          itemLabel: (props) => props.value
+        }),
+        relatedRestaurants: fields.array(fields.relationship({ collection: 'restaurants', label: 'Related Restaurant' }), {
+          label: 'Related Restaurants',
+          itemLabel: (props) => props.value
+        }),
+        relatedTravel: fields.array(fields.relationship({ collection: 'travel', label: 'Related Travel' }), {
+          label: 'Related Travel',
+          itemLabel: (props) => props.value
+        }),
         progressTtlHours: fields.integer({ label: 'Progress TTL (Hours)' }),
       },
     }),
