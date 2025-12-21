@@ -1,6 +1,6 @@
 ---
 title: Zunzi's
-date: "2025-12-21"
+date: 2025-12-21
 draft: false
 location: Savannah, GA
 cuisine: South African · Fusion · Sandwiches
@@ -8,7 +8,7 @@ summary: >-
   A high-acid, high-flavor landmark of the Savannah lunch scene; the
   "Conquistador" and "Godfather" sandwiches are stupendous displays of technical
   layering and fusion engineering.
-rating: 4.9
+rating: 4.2
 ratingSymbol: 🥖
 mustTry:
   - The Conquistador
