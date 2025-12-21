@@ -54,17 +54,17 @@ export default config({
       format: { contentField: 'content' },
       schema: {
         ...commonFields,
-                tags: fields.array(fields.text({ label: 'Tag' }), {
-                  label: 'Tags',
-                  itemLabel: (props) => props.value
-                }),
-                kitchenNotes: fields.array(fields.relationship({ collection: 'kitchen-notes', label: 'Kitchen Note' }), { label: 'Kitchen Notes' }),
-        relatedRecipes: fields.array(fields.relationship({ collection: 'recipes', label: 'Related Recipe' }), { label: 'Related Recipes' }),
-        relatedRestaurants: fields.array(fields.relationship({ collection: 'restaurants', label: 'Related Restaurant' }), { label: 'Related Restaurants' }),
-        relatedTravel: fields.array(fields.relationship({ collection: 'travel', label: 'Related Travel' }), { label: 'Related Travel' }),
+        variantGroup: fields.text({ label: 'Variant Group' }),
+        complexityLevel: fields.integer({ label: 'Complexity Level' }),
+        tags: fields.array(fields.text({ label: 'Tag' }), {
+          label: 'Tags',
+          itemLabel: (props) => props.value
+        }),
         prep: fields.text({ label: 'Prep Time' }),
         cook: fields.text({ label: 'Cook Time' }),
         total: fields.text({ label: 'Total Time' }),
+        hero: heroImage,
+        content: fields.markdoc({ label: 'Content', extension: 'md' }),
         phases: fields.array(
           fields.object({
             title: fields.text({ label: 'Phase Title' }),
@@ -73,11 +73,11 @@ export default config({
           }),
           { label: 'Phases', itemLabel: (props) => props.fields.title.value }
         ),
-        hero: heroImage,
-        variantGroup: fields.text({ label: 'Variant Group' }),
-        complexityLevel: fields.integer({ label: 'Complexity Level' }),
+        kitchenNotes: fields.array(fields.relationship({ collection: 'kitchen-notes', label: 'Kitchen Note' }), { label: 'Kitchen Notes' }),
+        relatedRecipes: fields.array(fields.relationship({ collection: 'recipes', label: 'Related Recipe' }), { label: 'Related Recipes' }),
+        relatedRestaurants: fields.array(fields.relationship({ collection: 'restaurants', label: 'Related Restaurant' }), { label: 'Related Restaurants' }),
+        relatedTravel: fields.array(fields.relationship({ collection: 'travel', label: 'Related Travel' }), { label: 'Related Travel' }),
         progressTtlHours: fields.integer({ label: 'Progress TTL (Hours)' }),
-        content: fields.markdoc({ label: 'Content', extension: 'md' }),
       },
     }),
     travel: collection({
