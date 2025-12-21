@@ -82,7 +82,8 @@ const restaurants = defineCollection({
       summary: z.string(),
       rating: z.number().min(0).max(5),
       ratingSymbol: z.string().optional(),
-      mustTry: z.array(z.string()).default([])
+      mustTry: z.array(z.string()).default([]),
+      ignoreDensityCheck: z.array(z.string()).optional()
     })
 })
 

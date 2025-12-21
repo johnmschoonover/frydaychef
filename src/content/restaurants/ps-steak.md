@@ -17,6 +17,8 @@ mustTry:
   - Sauce au poivre
 rating: 4.5
 ratingSymbol: 🥩
+ignoreDensityCheck:
+  - Pressed half‑chicken
 draft: false
 ---
 

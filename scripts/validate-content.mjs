@@ -60,6 +60,7 @@ const schemas = {
     cuisine: z.string(),
     summary: z.string(),
     mustTry: z.array(z.string()).optional(),
+    ignoreDensityCheck: z.array(z.string()).optional(),
     hero: z.string().optional(),
     draft: z.boolean().optional()
   }),

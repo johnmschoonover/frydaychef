@@ -119,6 +119,7 @@ export default config({
         rating: fields.number({ label: 'Rating', validation: { min: 0, max: 5 } }),
         ratingSymbol: fields.text({ label: 'Rating Symbol' }),
         mustTry: fields.array(fields.text({ label: 'Must Try' }), { label: 'Must Try Items', itemLabel: (props) => props.value }),
+        ignoreDensityCheck: fields.array(fields.text({ label: 'Ignored Item' }), { label: 'Ignore Highlight Checks', itemLabel: (props) => props.value }),
         hero: heroImage,
         content: fields.markdoc({ label: 'Content', extension: 'md' }),
       }
