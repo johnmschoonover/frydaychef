@@ -54,16 +54,17 @@ export default config({
       format: { contentField: 'content' },
       schema: {
         ...commonFields,
-                tags: fields.array(fields.text({ label: 'Tag' }), {
-                  label: 'Tags',
-                  itemLabel: (props) => props.value
-                }),
-                kitchenNotes: fields.array(fields.relationship({ collection: 'kitchen-notes', label: 'Kitchen Note' }), { label: 'Kitchen Notes' }),
+        variantGroup: fields.text({ label: 'Variant Group' }),
+        complexityLevel: fields.integer({ label: 'Complexity Level' }),
+        tags: fields.array(fields.text({ label: 'Tag' }), {
+          label: 'Tags',
+          itemLabel: (props) => props.value
+        }),
         prep: fields.text({ label: 'Prep Time' }),
         cook: fields.text({ label: 'Cook Time' }),
         total: fields.text({ label: 'Total Time' }),
-        ingredients: ingredientsSchema,
-        steps: stepsList,
+        hero: heroImage,
+        content: fields.markdoc({ label: 'Content', extension: 'md' }),
         phases: fields.array(
           fields.object({
             title: fields.text({ label: 'Phase Title' }),
@@ -72,11 +73,23 @@ export default config({
           }),
           { label: 'Phases', itemLabel: (props) => props.fields.title.value }
         ),
-        hero: heroImage,
-        variantGroup: fields.text({ label: 'Variant Group' }),
-        complexityLevel: fields.integer({ label: 'Complexity Level' }),
+        kitchenNotes: fields.array(fields.relationship({ collection: 'kitchen-notes', label: 'Kitchen Note' }), {
+          label: 'Kitchen Notes',
+          itemLabel: (props) => props.value ?? 'Untitled Note'
+        }),
+        relatedRecipes: fields.array(fields.relationship({ collection: 'recipes', label: 'Related Recipe' }), {
+          label: 'Related Recipes',
+          itemLabel: (props) => props.value ?? 'Untitled Recipe'
+        }),
+        relatedRestaurants: fields.array(fields.relationship({ collection: 'restaurants', label: 'Related Restaurant' }), {
+          label: 'Related Restaurants',
+          itemLabel: (props) => props.value ?? 'Untitled Restaurant'
+        }),
+        relatedTravel: fields.array(fields.relationship({ collection: 'travel', label: 'Related Travel' }), {
+          label: 'Related Travel',
+          itemLabel: (props) => props.value ?? 'Untitled Travel'
+        }),
         progressTtlHours: fields.integer({ label: 'Progress TTL (Hours)' }),
-        content: fields.markdoc({ label: 'Content', extension: 'md' }),
       },
     }),
     travel: collection({
@@ -106,6 +119,7 @@ export default config({
         rating: fields.number({ label: 'Rating', validation: { min: 0, max: 5 } }),
         ratingSymbol: fields.text({ label: 'Rating Symbol' }),
         mustTry: fields.array(fields.text({ label: 'Must Try' }), { label: 'Must Try Items', itemLabel: (props) => props.value }),
+        ignoreDensityCheck: fields.array(fields.text({ label: 'Ignored Item' }), { label: 'Ignore Highlight Checks', itemLabel: (props) => props.value }),
         hero: heroImage,
         content: fields.markdoc({ label: 'Content', extension: 'md' }),
       }
@@ -117,9 +131,10 @@ export default config({
       format: { contentField: 'content' },
       schema: {
         title: fields.slug({ name: { label: 'Title' } }),
+        publishedAt: fields.date({ label: 'Published At', validation: { isRequired: true } }),
+        draft: fields.checkbox({ label: 'Draft', defaultValue: false }),
         summary: fields.text({ label: 'Summary', multiline: true }),
         tags: fields.array(fields.text({ label: 'Tag' }), { label: 'Tags', itemLabel: (props) => props.value }),
-        publishedAt: fields.date({ label: 'Published At', validation: { isRequired: true } }),
         content: fields.markdoc({ label: 'Content', extension: 'md' }),
       }
     })

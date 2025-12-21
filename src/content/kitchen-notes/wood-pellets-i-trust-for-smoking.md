@@ -1,6 +1,5 @@
 ---
 title: Wood Pellets I Trust for Smoking
-slug: wood-pellets-i-trust-for-smoking
 summary:
   How I choose wood pellets for clean smoke, consistent burn, and flavor that
   actually matches the bag.

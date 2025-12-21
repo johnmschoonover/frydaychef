@@ -23,11 +23,6 @@ const recipes = await getCollection('recipes', ({ data }) => !data.draft);
 const canonicalSlug = note.data.slug ?? note.slug;
 const relatedRecipes = recipes.filter((recipe) => recipe.data.kitchenNotes?.includes(canonicalSlug));
 const getRecipePreviewStep = (entry: CollectionEntry<'recipes'>) => {
-  const [directStep] = entry.data.steps ?? [];
-  if (directStep) {
-    return typeof directStep === 'string' ? directStep : directStep.text;
-  }
-
   for (const phase of entry.data.phases ?? []) {
     const phaseStep = phase.steps?.[0];
     if (phaseStep) {

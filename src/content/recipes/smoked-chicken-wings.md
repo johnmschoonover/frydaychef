@@ -9,8 +9,6 @@ kitchenNotes: []
 prep: "15m"
 cook: 2h
 total: 2h10m
-ingredients: []
-steps: []
 phases:
   - title: Season the wings
     ingredients:

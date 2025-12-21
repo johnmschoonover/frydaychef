@@ -28,9 +28,7 @@ const recipePhaseSchema = z.object({
 
 const baseDatedEntrySchema = z.object({
   title: z.string(),
-  date: z
-    .string()
-    .transform((str) => new Date(str)),
+  date: z.coerce.date(),
   hero: z.string().optional(),
   draft: z.boolean().default(false)
 })
@@ -40,17 +38,16 @@ const recipes = defineCollection({
   schema: () =>
     z.object({
       title: z.string(),
-      date: z
-        .string()
-        .transform((str) => new Date(str)),
+      date: z.coerce.date(),
       tags: z.array(z.string()).default([]),
       kitchenNotes: z.array(z.string()).optional(),
+      relatedRecipes: z.array(z.string()).optional(),
+      relatedRestaurants: z.array(z.string()).optional(),
+      relatedTravel: z.array(z.string()).optional(),
       prep: z.string().optional(),
       cook: z.string().optional(),
       total: z.string().optional(),
-      ingredients: z.array(z.string()).default([]),
-      steps: z.array(recipeStepSchema).default([]),
-      phases: z.array(recipePhaseSchema).optional(),
+      phases: z.array(recipePhaseSchema).default([]),
       hero: z.string().optional(),
       variantGroup: z.string().optional(),
       complexityLevel: z.number().int().min(1).optional(),
@@ -59,10 +56,9 @@ const recipes = defineCollection({
     }).refine(
       (entry) =>
         entry.draft ||
-        (entry.ingredients.length > 0 && entry.steps.length > 0) ||
         Boolean(entry.phases?.length),
       {
-        message: 'Recipes must include either base ingredients/steps or at least one phase.'
+        message: 'Recipes must include at least one phase.'
       }
     )
 })
@@ -86,7 +82,8 @@ const restaurants = defineCollection({
       summary: z.string(),
       rating: z.number().min(0).max(5),
       ratingSymbol: z.string().optional(),
-      mustTry: z.array(z.string()).default([])
+      mustTry: z.array(z.string()).default([]),
+      ignoreDensityCheck: z.array(z.string()).optional()
     })
 })
 
@@ -98,9 +95,7 @@ const kitchenNotes = defineCollection({
       slug: z.string().optional(),
       summary: z.string(),
       tags: z.array(z.string()).default([]),
-      publishedAt: z
-        .string()
-        .transform((str) => new Date(str)),
+      publishedAt: z.coerce.date(),
       draft: z.boolean().default(false)
     })
 })

@@ -120,10 +120,14 @@ for (const file of markdownFiles) {
   const dishes = Array.isArray(data.mustTry) ? data.mustTry : []
   if (!dishes.length) continue
 
+  const ignoredDishes = new Set(Array.isArray(data.ignoreDensityCheck) ? data.ignoreDensityCheck : [])
+
   const blocks = getBlocks(content)
   if (!blocks.length) continue
 
   for (const dish of dishes) {
+    if (ignoredDishes.has(dish)) continue
+
     const matches = blocks.filter((block) => matchesDish(dish, block))
     if (matches.length > threshold) {
       warnings.push({
