@@ -130,10 +130,10 @@ export default config({
       format: { contentField: 'content' },
       schema: {
         title: fields.slug({ name: { label: 'Title' } }),
-        summary: fields.text({ label: 'Summary', multiline: true }),
-        tags: fields.array(fields.text({ label: 'Tag' }), { label: 'Tags', itemLabel: (props) => props.value }),
         publishedAt: fields.date({ label: 'Published At', validation: { isRequired: true } }),
         draft: fields.checkbox({ label: 'Draft', defaultValue: false }),
+        summary: fields.text({ label: 'Summary', multiline: true }),
+        tags: fields.array(fields.text({ label: 'Tag' }), { label: 'Tags', itemLabel: (props) => props.value }),
         content: fields.markdoc({ label: 'Content', extension: 'md' }),
       }
     })
