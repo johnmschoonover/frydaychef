@@ -36,11 +36,7 @@ const getFallbackInitial = (entry?: { data: { title?: string } }) =>
   entry?.data.title?.slice(0, 1).toUpperCase() ?? 'F';
 const getFirstStepText = (entry?: (typeof recipes)[number]) => {
   if (!entry) return undefined;
-  const [firstStep] = entry.data.steps ?? [];
-  if (firstStep) {
-    return typeof firstStep === 'string' ? firstStep : firstStep.text;
-  }
-
+  
   for (const phase of entry.data.phases ?? []) {
     const phaseStep = phase.steps?.[0];
     if (phaseStep) {

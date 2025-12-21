@@ -75,19 +75,19 @@ export default config({
         ),
         kitchenNotes: fields.array(fields.relationship({ collection: 'kitchen-notes', label: 'Kitchen Note' }), {
           label: 'Kitchen Notes',
-          itemLabel: (props) => props.value
+          itemLabel: (props) => props.value ?? 'Untitled Note'
         }),
         relatedRecipes: fields.array(fields.relationship({ collection: 'recipes', label: 'Related Recipe' }), {
           label: 'Related Recipes',
-          itemLabel: (props) => props.value
+          itemLabel: (props) => props.value ?? 'Untitled Recipe'
         }),
         relatedRestaurants: fields.array(fields.relationship({ collection: 'restaurants', label: 'Related Restaurant' }), {
           label: 'Related Restaurants',
-          itemLabel: (props) => props.value
+          itemLabel: (props) => props.value ?? 'Untitled Restaurant'
         }),
         relatedTravel: fields.array(fields.relationship({ collection: 'travel', label: 'Related Travel' }), {
           label: 'Related Travel',
-          itemLabel: (props) => props.value
+          itemLabel: (props) => props.value ?? 'Untitled Travel'
         }),
         progressTtlHours: fields.integer({ label: 'Progress TTL (Hours)' }),
       },
