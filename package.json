@@ -26,7 +26,7 @@
     "@keystatic/astro": "^5.0.6",
     "@keystatic/core": "^0.5.48",
     "@vite-pwa/astro": "^1.2.0",
-    "astro": "^5.16.5",
+    "astro": "^5.16.8",
     "react": "^19.2.3",
     "react-dom": "^19.2.3"
   },
@@ -42,7 +42,7 @@
     "stylelint-config-standard": "^39.0.1",
     "ts-standard": "^12.0.2",
     "typescript": "^5.9.3",
-    "zod": "^4.1.13"
+    "zod": "^4.3.5"
   },
   "overrides": {
     "glob": "11.1.0"
