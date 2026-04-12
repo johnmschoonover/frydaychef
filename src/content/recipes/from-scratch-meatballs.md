@@ -131,13 +131,13 @@ By strictly managing temperature (preventing "fat-shmear") and using a specific
 "Flash-Steam" cooking technique, you get a convenience food that tastes like
 Sunday dinner.
 
-### The Meat Matrix
+## The Meat Matrix
 
 We use a **3:1 ratio** of Home-ground Beef to Bulk Italian Sausage, plus a
 "secret" lipid boost from pork belly to keep things moist without relying on a
 heavy breadcrumb panade.
 
-### The "Meatloaf Pivot"
+## The "Meatloaf Pivot"
 
 Production fatigue is real. If you're halfway through rolling 200 meatballs and
 your hands get warm (or you just get tired), stop! Press the remaining mix into

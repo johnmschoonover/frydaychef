@@ -188,12 +188,12 @@ application to ensure the bark sticks. The final product is designed to be eaten
 naked, with the natural jus provided by the pork itself, or used as the
 foundation for our [Pulled Pork Nachos](/recipes/pulled-pork-nachos).
 
-### The "Money Muscle"
+## The "Money Muscle"
 
 When selecting your roast, look for the **Coppa** (or money muscle) at the top
 of the shoulder. This highly marbled section is the prize of the cook.
 
-### The Zero-Addition Protocol
+## The Zero-Addition Protocol
 
 We don't sauce this pork. By capturing the drippings in a foil tray during the
 second half of the cook and re-incorporating them at the pull, we create a

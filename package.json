@@ -19,29 +19,29 @@
     "prepare": "node scripts/prepare-husky.mjs"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.12",
-    "@astrojs/markdoc": "^0.15.10",
-    "@astrojs/react": "^4.4.2",
-    "@astrojs/rss": "^4.0.15",
+    "@astrojs/cloudflare": "^13.1.8",
+    "@astrojs/markdoc": "^1.0.3",
+    "@astrojs/react": "^5.0.3",
+    "@astrojs/rss": "^4.0.18",
     "@keystatic/astro": "^5.0.6",
-    "@keystatic/core": "^0.5.48",
+    "@keystatic/core": "^0.5.50",
     "@vite-pwa/astro": "^1.2.0",
-    "astro": "^5.17.2",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "astro": "^6.1.5",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.6",
+    "@astrojs/check": "^0.9.8",
     "gray-matter": "^4.0.3",
     "husky": "^9.1.7",
     "image-size": "^2.0.2",
-    "lint-staged": "^16.2.7",
-    "markdownlint-cli": "^0.47.0",
-    "prettier": "^3.8.1",
-    "stylelint": "^17.2.0",
+    "lint-staged": "^16.4.0",
+    "markdownlint-cli": "^0.48.0",
+    "prettier": "^3.8.2",
+    "stylelint": "^17.6.0",
     "stylelint-config-standard": "^40.0.0",
     "ts-standard": "^12.0.2",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "zod": "^4.3.6"
   },
   "overrides": {
