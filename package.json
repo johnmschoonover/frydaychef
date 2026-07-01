@@ -19,7 +19,7 @@
     "prepare": "node scripts/prepare-husky.mjs"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.13",
+    "@astrojs/cloudflare": "^14.0.2",
     "@astrojs/markdoc": "^0.15.11",
     "@astrojs/react": "^6.0.0",
     "@astrojs/rss": "^4.0.19",
