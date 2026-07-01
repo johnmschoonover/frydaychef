@@ -36,9 +36,9 @@ generates TypeScript types for every Astro module, so rerunning it keeps
 - The Husky pre-commit hook now executes `lint-staged`, which formats staged
   Markdown/MDX with Prettier, re-lints it, validates staged content entries via
   `scripts/validate-content.mjs`, and then runs `npm run check:heroes`.
-- Open the workspace in Visual Studio Code (accept the recommended extensions) to get
-  Prettier formatting and markdownlint diagnostics automatically on save via
-  `.vscode/settings.json`.
+- Open the workspace in Visual Studio Code (accept the recommended extensions)
+  to get Prettier formatting and markdownlint diagnostics automatically on save
+  via `.vscode/settings.json`.
 
 ## Cloudflare Pages deploy
 
