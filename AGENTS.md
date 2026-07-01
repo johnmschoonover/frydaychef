@@ -152,7 +152,7 @@ pages (`/recipes`, `/restaurants`, `/travel`, RSS, sitemap).
 - Keep comments minimal and purposeful (only for non-obvious logic).
 - When adding new filters or client interactions, stick to vanilla JS (no extra
   deps).
-- Update README when workflows or authoring steps change.
+- Update readme when workflows or authoring steps change.
 
 ## Nice-to-haves / Future Ideas
 
