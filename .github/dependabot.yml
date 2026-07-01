@@ -9,6 +9,13 @@ updates:
         update-types:
           - minor
           - patch
+    ignore:
+      - dependency-name: 'astro'
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@astrojs/cloudflare'
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@astrojs/markdoc'
+        update-types: ['version-update:semver-major']
     open-pull-requests-limit: 10
 
   - package-ecosystem: github-actions
