@@ -14,8 +14,9 @@ conventions established so far. Reference it before making changes.
 
 ## Architecture & Stack
 
-- **Framework**: Astro (latest) with TypeScript enabled. Static output targeting
-  Cloudflare Pages (`npm run build` → `dist/`).
+- **Framework**: Astro (latest) with TypeScript enabled. Server-side rendering
+  via Cloudflare Pages Functions with hybrid static/dynamic rendering
+  (`npm run build` → `dist/` with `_routes.json` routing config).
 - **Content**: Astro Content Collections under `src/content/recipes` plus
   blog-style collections for restaurants and travel (see
   `src/content/config.ts`). Hero images live in `public/images/...`.
