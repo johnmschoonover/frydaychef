@@ -41,7 +41,7 @@ separate tasks.
 
 ## Independent Items
 
-### yaml Stack Overflow (moderate — GHSA-48c2-rrv3-qjmp)
+### `yaml` Stack Overflow (moderate — GHSA-48c2-rrv3-qjmp)
 
 - **Path**: yaml-language-server → volar-service-yaml → @astrojs/language-server
   → @astrojs/check
@@ -54,8 +54,8 @@ separate tasks.
 
 - ESLint 8.57.1 comes in through `ts-standard`, which is effectively
   unmaintained
-- **Action**: Real fix is replacing ts-standard (e.g. eslint 9 +
-  typescript-eslint flat config), not upgrading ESLint in place. Low priority;
+- **Action**: Real fix is replacing ts-standard (e.g. ESLint 9 +
+  `typescript-eslint` flat config), not upgrading ESLint in place. Low priority;
   not blocking.
 
 ### glob Override — resolved 2026-07-01 ✅
@@ -79,8 +79,8 @@ separate tasks.
 ### Development
 
 - ~~Pin Node version in `package.json`~~ — done 2026-07-01 (`>=22.0.0`; Node 20
-  is EOL since April 2026). CI bumped to Node 22 as well, matching the webpage
-  repo.
+  is EOL since April 2026). CI bumped to Node 22 as well, matching the `webpage`
+  repository.
 - Consider documenting Cloudflare Pages deployment steps and required env vars
 
 ### Future Ideas (from AGENTS.md)
@@ -94,6 +94,6 @@ separate tasks.
 
 - **Production Status**: Site builds and deploys via Cloudflare Pages with SSR
 - **Audit snapshot (2026-07-01)**: 14 vulnerabilities (3 high, 8 moderate, 3
-  low); 12 resolve via the Astro 7 epic, yaml + esbuild tracked separately
+  low); 12 resolve via the Astro 7 epic, `yaml` + esbuild tracked separately
 - **Risk Assessment**: Vulnerabilities are in dev/build tools, not runtime code
   shipped to users
