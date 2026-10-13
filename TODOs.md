@@ -46,8 +46,8 @@ separate tasks.
 
 - **Status**: Blocked (checked 2026-10-13). `@astrojs/check` 0.9.10 (latest)
   peers `typescript "^5.0.0 || ^6.0.0"`, so `npm ci` fails with ERESOLVE on 7.x.
-  Dependabot PR #47 was closed via `@dependabot ignore this major version`, and
-  `.github/dependabot.yml` ignores `typescript` semver-major updates.
+  Dependabot PR #47 was closed, and `.github/dependabot.yml` ignores
+  `typescript` semver-major updates.
 - **Unblock signal**: `npm view @astrojs/check peerDependencies` lists
   `typescript ^7`. Then bump manually, run `npm run check && npm run build`, and
   drop the Dependabot ignore.

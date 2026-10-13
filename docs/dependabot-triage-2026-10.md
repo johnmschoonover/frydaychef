@@ -83,7 +83,10 @@ Unblock signal: `npm view @astrojs/check peerDependencies` includes
 
 - #51: merged `main` into the Dependabot branch and pushed the regenerated
   lockfile so CI can pass and auto-merge can land it.
-- #47: closed with `@dependabot ignore this major version`; added a `typescript`
-  semver-major ignore to `.github/dependabot.yml`.
+- #47: closed; added a `typescript` semver-major ignore to
+  `.github/dependabot.yml` so 7.x patch releases don't reopen it. (Dependabot
+  chat commands can't be sent from the agent's GitHub tooling — post
+  `@dependabot ignore this major version` by hand if the config pin isn't on
+  `main` yet.)
 - `TODOs.md`: added TypeScript 7 and lockfile-drift entries; refreshed the Astro
   7 blocker list.
