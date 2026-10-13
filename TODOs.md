@@ -7,10 +7,12 @@ All high-priority security findings resolve through one migration: `astro`
 undici/ws chain and the vulnerable esbuild all ride along — they are not
 separate tasks.
 
-- **Status**: Blocked by integration compatibility (checked 2026-07-01):
-  - `@vite-pwa/astro` 1.2.0 — peer dep caps at Astro 5 ❌
-  - `@keystatic/astro` 5.1.0 — peer dep caps at Astro 6 ❌
+- **Status**: Blocked by integration compatibility (checked 2026-10-13):
+  - `@vite-pwa/astro` 1.2.0 (still latest) — peer dep caps at Astro 5 ❌
+  - `@keystatic/astro` 6.0.0 — peers `astro 5 || 6 || 7` ✅ (upgrade from 5.1.0
+    as part of the migration)
   - `@astrojs/markdoc` 2.0.2 — requires Astro 7 ✅
+  - Current targets: `astro` 7.3.8, `@astrojs/cloudflare` 14.3.4
 - **Vulnerabilities resolved by this epic**:
   - Astro: XSS via unescaped slot names (GHSA-8hv8-536x-4wqp)
   - Astro: XSS via unescaped attribute names in spread props
@@ -32,14 +34,34 @@ separate tasks.
   only spread props (`src/pages/recipes/[slug].astro:139,143`) use hardcoded
   attribute keys.
 - **Next actions**:
-  1. Watch `@vite-pwa/astro` and `@keystatic/astro` releases for Astro 7
-     peer-dep support
+  1. Watch `@vite-pwa/astro` releases for Astro 7 peer-dep support
   2. When unblocked: migrate in a separate branch, then lift the Dependabot pin
      (commit 87dd774)
 - **Note**: Dependabot is intentionally pinned off Astro 7 until integrations
   catch up
 
 ## Independent Items
+
+### TypeScript 7 (Dependabot pinned off the major)
+
+- **Status**: Blocked (checked 2026-10-13). `@astrojs/check` 0.9.10 (latest)
+  peers `typescript "^5.0.0 || ^6.0.0"`, so `npm ci` fails with ERESOLVE on 7.x.
+  Dependabot PR #47 was closed via `@dependabot ignore this major version`, and
+  `.github/dependabot.yml` ignores `typescript` semver-major updates.
+- **Unblock signal**: `npm view @astrojs/check peerDependencies` lists
+  `typescript ^7`. Then bump manually, run `npm run check && npm run build`, and
+  drop the Dependabot ignore.
+
+### Dependabot npm lockfile drift (recurring)
+
+- Dependabot's lockfile regeneration drops
+  `node_modules/@astrojs/react/node_modules/esbuild` (vite 8's optional esbuild
+  peer, nested because Astro 5's vite 6 hoists esbuild 0.25), so `npm ci` fails
+  with `Missing: esbuild@0.28.x from lock file` and the npm group never
+  auto-merges.
+- **Fix when it happens**: check out the Dependabot branch, run `npm install`,
+  commit the lockfile, push. Details in `docs/dependabot-triage-2026-10.md`.
+- Expected to disappear with the Astro 7 migration (single vite/esbuild line).
 
 ### `yaml` Stack Overflow (moderate — GHSA-48c2-rrv3-qjmp)
 

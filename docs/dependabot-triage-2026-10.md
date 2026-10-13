@@ -78,3 +78,12 @@ Unblock signal: `npm view @astrojs/check peerDependencies` includes
 - `@vite-pwa/astro` latest is still 1.2.0 with peers capped at Astro 5 — remains
   the blocker.
 - Current targets: `astro` 7.3.8, `@astrojs/cloudflare` 14.3.4.
+
+## Actions taken (2026-10-13)
+
+- #51: merged `main` into the Dependabot branch and pushed the regenerated
+  lockfile so CI can pass and auto-merge can land it.
+- #47: closed with `@dependabot ignore this major version`; added a `typescript`
+  semver-major ignore to `.github/dependabot.yml`.
+- `TODOs.md`: added TypeScript 7 and lockfile-drift entries; refreshed the Astro
+  7 blocker list.
