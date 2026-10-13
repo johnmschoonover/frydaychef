@@ -52,9 +52,9 @@ On the PR branch merged with `main`, `npm install` adds 485 lockfile lines
 ### Risk notes
 
 - `@keystatic/core` 0.6 is a 0.x minor (treat as breaking). Its only change is
-  pinning `@keystar/ui`, `react-aria`, and `react-stately` as peers; this repo
-  does not depend on those directly, and `@keystatic/astro` 5.1.0 accepts any
-  core version.
+  pinning `@keystar/ui`, `react-aria`, and `react-stately` as peers; this
+  repository does not depend on those directly, and `@keystatic/astro` 5.1.0
+  accepts any core version.
 - `lint-staged` 17.6.0 requires Node ≥ 22.22.1 and `markdownlint-cli`'s `ini@7`
   requires ≥ 22.22.2. CI uses the latest 22.x, so only local installs on older
   22.x see `EBADENGINE` warnings. Optional follow-up: raise `engines.node`.
@@ -82,7 +82,7 @@ Unblock signal: `npm view @astrojs/check peerDependencies` includes
 ## Actions taken (2026-10-13)
 
 - #51: merged `main` into the Dependabot branch and pushed the regenerated
-  lockfile so CI can pass and auto-merge can land it.
+  lockfile; CI went green and it auto-merged.
 - #47: closed; added a `typescript` semver-major ignore to
   `.github/dependabot.yml` so 7.x patch releases don't reopen it. (Dependabot
   chat commands can't be sent from the agent's GitHub tooling — post
