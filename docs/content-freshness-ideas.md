@@ -125,18 +125,19 @@ change. It extends the gear thread the pellets and home-grinding notes started.
 6. **What's at the smoker station.** The outdoor setup: pellets, probes, trays,
    and the foil-tray transition from the pork shoulder recipe.
 
-Two fixes are needed before writing these as drafts or with photos:
+Status of the two site fixes this series needed:
 
-- **Drafts leak.** Kitchen Notes are only draft-filtered on `/kitchen-notes`.
-  The detail route (`src/pages/kitchen-notes/[slug].astro:9`), the homepage
-  "Latest note" card (`src/pages/index.astro:18`), the sitemap
-  (`src/pages/sitemap.xml.js:10`), and recipe cross-links
-  (`src/pages/recipes/[slug].astro:66`) all include drafts, despite Keystatic
-  offering a Draft checkbox.
-- **No hero field.** Kitchen Notes have no `hero` (`src/content/config.ts`,
-  `keystatic.config.ts:127-139`), so the homepage card always shows a ✍️
-  placeholder. Inline Markdown images work in the body, but the card won't show
-  the counter photo without an optional `hero`.
+- **Drafts leak — fixed 2026-10-14.** Kitchen Notes are now draft-filtered on
+  every query: the detail route, the homepage "Latest note" card, the sitemap,
+  and recipe cross-links, matching the `/kitchen-notes` index. "What's on my
+  counter" is in the repository as a draft
+  (`src/content/kitchen-notes/whats-on-my-counter.md`) and won't publish until
+  `draft` is turned off.
+- **No hero field — open.** Kitchen Notes have no `hero`
+  (`src/content/config.ts`, `keystatic.config.ts:127-139`), so the homepage card
+  always shows a ✍️ placeholder. Inline Markdown images work in the body, but
+  the card won't show the counter photo without an optional `hero`. Deferred
+  until the photo exists.
 
 ## 5. Restaurants and travel
 
