@@ -105,7 +105,7 @@ recipe.
 
 A set of "What's on/in my \_\_\_" tours, each one a Kitchen Note sharing a
 `kitchen-organization` tag. The `/kitchen-notes` tag filter
-(`src/pages/kitchen-notes/index.astro:12`) then groups the series with no schema
+(`src/pages/kitchen-notes/index.astro:13`) then groups the series with no schema
 change. It extends the gear thread the pellets and home-grinding notes started.
 
 1. **What's on my counter** (anchor post). Walk the counter left to right, one
