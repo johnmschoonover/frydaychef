@@ -91,7 +91,8 @@ recipe.
 
 - **The freezer as a pantry.** The meatballs and pork shoulder recipes and the
   stock Kitchen Note already carry freezer tags. One note on how you portion,
-  label, and reheat would tie them together.
+  label, and reheat would tie them together. (Folded into the organization
+  series below.)
 - **Sodium citrate, explained.** This is the "why" behind the cheese sauce
   above.
 - **Planning a long cook.** Cover the overnight vs. same-day options already
@@ -99,6 +100,43 @@ recipe.
   temperatures.
 - **How I build a rub.** Cover sugar-to-salt ratios and why brown sugar matters
   for bark. This pairs with the house rub recipe.
+
+### Kitchen organization series
+
+A set of "What's on/in my \_\_\_" tours, each one a Kitchen Note sharing a
+`kitchen-organization` tag. The `/kitchen-notes` tag filter
+(`src/pages/kitchen-notes/index.astro:12`) then groups the series with no schema
+change. It extends the gear thread the pellets and home-grinding notes started.
+
+1. **What's on my counter** (anchor post). Walk the counter left to right, one
+   section per station or item. For each: what it is, why it earns permanent
+   counter space, and the recipes it makes possible (link them). Close with your
+   counter-space rules and what got evicted to a cabinet. A wide photo with
+   numbered callouts that match the section order works well here.
+2. **What's in my freezer.** This replaces the standalone freezer idea above. It
+   covers stock blocks, meatballs, and pulled pork portions, and how you label
+   and rotate them.
+3. **What's in my spice drawer.** This builds on the dried and whole ingredients
+   notes: whole vs. ground, what you buy in bulk, how you store it.
+4. **What's in my tool drawer.** The knives and tools you actually reach for,
+   and the ones you stopped buying.
+5. **What's on my fridge door.** Condiments, pickles, brines (the nachos use
+   jalapeño brine), and the sauces you keep on hand.
+6. **What's at the smoker station.** The outdoor setup: pellets, probes, trays,
+   and the foil-tray transition from the pork shoulder recipe.
+
+Two fixes are needed before writing these as drafts or with photos:
+
+- **Drafts leak.** Kitchen Notes are only draft-filtered on `/kitchen-notes`.
+  The detail route (`src/pages/kitchen-notes/[slug].astro:9`), the homepage
+  "Latest note" card (`src/pages/index.astro:18`), the sitemap
+  (`src/pages/sitemap.xml.js:10`), and recipe cross-links
+  (`src/pages/recipes/[slug].astro:66`) all include drafts, despite Keystatic
+  offering a Draft checkbox.
+- **No hero field.** Kitchen Notes have no `hero` (`src/content/config.ts`,
+  `keystatic.config.ts:127-139`), so the homepage card always shows a ✍️
+  placeholder. Inline Markdown images work in the body, but the card won't show
+  the counter photo without an optional `hero`.
 
 ## 5. Restaurants and travel
 
