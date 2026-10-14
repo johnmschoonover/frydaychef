@@ -6,7 +6,7 @@ import Footer from '../../components/Footer.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
-  const notes = await getCollection('kitchen-notes');
+  const notes = await getCollection('kitchen-notes', ({ data }) => !data.draft);
   return notes.map((note) => {
     const slug = note.data.slug ?? note.slug;
     return {
