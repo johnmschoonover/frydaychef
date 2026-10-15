@@ -7,7 +7,7 @@ export async function GET (context) {
   const recipes = await getCollection('recipes', ({ data }) => !data.draft)
   const restaurants = await getCollection('restaurants', ({ data }) => !data.draft)
   const travel = await getCollection('travel', ({ data }) => !data.draft)
-  const kitchenNotes = await getCollection('kitchen-notes')
+  const kitchenNotes = await getCollection('kitchen-notes', ({ data }) => !data.draft)
 
   const urls = [
     '/',

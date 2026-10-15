@@ -63,7 +63,7 @@ const formatPreviewText = (entry: CollectionEntry<'recipes'>) =>
   getPhaseAwareIngredients(entry).slice(0, 2).join(', ');
 const kitchenNoteSlugs = recipe.data.kitchenNotes ?? [];
 const allKitchenNotes = kitchenNoteSlugs.length
-  ? await getCollection('kitchen-notes')
+  ? await getCollection('kitchen-notes', ({ data }) => !data.draft)
   : [];
 const kitchenNoteMap = new Map(
   allKitchenNotes.map((note) => [note.data.slug ?? note.slug, note])
