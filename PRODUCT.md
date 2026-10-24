@@ -21,7 +21,7 @@ followable in that scene.
 
 ## Product Purpose
 
-Fryday Chef is a personal cooking journal published as a website: recipes,
+Fryday Chef is a personal cooking journal published as a site: recipes,
 long-form Kitchen Notes on technique and ingredients, restaurant write-ups, and
 food-focused travel stories. It exists so the author can hand a trusted,
 complete version of a dish or a dining pick to someone who asked, and so the
