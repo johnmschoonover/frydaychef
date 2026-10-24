@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-24T02:31:58.539Z",
+  "generatedAt": "2026-10-24T02:58:00.962Z",
   "title": "Design System: Fryday Chef",
   "extensions": {
     "colorMeta": {
@@ -324,7 +324,7 @@
       "refersTo": "card",
       "description": "Linked white card with a framed image, title, date, and tags; whole tile is the target.",
       "html": "<article class=\"ds-card\"><a class=\"ds-card__hit\" href=\"#\" aria-label=\"View recipe\">&nbsp;</a><div class=\"ds-card__img\"></div><h3 class=\"ds-card__title\">Smoked Pork Shoulder</h3><p class=\"ds-card__meta\">Jan 6, 2025</p><div class=\"ds-card__tags\"><span class=\"ds-card__tag\">barbecue</span><span class=\"ds-card__tag\">pork</span></div></article>",
-      "css": ".ds-card{position:relative;display:flex;flex-direction:column;gap:0.75rem;max-width:20rem;padding:1.5rem;border-radius:1rem;border:1px solid var(--border,#dcd6ff);background:#fff;color:var(--fg,#2f243a);font-family:Roboto,system-ui,sans-serif;box-shadow:0 25px 45px rgb(15 23 42 / 5%);transition:border-color 0.2s ease,box-shadow 0.2s ease,transform 0.2s ease}.ds-card:hover,.ds-card:focus-within{border-color:var(--accent,#9381ff);box-shadow:0 30px 55px rgb(47 36 58 / 12%);transform:translateY(-2px)}.ds-card__hit{position:absolute;inset:0;border-radius:inherit;z-index:2;color:transparent;text-decoration:none}.ds-card__hit:focus-visible{outline:3px solid var(--accent,#9381ff);outline-offset:4px}.ds-card__img{aspect-ratio:16/9;border-radius:0.75rem;border:1px solid var(--border,#dcd6ff);background:linear-gradient(135deg,rgb(255 238 221 / 85%),rgb(147 129 255 / 15%))}.ds-card__title{margin:0;font-family:\"Roboto Slab\",Roboto,serif;font-size:1.2rem;font-weight:600}.ds-card__meta{margin:0;color:var(--muted,#625b78);font-size:0.95rem}.ds-card__tags{display:flex;flex-wrap:wrap;gap:0.35rem}.ds-card__tag{display:inline-flex;padding:0.15rem 0.75rem;border-radius:999px;background:var(--border,#dcd6ff);font-size:0.85rem;font-weight:600;text-transform:capitalize}"
+      "css": ".ds-card{position:relative;display:flex;flex-direction:column;gap:0.75rem;max-width:20rem;padding:1.5rem;border-radius:1rem;border:1px solid var(--border,#dcd6ff);background:#fff;color:var(--fg,#2f243a);font-family:Roboto,system-ui,sans-serif;box-shadow:0 18px 35px rgb(47 36 58 / 8%);transition:border-color 0.2s ease,box-shadow 0.2s ease,transform 0.2s ease}.ds-card:hover,.ds-card:focus-within{border-color:var(--accent,#9381ff);box-shadow:0 25px 55px rgb(47 36 58 / 12%);transform:translateY(-2px)}.ds-card__hit{position:absolute;inset:0;border-radius:inherit;z-index:2;color:transparent;text-decoration:none}.ds-card__hit:focus-visible{outline:3px solid var(--accent,#9381ff);outline-offset:4px}.ds-card__img{aspect-ratio:16/9;border-radius:0.75rem;border:1px solid var(--border,#dcd6ff);background:linear-gradient(135deg,rgb(255 238 221 / 85%),rgb(147 129 255 / 15%))}.ds-card__title{margin:0;font-family:\"Roboto Slab\",Roboto,serif;font-size:1.2rem;font-weight:600}.ds-card__meta{margin:0;color:var(--muted,#625b78);font-size:0.95rem}.ds-card__tags{display:flex;flex-wrap:wrap;gap:0.35rem}.ds-card__tag{display:inline-flex;padding:0.15rem 0.75rem;border-radius:999px;background:var(--border,#dcd6ff);font-size:0.85rem;font-weight:600;text-transform:capitalize}"
     },
     {
       "name": "Recipe Step",
