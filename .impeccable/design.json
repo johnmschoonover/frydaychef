@@ -1,0 +1,417 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-24T02:31:58.539Z",
+  "title": "Design System: Fryday Chef",
+  "extensions": {
+    "colorMeta": {
+      "soft-iris": {
+        "role": "primary",
+        "displayName": "Soft Iris",
+        "canonical": "oklch(67.8% 0.180 287)",
+        "tonalRamp": [
+          "oklch(15% 0.092 287)",
+          "oklch(26% 0.140 287)",
+          "oklch(38% 0.170 287)",
+          "oklch(49% 0.180 287)",
+          "oklch(61% 0.172 287)",
+          "oklch(72% 0.145 287)",
+          "oklch(84% 0.099 287)",
+          "oklch(95% 0.034 287)"
+        ]
+      },
+      "pale-iris": {
+        "role": "primary",
+        "displayName": "Pale Iris",
+        "canonical": "oklch(80.8% 0.100 284)",
+        "tonalRamp": [
+          "oklch(15% 0.051 284)",
+          "oklch(26% 0.078 284)",
+          "oklch(38% 0.094 284)",
+          "oklch(49% 0.100 284)",
+          "oklch(61% 0.095 284)",
+          "oklch(72% 0.080 284)",
+          "oklch(84% 0.055 284)",
+          "oklch(95% 0.019 284)"
+        ]
+      },
+      "sunset-peach": {
+        "role": "secondary",
+        "displayName": "Sunset Peach",
+        "canonical": "oklch(90.9% 0.056 56)",
+        "tonalRamp": [
+          "oklch(15% 0.028 56)",
+          "oklch(26% 0.043 56)",
+          "oklch(38% 0.053 56)",
+          "oklch(49% 0.056 56)",
+          "oklch(61% 0.053 56)",
+          "oklch(72% 0.045 56)",
+          "oklch(84% 0.031 56)",
+          "oklch(95% 0.011 56)"
+        ]
+      },
+      "peach-linen": {
+        "role": "secondary",
+        "displayName": "Peach Linen",
+        "canonical": "oklch(95.8% 0.029 67)",
+        "tonalRamp": [
+          "oklch(15% 0.015 67)",
+          "oklch(26% 0.023 67)",
+          "oklch(38% 0.027 67)",
+          "oklch(49% 0.029 67)",
+          "oklch(61% 0.028 67)",
+          "oklch(72% 0.023 67)",
+          "oklch(84% 0.016 67)",
+          "oklch(95% 0.006 67)"
+        ]
+      },
+      "terracotta-mark": {
+        "role": "tertiary",
+        "displayName": "Terracotta Mark",
+        "canonical": "oklch(69.6% 0.106 55)",
+        "tonalRamp": [
+          "oklch(15% 0.054 55)",
+          "oklch(26% 0.082 55)",
+          "oklch(38% 0.100 55)",
+          "oklch(49% 0.106 55)",
+          "oklch(61% 0.101 55)",
+          "oklch(72% 0.085 55)",
+          "oklch(84% 0.058 55)",
+          "oklch(95% 0.020 55)"
+        ]
+      },
+      "ember": {
+        "role": "tertiary",
+        "displayName": "Ember",
+        "canonical": "oklch(64.0% 0.129 42)",
+        "tonalRamp": [
+          "oklch(15% 0.066 42)",
+          "oklch(26% 0.100 42)",
+          "oklch(38% 0.121 42)",
+          "oklch(49% 0.129 42)",
+          "oklch(61% 0.123 42)",
+          "oklch(72% 0.103 42)",
+          "oklch(84% 0.071 42)",
+          "oklch(95% 0.024 42)"
+        ]
+      },
+      "dusk-plum": {
+        "role": "neutral",
+        "displayName": "Dusk Plum",
+        "canonical": "oklch(28.3% 0.042 307)",
+        "tonalRamp": [
+          "oklch(15% 0.021 307)",
+          "oklch(26% 0.033 307)",
+          "oklch(38% 0.040 307)",
+          "oklch(49% 0.042 307)",
+          "oklch(61% 0.040 307)",
+          "oklch(72% 0.034 307)",
+          "oklch(84% 0.023 307)",
+          "oklch(95% 0.008 307)"
+        ]
+      },
+      "mauve-slate": {
+        "role": "neutral",
+        "displayName": "Mauve Slate",
+        "canonical": "oklch(48.9% 0.047 296)",
+        "tonalRamp": [
+          "oklch(15% 0.024 296)",
+          "oklch(26% 0.036 296)",
+          "oklch(38% 0.044 296)",
+          "oklch(49% 0.047 296)",
+          "oklch(61% 0.044 296)",
+          "oklch(72% 0.037 296)",
+          "oklch(84% 0.026 296)",
+          "oklch(95% 0.009 296)"
+        ]
+      },
+      "lilac-haze": {
+        "role": "neutral",
+        "displayName": "Lilac Haze",
+        "canonical": "oklch(97.9% 0.011 292)",
+        "tonalRamp": [
+          "oklch(15% 0.005 292)",
+          "oklch(26% 0.008 292)",
+          "oklch(38% 0.010 292)",
+          "oklch(49% 0.011 292)",
+          "oklch(61% 0.010 292)",
+          "oklch(72% 0.009 292)",
+          "oklch(84% 0.006 292)",
+          "oklch(95% 0.002 292)"
+        ]
+      },
+      "lilac-line": {
+        "role": "neutral",
+        "displayName": "Lilac Line",
+        "canonical": "oklch(89.4% 0.056 292)",
+        "tonalRamp": [
+          "oklch(15% 0.029 292)",
+          "oklch(26% 0.044 292)",
+          "oklch(38% 0.053 292)",
+          "oklch(49% 0.056 292)",
+          "oklch(61% 0.054 292)",
+          "oklch(72% 0.045 292)",
+          "oklch(84% 0.031 292)",
+          "oklch(95% 0.011 292)"
+        ]
+      },
+      "paper-white": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "oklch(100.0% 0.000 90)",
+        "tonalRamp": [
+          "oklch(15% 0.000 90)",
+          "oklch(26% 0.000 90)",
+          "oklch(38% 0.000 90)",
+          "oklch(49% 0.000 90)",
+          "oklch(61% 0.000 90)",
+          "oklch(72% 0.000 90)",
+          "oklch(84% 0.000 90)",
+          "oklch(95% 0.000 90)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Homepage hero title only, capped at 20ch."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Homepage section headings and the recipe phase-stack title."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Pane-card, note-card, and in-body headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All running copy; intros capped at 60 to 65ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Nav, buttons, eyebrows, dates, footer. Uppercase, tracked 0.16em or wider."
+      }
+    },
+    "shadows": [
+      {
+        "name": "ambient-low",
+        "value": "0 10px 18px rgb(47 36 58 / 6%)",
+        "purpose": "Ingredient rows and the smallest tiles."
+      },
+      {
+        "name": "ambient",
+        "value": "0 18px 35px rgb(47 36 58 / 8%)",
+        "purpose": "Step tiles, note cards, header, intro cards."
+      },
+      {
+        "name": "ambient-deep",
+        "value": "0 25px 55px rgb(47 36 58 / 12%)",
+        "purpose": "Recipe phases, note detail, pane cards, cards on hover."
+      },
+      {
+        "name": "hero",
+        "value": "0 24px 60px rgb(47 36 58 / 14%)",
+        "purpose": "Homepage featured figure; 24% on hover."
+      },
+      {
+        "name": "iris-glow",
+        "value": "0 18px 35px rgb(147 129 255 / 35%)",
+        "purpose": "Primary button; 45% on hover. The one accent-hued shadow."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "0.2s ease",
+        "purpose": "Color, border, shadow, and transform transitions on every interactive surface."
+      },
+      {
+        "name": "ease-lift",
+        "value": "0.25s ease",
+        "purpose": "Pane-card hover lift and the nav underline scale-in."
+      },
+      {
+        "name": "lift-sm",
+        "value": "translateY(-2px)",
+        "purpose": "Hover lift for cards, buttons, latest cards."
+      },
+      {
+        "name": "lift-lg",
+        "value": "translateY(-4px)",
+        "purpose": "Hover lift for pane cards and the hero figure."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "600px",
+        "purpose": "Below: container padding tightens, header stacks and centers."
+      },
+      {
+        "name": "wake-toggle",
+        "value": "900px",
+        "purpose": "Below: Keep-screen-awake pill shows; latest cards stack."
+      },
+      {
+        "name": "detail-split",
+        "value": "920px",
+        "purpose": "Above: recipe hero and intro sit side by side."
+      },
+      {
+        "name": "pane-columns",
+        "value": "960px",
+        "purpose": "Above: homepage pane grid caps columns by card count."
+      },
+      {
+        "name": "jump-nav",
+        "value": "1024px",
+        "purpose": "Above: restaurant sticky jump-nav appears."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Pill call-to-action with the iris glow; used once per surface.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Explore recipes</a>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;padding:0.85rem 1.75rem;border-radius:999px;border:2px solid transparent;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;font-family:Roboto,system-ui,sans-serif;text-decoration:none;color:#fff;background:linear-gradient(135deg,var(--accent,#9381ff) 0%,var(--accent-soft,#b8b8ff) 100%);box-shadow:0 18px 35px rgb(147 129 255 / 35%);transition:transform 0.2s ease,box-shadow 0.2s ease}.ds-btn-primary:hover,.ds-btn-primary:focus-visible{transform:translateY(-2px);box-shadow:0 24px 45px rgb(147 129 255 / 45%)}.ds-btn-primary:focus-visible{outline:2px solid var(--accent,#9381ff);outline-offset:4px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary pill on translucent white with an iris hairline.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">Our story</a>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;justify-content:center;padding:0.85rem 1.75rem;border-radius:999px;border:2px solid rgb(147 129 255 / 35%);font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;font-family:Roboto,system-ui,sans-serif;text-decoration:none;color:var(--fg,#2f243a);background:rgb(255 255 255 / 75%);transition:transform 0.2s ease,background-color 0.2s ease,border-color 0.2s ease}.ds-btn-ghost:hover,.ds-btn-ghost:focus-visible{transform:translateY(-2px);background:rgb(255 255 255 / 95%);border-color:var(--accent,#9381ff)}.ds-btn-ghost:focus-visible{outline:2px solid var(--accent,#9381ff);outline-offset:4px}"
+    },
+    {
+      "name": "Tag Pill",
+      "kind": "chip",
+      "refersTo": "chip-tag",
+      "description": "Lilac-line filled tag linking to a filter.",
+      "html": "<a class=\"ds-tag-pill\" href=\"#\">barbecue</a> <a class=\"ds-tag-pill\" href=\"#\">project-cook</a>",
+      "css": ".ds-tag-pill{display:inline-flex;align-items:center;padding:0.15rem 0.75rem;border-radius:999px;background:var(--border,#dcd6ff);color:var(--fg,#2f243a);font-family:Roboto,system-ui,sans-serif;font-size:0.85rem;font-weight:600;text-transform:capitalize;text-decoration:none;transition:color 0.2s ease}.ds-tag-pill:hover,.ds-tag-pill:focus-visible{color:var(--accent,#9381ff)}.ds-tag-pill:focus-visible{outline:2px solid var(--accent,#9381ff);outline-offset:2px}"
+    },
+    {
+      "name": "Must-try Chip",
+      "kind": "chip",
+      "refersTo": "chip-must-try",
+      "description": "Toggle chip that spotlights a dish in the body; active state fills Pale Iris.",
+      "html": "<button class=\"ds-must-try\" type=\"button\">The Conquistador</button> <button class=\"ds-must-try is-active\" type=\"button\" aria-pressed=\"true\">The Godfather</button>",
+      "css": ".ds-must-try{appearance:none;border:1px solid var(--border,#dcd6ff);border-radius:999px;background:#fff;padding:0.4rem 0.9rem;font:inherit;font-family:Roboto,system-ui,sans-serif;color:var(--fg,#2f243a);cursor:pointer;transition:background 0.2s ease,border-color 0.2s ease,color 0.2s ease}.ds-must-try:hover,.ds-must-try:focus-visible{border-color:var(--accent,#9381ff);color:var(--accent,#9381ff)}.ds-must-try.is-active{background:var(--accent-soft,#b8b8ff);border-color:var(--accent,#9381ff);color:var(--accent,#9381ff);font-weight:600}.ds-must-try:focus-visible{outline:2px solid var(--accent,#9381ff);outline-offset:2px}"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "input-search",
+      "description": "The only text input: a white pill with the lilac hairline.",
+      "html": "<input class=\"ds-search\" type=\"search\" placeholder=\"Search by name or tag…\" aria-label=\"Search recipes\">",
+      "css": ".ds-search{width:100%;max-width:28rem;padding:0.75rem 1rem;border-radius:999px;border:1px solid var(--border,#dcd6ff);background:#fff;color:var(--fg,#2f243a);font-family:Roboto,system-ui,sans-serif;font-size:1rem;transition:border-color 0.2s ease}.ds-search::placeholder{color:var(--muted,#625b78)}.ds-search:focus-visible{outline:2px solid var(--accent,#9381ff);outline-offset:2px;border-color:var(--accent,#9381ff)}"
+    },
+    {
+      "name": "Primary Nav",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Tracked uppercase links with an iris underline that scales in from the left.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav__link\" href=\"#\">Home</a><a class=\"ds-nav__link is-active\" href=\"#\" aria-current=\"page\">Recipes</a><a class=\"ds-nav__link\" href=\"#\">Kitchen Notes</a><a class=\"ds-nav__link\" href=\"#\">About</a></nav>",
+      "css": ".ds-nav{display:flex;gap:1.5rem}.ds-nav__link{position:relative;padding-bottom:0.35rem;font-family:Roboto,system-ui,sans-serif;font-size:0.85rem;font-weight:600;text-transform:uppercase;letter-spacing:0.16em;color:var(--muted,#625b78);text-decoration:none;transition:color 0.2s ease}.ds-nav__link::after{content:\"\";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--accent,#9381ff);transform:scaleX(0);transform-origin:left;transition:transform 0.25s ease}.ds-nav__link:hover,.ds-nav__link:focus-visible,.ds-nav__link.is-active{color:var(--accent,#9381ff)}.ds-nav__link:hover::after,.ds-nav__link:focus-visible::after,.ds-nav__link.is-active::after{transform:scaleX(1)}.ds-nav__link:focus-visible{outline:2px solid var(--accent,#9381ff);outline-offset:4px}"
+    },
+    {
+      "name": "Collection Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Linked white card with a framed image, title, date, and tags; whole tile is the target.",
+      "html": "<article class=\"ds-card\"><a class=\"ds-card__hit\" href=\"#\" aria-label=\"View recipe\">&nbsp;</a><div class=\"ds-card__img\"></div><h3 class=\"ds-card__title\">Smoked Pork Shoulder</h3><p class=\"ds-card__meta\">Jan 6, 2025</p><div class=\"ds-card__tags\"><span class=\"ds-card__tag\">barbecue</span><span class=\"ds-card__tag\">pork</span></div></article>",
+      "css": ".ds-card{position:relative;display:flex;flex-direction:column;gap:0.75rem;max-width:20rem;padding:1.5rem;border-radius:1rem;border:1px solid var(--border,#dcd6ff);background:#fff;color:var(--fg,#2f243a);font-family:Roboto,system-ui,sans-serif;box-shadow:0 25px 45px rgb(15 23 42 / 5%);transition:border-color 0.2s ease,box-shadow 0.2s ease,transform 0.2s ease}.ds-card:hover,.ds-card:focus-within{border-color:var(--accent,#9381ff);box-shadow:0 30px 55px rgb(47 36 58 / 12%);transform:translateY(-2px)}.ds-card__hit{position:absolute;inset:0;border-radius:inherit;z-index:2;color:transparent;text-decoration:none}.ds-card__hit:focus-visible{outline:3px solid var(--accent,#9381ff);outline-offset:4px}.ds-card__img{aspect-ratio:16/9;border-radius:0.75rem;border:1px solid var(--border,#dcd6ff);background:linear-gradient(135deg,rgb(255 238 221 / 85%),rgb(147 129 255 / 15%))}.ds-card__title{margin:0;font-family:\"Roboto Slab\",Roboto,serif;font-size:1.2rem;font-weight:600}.ds-card__meta{margin:0;color:var(--muted,#625b78);font-size:0.95rem}.ds-card__tags{display:flex;flex-wrap:wrap;gap:0.35rem}.ds-card__tag{display:inline-flex;padding:0.15rem 0.75rem;border-radius:999px;background:var(--border,#dcd6ff);font-size:0.85rem;font-weight:600;text-transform:capitalize}"
+    },
+    {
+      "name": "Recipe Step",
+      "kind": "custom",
+      "refersTo": "recipe-step",
+      "description": "Signature cook-along tile: checkbox over a peach number badge, instruction, reasoning line, optional alert.",
+      "html": "<li class=\"ds-step\"><div class=\"ds-step__marker\"><input class=\"ds-step__check\" type=\"checkbox\" aria-label=\"Mark step 1 done\"><span class=\"ds-step__num\"><span>01</span></span></div><div class=\"ds-step__content\"><p>Trim the fat cap to a standard 1/4-inch thickness.</p><p class=\"ds-step__detail\">Look for the \"Coppa\" muscle as a quality indicator. A consistent fat cap ensures even rendering.</p><span class=\"ds-step__alert\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 9v4\"/><path d=\"M12 17h.01\"/><path d=\"M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z\"/></svg>Sharp knife, cold fat</span></div></li>",
+      "css": ".ds-step{list-style:none;display:flex;gap:1rem;max-width:34rem;padding:1.25rem;border-radius:1.25rem;border:1px solid var(--border,#dcd6ff);background:rgb(255 255 255 / 90%);color:var(--fg,#2f243a);font-family:Roboto,system-ui,sans-serif;line-height:1.7;box-shadow:0 18px 35px rgb(47 36 58 / 8%);cursor:pointer}.ds-step__marker{display:flex;flex-direction:column;align-items:center;gap:0.5rem;min-width:56px}.ds-step__check{width:22px;height:22px;accent-color:var(--accent,#9381ff);cursor:pointer}.ds-step__check:focus-visible{outline:2px solid var(--accent,#9381ff);outline-offset:2px;border-radius:6px}.ds-step__num{width:48px;height:48px;border-radius:12px;background:var(--surface-soft,#ffeedd);border:1px solid var(--border,#dcd6ff);display:inline-flex;align-items:center;justify-content:center;font-weight:600;color:var(--accent,#9381ff);letter-spacing:0.1em;font-variant-numeric:tabular-nums}.ds-step__content{flex:1}.ds-step__content p{margin:0 0 0.35rem}.ds-step__detail{color:var(--muted,#625b78);font-size:0.95rem}.ds-step__alert{display:inline-flex;align-items:center;gap:0.4rem;margin-top:0.35rem;padding:0.35rem 0.65rem;border-radius:0.9rem;border:1px solid rgb(147 129 255 / 35%);background:linear-gradient(120deg,rgb(255 222 218 / 80%),rgb(255 238 221 / 85%));font-size:0.85rem;font-weight:600;line-height:1.35}.ds-step__alert svg{color:#cc6f49;flex-shrink:0}"
+    },
+    {
+      "name": "Completed Step",
+      "kind": "custom",
+      "refersTo": "recipe-step",
+      "description": "The collapsed state of a finished step: lilac-to-peach wash, dashed badge, short Done label.",
+      "html": "<li class=\"ds-step-done\"><input class=\"ds-step-done__check\" type=\"checkbox\" checked aria-label=\"Step 1 done\"><span class=\"ds-step-done__num\"><span>01</span></span><span class=\"ds-step-done__label\">Cap trimmed</span></li>",
+      "css": ".ds-step-done{list-style:none;display:flex;align-items:center;gap:0.75rem;max-width:34rem;padding:0.65rem 0.85rem;border-radius:1.25rem;border:1px solid var(--accent-soft,#b8b8ff);background:linear-gradient(120deg,rgb(242 237 255 / 70%),rgb(255 241 236 / 70%));font-family:Roboto,system-ui,sans-serif;box-shadow:0 18px 35px rgb(47 36 58 / 8%)}.ds-step-done__check{width:22px;height:22px;accent-color:var(--accent,#9381ff)}.ds-step-done__num{width:40px;height:40px;border-radius:12px;background:var(--accent-soft,#b8b8ff);border:1px dashed var(--border,#dcd6ff);display:inline-flex;align-items:center;justify-content:center;font-weight:600;color:var(--fg,#2f243a);letter-spacing:0.1em;font-variant-numeric:tabular-nums}.ds-step-done__label{font-weight:600;color:var(--muted,#625b78);font-size:0.95rem;letter-spacing:0.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}"
+    },
+    {
+      "name": "Eyebrow",
+      "kind": "custom",
+      "refersTo": "label",
+      "description": "Tracked iris label preceded by a 24px hairline; opens pane cards and sections.",
+      "html": "<p class=\"ds-eyebrow\">Latest recipe</p>",
+      "css": ".ds-eyebrow{display:inline-flex;align-items:center;gap:0.4rem;margin:0;font-family:Roboto,system-ui,sans-serif;font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent,#9381ff)}.ds-eyebrow::before{content:\"\";display:inline-block;width:24px;height:1px;background:currentcolor;opacity:0.45}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Porch at Dusk",
+    "overview": "Fryday Chef looks like the hour when a Savannah sky turns violet and the plates come out. The page is a twilight gradient, lilac at the top edge warming to peach at the horizon, and every surface sits on it like linen on a porch table: white, warm, slightly translucent, lifted by a soft plum-tinted haze rather than a hard shadow. Nothing is urgent. Spacing is generous, corners are round, type is set wide and unhurried.\n\nThe precision lives inside that calm. Recipe steps are numbered tiles with tabular figures, checkable boxes, and a reasoning line under every instruction. Restaurant pages carry a knife-icon rating and tap-to-highlight must-try chips. Uppercase tracked labels run through eyebrows, navigation, buttons, and dates as the one crisp element in an otherwise soft system. The hospitality is the atmosphere; the technique is the furniture.\n\nTwo looks are confirmed anti-references. Fryday Chef is never the ad-stuffed recipe blog: no preamble before the recipe, no jump-to-recipe button, no sidebar. It is never farmhouse Pinterest: no kraft paper, chalkboard, script type, or \"gather\" signage.",
+    "keyCharacteristics": [
+      "Twilight gradient page background, lilac to peach, with faint radial glows",
+      "Translucent white and peach-linen surfaces, every one rounded 12 to 24px",
+      "Ambient plum-tinted shadows that float surfaces without ranking them",
+      "Roboto Slab headlines over Roboto body, with tracked uppercase labels as the system's crisp counterpoint",
+      "Soft Iris violet as the single interactive signal: links, active states, checkboxes, step numbers, underlines",
+      "Cook-along furniture: numbered step tiles, checklists, completion badges"
+    ],
+    "rules": [
+      {
+        "name": "The One Signal Rule",
+        "body": "Soft Iris is the only color that means \"interactive\". No second accent is introduced for emphasis; warmth comes from peach surfaces, not from a second hue of action.",
+        "section": "colors"
+      },
+      {
+        "name": "The Plum Shadow Rule",
+        "body": "Shadows are tinted Dusk Plum (rgb 47 36 58), never neutral black. A grey shadow on this palette reads as dirt.",
+        "section": "colors"
+      },
+      {
+        "name": "The Translucent Surface Rule",
+        "body": "White surfaces sit at 85 to 95% opacity so the gradient beneath softens them. Opaque white is reserved for the smallest fills: chips, the search field, the reset button.",
+        "section": "colors"
+      },
+      {
+        "name": "The Slab Headline Rule",
+        "body": "Every h1 and h2 is Roboto Slab. Inner page titles (recipe, restaurant, note, travel detail) currently render in plain Roboto at browser default size; that is a gap against this rule, not the system.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tracked Label Rule",
+        "body": "Anything uppercase is tracked at least 0.16em. Uppercase without tracking does not exist here.",
+        "section": "typography"
+      },
+      {
+        "name": "The Haze Rule",
+        "body": "Shadows are atmosphere. They never rise above 24% opacity, never shrink below 18px blur, and never choose a surface's importance.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use Soft Iris for every interactive signal and nothing else; it is the One Signal.",
+      "Do tint every shadow Dusk Plum and keep it in the Ambient vocabulary.",
+      "Do set every surface at 85 to 95% white or a white-to-Peach-Linen gradient so the dusk gradient shows through.",
+      "Do keep uppercase labels tracked at 0.16em or wider.",
+      "Do set every h1 and h2 in Roboto Slab, including inner page titles.",
+      "Do keep the whole step tile and the whole card as the click target.",
+      "Do keep recipe furniture (checkbox, number tile, detail line, completion badge) intact and persistent; it is the cook-along mechanism.",
+      "Do frame every image with the 1px Lilac Line and its container radius."
+    ],
+    "donts": [
+      "Don't introduce a second accent hue for emphasis; use Peach Linen surfaces for warmth instead.",
+      "Don't use pure black or neutral grey anywhere, including shadows.",
+      "Don't add preamble, a jump-to-recipe button, a sidebar, or ad slots; the recipe is the page.",
+      "Don't reach for kraft paper, chalkboard, script fonts, or farmhouse signage.",
+      "Don't use sharp corners; the smallest radius in the system is 12px on the number tile.",
+      "Don't spread Terracotta Mark or Ember beyond the favicon and step alerts.",
+      "Don't let a button fall back to the browser font; set font: inherit."
+    ]
+  }
+}
