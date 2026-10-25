@@ -23,7 +23,7 @@
     "@astrojs/markdoc": "^0.15.11",
     "@astrojs/react": "^6.0.0",
     "@astrojs/rss": "^4.0.19",
-    "@keystatic/astro": "^5.1.0",
+    "@keystatic/astro": "^6.0.0",
     "@keystatic/core": "^0.6.9",
     "@vite-pwa/astro": "^1.2.0",
     "astro": "^5.18.2",
